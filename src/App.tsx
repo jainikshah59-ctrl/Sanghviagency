@@ -94,8 +94,8 @@ function ScrollToTop() {
 function SiteSectionBackgroundVideo({ pathname }: { pathname: string }) {
   useLayoutEffect(() => {
     const videoUrl = 'https://res.cloudinary.com/kmkcbqvz/video/upload/v1791056108/InShot_20261004_010104496.mp4';
-    const root = document.querySelector<HTMLElement>('.route-surface');
-    if (!root) return;
+    const main = document.querySelector<HTMLElement>('.route-surface > .home-main, .route-surface > .page-main');
+    if (!main) return;
 
     const layer = document.createElement('div');
     layer.className = 'site-section-video-bg';
@@ -114,11 +114,25 @@ function SiteSectionBackgroundVideo({ pathname }: { pathname: string }) {
     source.type = 'video/mp4';
     video.appendChild(source);
     layer.appendChild(video);
-    root.prepend(layer);
+
+    const hero = main.querySelector<HTMLElement>(':scope > .hero-section');
+
+    const syncPosition = () => {
+      layer.style.top = hero ? `${hero.offsetHeight}px` : '0px';
+    };
+
+    main.prepend(layer);
+    syncPosition();
+
+    const resizeObserver = 'ResizeObserver' in window && hero
+      ? new ResizeObserver(syncPosition)
+      : null;
+    resizeObserver?.observe(hero);
 
     void video.play().catch(() => {});
 
     return () => {
+      resizeObserver?.disconnect();
       layer.remove();
     };
   }, [pathname]);
@@ -135,8 +149,8 @@ export default function App() {
       <ScrollToTop />
       <SiteMotion pathname={location.pathname} />
       <SiteHeader />
-      <SiteSectionBackgroundVideo pathname={location.pathname} />
       <div className="route-surface" key={location.pathname}>
+        <SiteSectionBackgroundVideo pathname={location.pathname} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

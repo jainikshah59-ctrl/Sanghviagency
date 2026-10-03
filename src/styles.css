@@ -1858,3 +1858,149 @@ body {
 :root[data-theme="dark"] .section-number {
   background: rgba(255,255,255,.025);
 }
+
+
+/* Final dark-mode surface audit + testimonial card refinement. */
+:root[data-theme="dark"] {
+  --page-dark: #11171c;
+  --surface-dark: rgba(28,37,44,.78);
+  --surface-dark-strong: #1b252c;
+  --surface-dark-soft: rgba(255,255,255,.045);
+  --line-dark: rgba(228,237,243,.15);
+}
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #root {
+  background: var(--page-dark) !important;
+  color: #eef3f6;
+}
+:root[data-theme="dark"] main,
+:root[data-theme="dark"] .page-main,
+:root[data-theme="dark"] .home-main {
+  background: var(--page-dark) !important;
+}
+:root[data-theme="dark"] .page-section,
+:root[data-theme="dark"] .home-about-section,
+:root[data-theme="dark"] .principles-section,
+:root[data-theme="dark"] .advantage-section,
+:root[data-theme="dark"] .featured-projects-section,
+:root[data-theme="dark"] .featured-brands-section,
+:root[data-theme="dark"] .home-projects-section,
+:root[data-theme="dark"] .testimonials-section,
+:root[data-theme="dark"] .brand-directory-section,
+:root[data-theme="dark"] .faq-section,
+:root[data-theme="dark"] .contact-section {
+  background: var(--page-dark) !important;
+}
+:root[data-theme="dark"] .products-popover,
+:root[data-theme="dark"] .mobile-menu-sheet {
+  background: #1a232a !important;
+  border-color: var(--line-dark);
+  color: #eef3f6;
+}
+:root[data-theme="dark"] .products-popover a {
+  color: #dbe4ea;
+}
+:root[data-theme="dark"] .nav-pill {
+  background: rgba(21,28,34,.9) !important;
+  border-color: var(--line-dark);
+}
+:root[data-theme="dark"] .trust-badge,
+:root[data-theme="dark"] .portfolio-summary,
+:root[data-theme="dark"] .custom-quote-panel,
+:root[data-theme="dark"] .brands-intro-stamp,
+:root[data-theme="dark"] .quote-process,
+:root[data-theme="dark"] .table-frame {
+  background: rgba(27,36,43,.72) !important;
+  border-color: var(--line-dark) !important;
+}
+:root[data-theme="dark"] .principle-card,
+:root[data-theme="dark"] .advantage-card,
+:root[data-theme="dark"] .product-index-card,
+:root[data-theme="dark"] .category-brand-card,
+:root[data-theme="dark"] .brand-card,
+:root[data-theme="dark"] .brand-overview-card,
+:root[data-theme="dark"] .brand-info-panel,
+:root[data-theme="dark"] .contact-detail-card,
+:root[data-theme="dark"] .contact-location-card,
+:root[data-theme="dark"] .lead-form,
+:root[data-theme="dark"] .gallery-card,
+:root[data-theme="dark"] .accordion-item {
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.018) 58%), #1b252c !important;
+  border-color: var(--line-dark) !important;
+}
+:root[data-theme="dark"] .advantage-icon,
+:root[data-theme="dark"] .contact-card-icon,
+:root[data-theme="dark"] .brand-detail-logo {
+  background: rgba(242,101,34,.14) !important;
+}
+:root[data-theme="dark"] .action-light,
+:root[data-theme="dark"] .action-outline,
+:root[data-theme="dark"] .product-card-open {
+  color: #edf3f6 !important;
+  background: #26323a !important;
+  border-color: rgba(230,239,245,.18) !important;
+}
+:root[data-theme="dark"] .site-footer .brand-monogram {
+  color: #eef3f6 !important;
+  background: #26323a !important;
+}
+:root[data-theme="dark"] .showcase-caption,
+:root[data-theme="dark"] .about-story-image figcaption,
+:root[data-theme="dark"] .about-image figcaption,
+:root[data-theme="dark"] .brand-overview-media > span {
+  color: #eaf1f5 !important;
+  background: rgba(20,27,33,.88) !important;
+  border-color: rgba(228,237,243,.16) !important;
+}
+
+/* Testimonial train cards: rounded, roomy and visually contained. */
+:root[data-theme="dark"] .testimonials-marquee {
+  padding: 26px 8px 38px;
+}
+.testimonial-card {
+  width: clamp(320px, 34vw, 480px);
+  min-height: 246px;
+  padding: 28px 30px 26px !important;
+  border: 1px solid rgba(116,130,142,.22) !important;
+  border-right: 1px solid rgba(116,130,142,.22) !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.86), rgba(242,246,249,.68) 58%, rgba(231,237,242,.72)) !important;
+  box-shadow:
+    0 18px 42px rgba(30,42,53,.10),
+    inset 0 1px 0 rgba(255,255,255,.9) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(135%) !important;
+  backdrop-filter: blur(18px) saturate(135%) !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.testimonial-card p {
+  max-width: none;
+  padding-right: 4px;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.testimonial-card footer {
+  margin-top: auto;
+  padding-top: 24px;
+}
+:root[data-theme="dark"] .testimonial-card {
+  border-color: rgba(228,237,243,.14) !important;
+  border-right-color: rgba(228,237,243,.14) !important;
+  background:
+    radial-gradient(circle at 90% 8%, rgba(242,101,34,.10), transparent 30%),
+    linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025) 58%, rgba(255,255,255,.045)) !important;
+  box-shadow:
+    0 22px 48px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(255,255,255,.025) !important;
+}
+:root[data-theme="dark"] .testimonial-card p {
+  color: #d9e2e8 !important;
+}
+:root[data-theme="dark"] .testimonial-card footer strong {
+  color: #f1f5f7 !important;
+}
+:root[data-theme="dark"] .testimonial-card footer span {
+  color: #98a7b2 !important;
+}

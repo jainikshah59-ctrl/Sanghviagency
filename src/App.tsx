@@ -96,16 +96,85 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
     const main = document.querySelector<HTMLElement>('.route-surface > .home-main, .route-surface > .page-main');
     if (!main || main.querySelector('.site-section-silver-fog')) return;
 
+    const root = document.documentElement;
+    const isDark = root.dataset.theme === 'dark';
+
+    // Keep the existing dark steel treatment untouched. Vanta Cells is for light mode only.
+    if (isDark) return;
+
     const layer = document.createElement('div');
-    layer.className = 'site-section-silver-fog';
+    layer.className = 'site-section-cells-background';
     layer.setAttribute('aria-hidden', 'true');
 
-    const fog = document.createElement('div');
-    fog.className = 'silver-fog-atmosphere';
-    layer.appendChild(fog);
+    const canvasHost = document.createElement('div');
+    canvasHost.className = 'site-section-cells-canvas';
+    layer.appendChild(canvasHost);
     main.prepend(layer);
 
+    let effect: { destroy?: () => void } | null = null;
+    let cancelled = false;
+
+    const loadScript = (src: string) => new Promise<void>((resolve, reject) => {
+      const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
+      if (existing) {
+        if (existing.dataset.loaded === 'true') {
+          resolve();
+          return;
+        }
+        existing.addEventListener('load', () => resolve(), { once: true });
+        existing.addEventListener('error', () => reject(new Error(`Failed to load ${src}`)), { once: true });
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.dataset.loaded = 'false';
+      script.addEventListener('load', () => {
+        script.dataset.loaded = 'true';
+        resolve();
+      }, { once: true });
+      script.addEventListener('error', () => reject(new Error(`Failed to load ${src}`)), { once: true });
+      document.head.appendChild(script);
+    });
+
+    const initCells = async () => {
+      try {
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js');
+        await loadScript('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js');
+
+        if (cancelled || root.dataset.theme === 'dark') return;
+
+        const vanta = (window as Window & {
+          VANTA?: {
+            CELLS?: (options: Record<string, unknown>) => { destroy?: () => void };
+          };
+        }).VANTA;
+
+        if (!vanta?.CELLS) return;
+
+        effect = vanta.CELLS({
+          el: canvasHost,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          color1: 0x798383,
+          color2: 0x9a9990,
+          size: 1.60,
+        });
+      } catch {
+        // The page remains usable if the optional visual CDN is unavailable.
+      }
+    };
+
+    void initCells();
+
     return () => {
+      cancelled = true;
+      effect?.destroy?.();
       layer.remove();
     };
   }, [pathname]);

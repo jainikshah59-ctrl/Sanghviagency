@@ -106,7 +106,7 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
     layer.appendChild(canvasHost);
     main.prepend(layer);
 
-    let effect: { destroy?: () => void } | null = null;
+    let effect: { destroy?: () => void; pause?: () => void; resume?: () => void } | null = null;
     let cancelled = false;
     let loading = false;
 
@@ -146,24 +146,37 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
 
         const vanta = (window as Window & {
           VANTA?: {
-            CELLS?: (options: Record<string, unknown>) => { destroy?: () => void };
+            CELLS?: (options: Record<string, unknown>) => {
+              destroy?: () => void;
+              pause?: () => void;
+              resume?: () => void;
+            };
           };
         }).VANTA;
 
         if (!vanta?.CELLS) return;
 
+        const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+        const cores = navigator.hardwareConcurrency || 4;
+        const isLowPower = cores <= 4;
+        const baseScale = reducedMotion ? 0.35 : isLowPower ? 0.55 : 0.70;
+        const mobileScale = reducedMotion ? 0.30 : 0.45;
+
         effect = vanta.CELLS({
           el: canvasHost,
-          mouseControls: true,
-          touchControls: true,
+          mouseControls: !reducedMotion,
+          touchControls: !reducedMotion,
           gyroControls: false,
           minHeight: 200.00,
           minWidth: 200.00,
-          scale: 1.00,
+          scale: baseScale,
+          scaleMobile: mobileScale,
           color1: 0x798383,
           color2: 0x9a9990,
           size: 1.60,
         });
+
+        if (document.hidden) effect.pause?.();
       } catch {
         // The page remains usable if the optional visual CDN is unavailable.
       } finally {
@@ -181,14 +194,21 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
       void initCells();
     };
 
+    const handleVisibility = () => {
+      if (document.hidden) effect?.pause?.();
+      else effect?.resume?.();
+    };
+
     const themeObserver = new MutationObserver(syncTheme);
     themeObserver.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    document.addEventListener('visibilitychange', handleVisibility);
 
     syncTheme();
 
     return () => {
       cancelled = true;
       themeObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       effect?.destroy?.();
       layer.remove();
     };

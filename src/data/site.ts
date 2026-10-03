@@ -28,15 +28,24 @@ export const contact = {
 };
 
 export const images = {
-  warehouse: 'https://images.pexels.com/photos/36003983/pexels-photo-36003983.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  tmtBars: 'https://images.pexels.com/photos/4674424/pexels-photo-4674424.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  steelSections: 'https://images.pexels.com/photos/36003978/pexels-photo-36003978.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  construction: 'https://images.pexels.com/photos/3818947/pexels-photo-3818947.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  bindingWire: 'https://images.pexels.com/photos/15059762/pexels-photo-15059762.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  msChannels: 'https://images.pexels.com/photos/12951624/pexels-photo-12951624.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  hardware: 'https://images.pexels.com/photos/9966684/pexels-photo-9966684.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  steelPipes: 'https://images.pexels.com/photos/36878027/pexels-photo-36878027.jpeg?auto=compress&cs=tinysrgb&w=1800',
-  constructionFrame: 'https://images.pexels.com/photos/8858917/pexels-photo-8858917.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  warehouse: 'https://images.pexels.com/photos/16708396/pexels-photo-16708396.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  tmtBars: 'https://images.pexels.com/photos/5623179/pexels-photo-5623179.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  steelAngles: 'https://images.pexels.com/photos/36003989/pexels-photo-36003989.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  steelSections: 'https://images.pexels.com/photos/36003989/pexels-photo-36003989.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  steelBeams: 'https://images.pexels.com/photos/36003978/pexels-photo-36003978.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  construction: 'https://images.pexels.com/photos/9370034/pexels-photo-9370034.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  bindingWire: 'https://images.pexels.com/photos/36397788/pexels-photo-36397788.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  msChannels: 'https://nagai-kk.jp/common/themes/nagai-kk/img/products/img-products-0206.jpg',
+  hardware: 'https://images.pexels.com/photos/9966689/pexels-photo-9966689.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  steelPipes: 'https://images.pexels.com/photos/36878025/pexels-photo-36878025.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  constructionFrame: 'https://images.pexels.com/photos/37687676/pexels-photo-37687676.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  gandhidhamPlant: 'https://images.pexels.com/photos/16708396/pexels-photo-16708396.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  bhujTowers: 'https://images.pexels.com/photos/16072809/pexels-photo-16072809.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  mundraPlaza: 'https://images.pexels.com/photos/5505119/pexels-photo-5505119.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  anjarLogistics: 'https://images.pexels.com/photos/31112245/pexels-photo-31112245.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  bhachauShed: 'https://images.pexels.com/photos/37687676/pexels-photo-37687676.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  mandviVilla: 'https://images.pexels.com/photos/7171320/pexels-photo-7171320.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  portLoading: 'https://images.pexels.com/photos/36771191/pexels-photo-36771191.jpeg?auto=compress&cs=tinysrgb&w=1800',
 }
 
 export const metrics = [
@@ -622,21 +631,24 @@ export const categoryPages = [
 ];
 
 export const projects = [
-  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.steelSections, alt: 'Sanghvi Agency warehouse steel sections; illustrative category image, not a photograph of the named plant' },
-  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Official Sanghvi Agency construction-site image; illustrative only, not a photograph of the named project' },
-  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Sanghvi Agency MS channel inventory; illustrative category image, not a photograph of the named project' },
-  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Sanghvi Agency warehouse interior; illustrative source image, not a photograph of the named facility' },
-  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.constructionFrame, alt: 'Steel-framed construction site illustrating structural steel erection; illustrative only, not a photograph of the named project' },
-  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Sanghvi Agency TMT bar inventory; illustrative category image, not a photograph of the named project' },
+  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.gandhidhamPlant, alt: 'Representative industrial steel facility imagery for Gandhidham, Kutch; not a photograph of the named project' },
+  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.bhujTowers, alt: 'Representative Gujarati high-rise residential architecture for the Bhuj project; not a photograph of the named project' },
+  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.mundraPlaza, alt: 'Representative commercial construction imagery for the Mundra project; not a photograph of the named project' },
+  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.anjarLogistics, alt: 'Representative Indian logistics warehouse imagery for the Anjar project; not a photograph of the named facility' },
+  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.bhachauShed, alt: 'Representative steel-frame construction imagery for the Bhachau factory shed; not a photograph of the named project' },
+  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.mandviVilla, alt: 'Representative Mandvi, Kutch residential architecture for the villa project; not a photograph of the named project' },
 ];
 
 export const galleryItems = [
-  { title: 'Steel Warehouse Interior', image: images.warehouse, alt: 'Steel inventory at Sanghvi Agency warehouse' },
-  { title: 'TMT Bar Inventory Bundles', image: images.tmtBars, alt: 'Close view of bundled TMT reinforcement bars' },
-  { title: 'Structural Steel Sections Storage', image: images.steelSections, alt: 'Structural steel sections stored on warehouse racks' },
-  { title: 'On-Site Steel Delivery & Crane Loading', image: images.construction, alt: 'Construction site with steel framework and tower crane' },
-  { title: 'Binding Wire Coils Stock', image: images.bindingWire, alt: 'Coils of binding wire stored in a warehouse' },
-  { title: 'MS Channel Section Storage', image: images.msChannels, alt: 'MS channel sections stacked in warehouse stock' },
+  { title: 'Steel Supply Warehouse', image: images.warehouse, alt: 'Industrial steel supply warehouse stocked with structural sections' },
+  { title: 'TMT Rebar Bundles', image: images.tmtBars, alt: 'Bundled ribbed TMT reinforcement bars for concrete construction' },
+  { title: 'Steel Angles & Structural Sections', image: images.steelAngles, alt: 'Stacked structural steel sections and angles in an industrial yard' },
+  { title: 'Steel Beam Stock', image: images.steelBeams, alt: 'Stacked steel beams in a warehouse for structural fabrication' },
+  { title: 'Construction & Crane Loading', image: images.portLoading, alt: 'Heavy industrial crane and steel logistics loading operation' },
+  { title: 'Binding Wire Coils', image: images.bindingWire, alt: 'Large coils of steel wire used for construction tying applications' },
+  { title: 'MS Channel Section Storage', image: images.msChannels, alt: 'Neatly stacked U-channel steel sections in industrial storage' },
+  { title: 'Steel Pipe Inventory', image: images.steelPipes, alt: 'Steel pipes organized in an industrial warehouse for dispatch' },
+  { title: 'Construction Hardware', image: images.hardware, alt: 'Assorted steel screws and bolts used for construction and fabrication' },
 ];
 
 export const faqItems: Question[] = [

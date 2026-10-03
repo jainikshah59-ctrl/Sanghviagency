@@ -127,7 +127,9 @@ function SiteSectionBackgroundVideo({ pathname }: { pathname: string }) {
     const resizeObserver = 'ResizeObserver' in window && hero
       ? new ResizeObserver(syncPosition)
       : null;
-    resizeObserver?.observe(hero);
+    if (resizeObserver && hero) {
+      resizeObserver.observe(hero);
+    }
 
     void video.play().catch(() => {});
 

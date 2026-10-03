@@ -144,8 +144,14 @@ export default function HomePage() {
             <div><span className="section-badge"><span className="section-number">3</span><span className="section-label">Why Choose Us</span></span><h2 id="home-advantage-title">Built on Trust,<br />Driven by Quality.</h2></div>
             <p>Reliable supply, practical guidance and dependable delivery for residential, commercial and industrial requirements.</p>
           </div>
-          <div className="advantage-grid">
-            {advantage.map((item, index) => <article className="advantage-card" key={item}><span className="advantage-index">0{index + 1}</span><h3>{item}</h3></article>)}
+          <div className="advantage-grid trust-feature-grid">
+            {advantage.map((item, index) => (
+              <article className="advantage-card trust-feature-card" key={item}>
+                <span className="advantage-index">0{index + 1}</span>
+                <span className="trust-feature-orbit" aria-hidden="true" />
+                <h3>{item}</h3>
+              </article>
+            ))}
           </div>
         </ContentContainer>
       </section>
@@ -156,8 +162,14 @@ export default function HomePage() {
             <div><span className="section-badge"><span className="section-number">4</span><span className="section-label">Trusted Brands</span></span><h2 id="home-brands-title">We Stock India’s<br />Best.</h2></div>
             <p>Genuine steel from the source-listed manufacturer portfolio, with availability confirmed against current stock and requirement.</p>
           </div>
-          <div className="brand-chip-grid">
-            {allBrandNames.map((name) => <Link key={name} to="/brands">{name}<ArrowUpRight size={14} /></Link>)}
+          <div className="brand-showcase" aria-label="Trusted steel brands">
+            {allBrandNames.map((name, index) => (
+              <Link className="brand-showcase-item" key={name} to="/brands">
+                <span className="brand-showcase-index">{String(index + 1).padStart(2, '0')}</span>
+                <span className="brand-showcase-name">{name}</span>
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            ))}
           </div>
           <div className="center-cta"><ActionLink href="/brands" tone="orange">View All Brands</ActionLink></div>
         </ContentContainer>
@@ -180,14 +192,16 @@ export default function HomePage() {
               <div><span className="section-badge"><span className="section-number">6</span><span className="section-label">What Our Customers Say</span></span><h2 id="home-testimonials-title">Trust is built<br />in every delivery.</h2></div>
               <p>Customer testimonials captured in the website content inventory, including their stated roles, locations and ratings.</p>
             </div>
-            <div className="testimonials-grid">
-              {testimonials.map((testimonial) => (
-                <blockquote className="testimonial-card" key={testimonial.name}>
-                  <div className="testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>{Array.from({ length: testimonial.stars }, (_, i) => <span key={i}>★</span>)}</div>
-                  <p>“{testimonial.quote}”</p>
-                  <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>
-                </blockquote>
-              ))}
+            <div className="testimonials-marquee" aria-label="Customer testimonials">
+              <div className="testimonials-track">
+                {[...testimonials, ...testimonials].map((testimonial, index) => (
+                  <blockquote className="testimonial-card" key={`${testimonial.name}-${index}`}>
+                    <div className="testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>{Array.from({ length: testimonial.stars }, (_, i) => <span key={i}>★</span>)}</div>
+                    <p>“{testimonial.quote}”</p>
+                    <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>
+                  </blockquote>
+                ))}
+              </div>
             </div>
           </section>
 

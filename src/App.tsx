@@ -91,39 +91,35 @@ function ScrollToTop() {
   return null;
 }
 
-function SectionBackgroundVideos({ pathname }: { pathname: string }) {
+function SiteSectionBackgroundVideo({ pathname }: { pathname: string }) {
   useLayoutEffect(() => {
-    const sections = Array.from(document.querySelectorAll<HTMLElement>('.route-surface section'))
-      .filter((section) => !section.classList.contains('hero-section'));
+    const videoUrl = 'https://res.cloudinary.com/kmkcbqvz/video/upload/v1791056108/InShot_20261004_010104496.mp4';
+    const root = document.querySelector<HTMLElement>('.route-surface');
+    if (!root) return;
 
-    const videoUrl = 'https://res.cloudinary.com/kmkcbqvz/video/upload/v1791054826/Animate_image_on_loop_1080p_20261004003805.mp4';
+    const layer = document.createElement('div');
+    layer.className = 'site-section-video-bg';
+    layer.setAttribute('aria-hidden', 'true');
 
-    sections.forEach((section) => {
-      if (section.querySelector(':scope > .section-background-video')) return;
+    const video = document.createElement('video');
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.setAttribute('aria-hidden', 'true');
 
-      const layer = document.createElement('div');
-      layer.className = 'section-background-video';
-      layer.setAttribute('aria-hidden', 'true');
+    const source = document.createElement('source');
+    source.src = videoUrl;
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    layer.appendChild(video);
+    root.prepend(layer);
 
-      const video = document.createElement('video');
-      video.autoplay = true;
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.preload = 'metadata';
-      video.setAttribute('aria-hidden', 'true');
-
-      const source = document.createElement('source');
-      source.src = videoUrl;
-      source.type = 'video/mp4';
-      video.appendChild(source);
-      layer.appendChild(video);
-      section.prepend(layer);
-      void video.play().catch(() => {});
-    });
+    void video.play().catch(() => {});
 
     return () => {
-      document.querySelectorAll('.route-surface .section-background-video').forEach((layer) => layer.remove());
+      layer.remove();
     };
   }, [pathname]);
 
@@ -139,7 +135,7 @@ export default function App() {
       <ScrollToTop />
       <SiteMotion pathname={location.pathname} />
       <SiteHeader />
-      <SectionBackgroundVideos pathname={location.pathname} />
+      <SiteSectionBackgroundVideo pathname={location.pathname} />
       <div className="route-surface" key={location.pathname}>
         <Routes>
           <Route path="/" element={<HomePage />} />

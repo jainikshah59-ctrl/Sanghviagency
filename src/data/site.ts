@@ -44,11 +44,11 @@ export const images = {
   "project5": "https://images.unsplash.com/photo-1762889597634-264f0907820b?auto=format&fit=crop&fm=jpg&q=85&w=1800",
   "project6": "https://images.unsplash.com/photo-1699322039731-fdc996a9bb1c?auto=format&fit=crop&fm=jpg&q=85&w=1800",
   "gallery1": "https://images.unsplash.com/photo-1730584476103-9c02778e6335?auto=format&fit=crop&fm=jpg&q=85&w=1800",
-  "gallery2": "https://images.unsplash.com/photo-1763926062529-1edf8664c366?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery2": "https://images.unsplash.com/photo-1712319163905-04fe41813ebf?auto=format&fit=crop&fm=jpg&q=85&w=1800",
   "gallery3": "https://images.unsplash.com/photo-1782737055092-3422b57555fd?auto=format&fit=crop&fm=jpg&q=85&w=1800",
   "gallery4": "https://images.unsplash.com/photo-1776493929304-dfe4d50ae96b?auto=format&fit=crop&fm=jpg&q=85&w=1800",
-  "gallery5": "https://images.unsplash.com/photo-1773517458621-0ac22ce01325?auto=format&fit=crop&fm=jpg&q=85&w=1800",
-  "gallery6": "https://images.unsplash.com/photo-1763926026024-2b294669e255?auto=format&fit=crop&fm=jpg&q=85&w=1800"
+  "gallery5": "https://images.unsplash.com/photo-1609867271967-a82f85c48531?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery6": "https://images.unsplash.com/photo-1748946469857-60142faa03b4?auto=format&fit=crop&fm=jpg&q=85&w=1800"
 };
 
 export const metrics = [

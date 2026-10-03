@@ -2474,9 +2474,7 @@ body {
 
 
 
-/* SHARED NON-HERO SILVER FOG BACKGROUND
-   A custom CSS atmosphere replaces the external animated fog library.
-   The hero keeps its own dedicated background video. */
+/* SHARED NON-HERO SILVER/WHITE FOG BACKGROUND */
 .route-surface {
   position: relative;
   isolation: isolate;
@@ -2490,16 +2488,12 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 75% 42% at 18% 18%, rgba(235,239,242,.20), transparent 66%),
-    radial-gradient(ellipse 68% 38% at 82% 32%, rgba(182,190,196,.18), transparent 68%),
-    radial-gradient(ellipse 85% 48% at 50% 72%, rgba(221,226,230,.13), transparent 70%),
-    linear-gradient(180deg, #08090a 0%, #111315 46%, #050606 100%);
+  background: #000;
 }
 .silver-fog-atmosphere {
   position: absolute;
   inset: -12%;
-  opacity: .86;
+  opacity: .92;
   filter: blur(34px) contrast(108%);
   background:
     radial-gradient(ellipse 42% 18% at 14% 22%, rgba(225,230,234,.52) 0%, rgba(160,169,176,.24) 34%, transparent 72%),
@@ -2524,8 +2518,7 @@ body {
   animation: silverFogWave 28s ease-in-out infinite alternate-reverse;
 }
 .silver-fog-atmosphere::after {
-  background:
-    radial-gradient(ellipse 75% 12% at 52% 82%, rgba(236,240,242,.15), transparent 70%);
+  background: radial-gradient(ellipse 75% 12% at 52% 82%, rgba(236,240,242,.15), transparent 70%);
   filter: blur(30px);
   animation: silverFogWave 34s ease-in-out infinite alternate;
 }
@@ -2538,6 +2531,67 @@ body {
   0% { transform: translate3d(-3%, 1%, 0) scale(1); }
   100% { transform: translate3d(4%, -2%, 0) scale(1.08); }
 }
+
+/* Light mode: pure white fog over a clean white atmospheric field. */
+:root:not([data-theme="dark"]) .site-section-silver-fog {
+  background: #fff;
+}
+:root:not([data-theme="dark"]) .silver-fog-atmosphere {
+  opacity: .96;
+  background:
+    radial-gradient(ellipse 46% 20% at 12% 20%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.76) 38%, transparent 74%),
+    radial-gradient(ellipse 52% 22% at 78% 24%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.72) 40%, transparent 76%),
+    radial-gradient(ellipse 60% 24% at 42% 54%, rgba(255,255,255,.96) 0%, rgba(255,255,255,.68) 42%, transparent 78%),
+    radial-gradient(ellipse 55% 22% at 82% 76%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.70) 42%, transparent 78%);
+  filter: blur(34px) contrast(103%);
+}
+:root:not([data-theme="dark"]) .silver-fog-atmosphere::before {
+  background:
+    radial-gradient(ellipse 70% 15% at 22% 34%, rgba(255,255,255,.98), transparent 72%),
+    radial-gradient(ellipse 72% 17% at 72% 58%, rgba(255,255,255,.96), transparent 74%);
+}
+:root:not([data-theme="dark"]) .silver-fog-atmosphere::after {
+  background: radial-gradient(ellipse 78% 13% at 52% 82%, rgba(255,255,255,.98), transparent 72%);
+}
+
+/* Dark mode: retain a dark silver/steel fog instead of white fog. */
+:root[data-theme="dark"] .site-section-silver-fog {
+  background: #050607;
+}
+:root[data-theme="dark"] .silver-fog-atmosphere {
+  opacity: .90;
+  filter: blur(34px) contrast(110%);
+}
+
+/* FAQ + testimonials must reveal the shared atmosphere directly.
+   Remove their opaque white/black section and card background layers. */
+.faq-section,
+.faq-page section,
+.testimonials-section,
+.testimonial-section,
+.testimonials-page section {
+  background: transparent !important;
+  background-image: none !important;
+}
+.faq-section::before,
+.faq-section::after,
+.faq-page section::before,
+.faq-page section::after,
+.testimonials-section::before,
+.testimonials-section::after,
+.testimonials-page section::before,
+.testimonials-page section::after {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.faq-section .accordion-item,
+.faq-page .accordion-item,
+.testimonials-section .testimonial-card,
+.testimonial-section .testimonial-card {
+  background: transparent !important;
+  background-image: none !important;
+}
+
 .route-surface > .home-main,
 .route-surface > .page-main {
   position: relative;

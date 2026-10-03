@@ -59,8 +59,8 @@ export default function HomePage() {
           className="hero-video-overlay"
           aria-hidden="true"
           style={{
-            background: 'linear-gradient(90deg, rgba(52,58,64,.72) 0%, rgba(104,112,119,.46) 38%, rgba(30,35,39,.30) 72%, rgba(10,12,14,.18) 100%), linear-gradient(0deg, rgba(18,22,25,.42), rgba(198,204,209,.10) 44%, rgba(255,255,255,.05) 100%)',
-            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.08)'
+            background: 'linear-gradient(90deg, rgba(25,29,32,.84) 0%, rgba(66,72,77,.68) 32%, rgba(91,98,104,.48) 58%, rgba(35,40,44,.34) 82%, rgba(8,10,12,.24) 100%), linear-gradient(0deg, rgba(8,10,12,.52), rgba(111,119,126,.20) 52%, rgba(220,225,229,.025) 100%)',
+            boxShadow: 'inset 0 1px 0 rgba(235,239,242,.16), inset 0 -1px 0 rgba(0,0,0,.35)'
           }}
         />
         <ContentContainer className="hero-content-container">

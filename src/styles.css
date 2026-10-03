@@ -2474,21 +2474,23 @@ body {
 
 
 
-/* INDIVIDUAL SECTION BACKGROUND VIDEOS
-   Every non-hero section owns its own video element. */
-.route-surface section:not(.hero-section) {
+/* SHARED NON-HERO SECTION BACKGROUND VIDEO
+   One continuous video sits behind every non-hero section.
+   The hero keeps its own dedicated background video. */
+.route-surface {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
 }
-.section-background-video {
+.site-section-video-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.section-background-video video {
+.site-section-video-bg video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
@@ -2497,21 +2499,29 @@ body {
   opacity: .92;
   filter: saturate(.82) contrast(.98);
 }
-.route-surface section:not(.hero-section) > *:not(.section-background-video) {
+.route-surface > .home-main,
+.route-surface > .page-main {
   position: relative;
   z-index: 1;
 }
 
-/* Allow the section-owned video to actually be visible instead of being
-   covered by the old solid section backgrounds. */
-.route-surface .home-main > section:not(.hero-section),
-.route-surface .page-main > section {
+/* Keep the shared video visible behind all non-hero content.
+   The hero remains fully independent and continues using its own video. */
+.route-surface > .home-main,
+.route-surface > .page-main {
+  background: transparent !important;
+}
+.route-surface > .home-main > section:not(.hero-section),
+.route-surface > .page-main > section {
   background: transparent !important;
   background-image: none !important;
+  position: relative;
 }
 
-/* Preserve readability through the video while keeping each section independent. */
-.route-surface section:not(.hero-section)::before,
-.route-surface section:not(.hero-section)::after {
+/* Readability layer without creating separate section boxes. */
+.route-surface > .home-main > section:not(.hero-section)::before,
+.route-surface > .home-main > section:not(.hero-section)::after,
+.route-surface > .page-main > section::before,
+.route-surface > .page-main > section::after {
   pointer-events: none;
 }

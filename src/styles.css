@@ -2483,7 +2483,10 @@ body {
 }
 .site-section-video-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -2524,4 +2527,32 @@ body {
 .route-surface > .page-main > section::before,
 .route-surface > .page-main > section::after {
   pointer-events: none;
+}
+
+
+/* FINAL SHARED NON-HERO VIDEO PLACEMENT
+   The video belongs to the page main itself and starts exactly after the home hero.
+   It never creates a separate band above the hero and never sits over the hero video. */
+.route-surface > .home-main,
+.route-surface > .page-main {
+  position: relative;
+  isolation: isolate;
+}
+
+.route-surface > .home-main > .site-section-video-bg,
+.route-surface > .page-main > .site-section-video-bg {
+  z-index: 0;
+}
+
+.route-surface > .home-main > .hero-section {
+  position: relative;
+  z-index: 2;
+}
+
+.route-surface > .home-main > section:not(.hero-section),
+.route-surface > .page-main > section {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  background-image: none !important;
 }

@@ -28,14 +28,27 @@ export const contact = {
 };
 
 export const images = {
-  warehouse: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  tmtBars: 'https://images.unsplash.com/photo-1763926062529-1edf8664c366?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  steelSections: 'https://images.unsplash.com/photo-1671022442106-c787685d9fed?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  construction: 'https://images.unsplash.com/photo-1609867271967-a82f85c48531?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  bindingWire: 'https://images.unsplash.com/photo-1736793513114-ba3d41fec65a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  msChannels: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  pipeStock: 'https://images.unsplash.com/photo-1699322039731-fdc996a9bb1c?auto=format&fit=crop&fm=jpg&q=85&w=1800',
-  hardware: 'https://images.unsplash.com/photo-1783587354869-de09cfffaf9a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  "homeTmt": "https://images.unsplash.com/photo-1761213230327-d89a8cc9cc63?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "homeSections": "https://images.unsplash.com/photo-1671022442106-c787685d9fed?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "companyWarehouse": "https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "productTmt": "https://images.unsplash.com/photo-1763926062529-1edf8664c366?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "productAngles": "https://images.unsplash.com/photo-1741009305401-c71594c08c2c?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "productChannels": "https://images.unsplash.com/photo-1763926026024-2b294669e255?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "productBeams": "https://images.unsplash.com/photo-1773517458621-0ac22ce01325?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "productWire": "https://images.unsplash.com/photo-1736793513114-ba3d41fec65a?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "productHardware": "https://images.unsplash.com/photo-1783587354869-de09cfffaf9a?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "project1": "https://images.unsplash.com/photo-1693142390292-a4d89eb161e2?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "project2": "https://images.unsplash.com/photo-1771433050765-72a5eb1658ca?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "project3": "https://images.unsplash.com/photo-1741916541518-1b5918bc4abf?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "project4": "https://images.unsplash.com/photo-1506071890253-834c8a93f835?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "project5": "https://images.unsplash.com/photo-1762889597634-264f0907820b?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "project6": "https://images.unsplash.com/photo-1699322039731-fdc996a9bb1c?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery1": "https://images.unsplash.com/photo-1730584476103-9c02778e6335?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery2": "https://images.unsplash.com/photo-1763926062529-1edf8664c366?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery3": "https://images.unsplash.com/photo-1782737055092-3422b57555fd?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery4": "https://images.unsplash.com/photo-1776493929304-dfe4d50ae96b?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery5": "https://images.unsplash.com/photo-1773517458621-0ac22ce01325?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+  "gallery6": "https://images.unsplash.com/photo-1763926026024-2b294669e255?auto=format&fit=crop&fm=jpg&q=85&w=1800"
 };
 
 export const metrics = [
@@ -52,7 +65,7 @@ export const products = [
     categoryRoute: '/tmt-bars/',
     description: 'Thermo Mechanically Treated bars in Fe500, Fe550 and Fe550D grades. High strength, earthquake resistant, corrosion proof. Available in 8mm to 32mm.',
     short: 'Fe500, Fe550, Fe550D · 8–32mm',
-    image: images.tmtBars,
+    image: images.productTmt,
     alt: 'Close view of ribbed TMT reinforcement bars in a warehouse bundle',
     icon: 'bars',
   },
@@ -62,7 +75,7 @@ export const products = [
     categoryRoute: '/ms-angle/',
     description: 'Mild steel equal and unequal angles for structural framing, supports, brackets and fabrication. 25x25mm to 200x200mm.',
     short: 'MS equal & unequal · 25x25–200x200mm',
-    image: images.steelSections,
+    image: images.productAngles,
     alt: 'Structural steel sections stored on industrial warehouse racks',
     icon: 'angles',
   },
@@ -72,7 +85,7 @@ export const products = [
     categoryRoute: '/ms-channel/',
     description: 'Indian Standard Medium Channels (ISMC) for structural frames, supports, purlins and industrial applications. ISMC 75 to ISMC 400.',
     short: 'ISMC 75–400',
-    image: images.msChannels,
+    image: images.productChannels,
     alt: 'MS channel sections in warehouse stock',
     icon: 'channels',
   },
@@ -82,7 +95,7 @@ export const products = [
     categoryRoute: '/products/steel-beams',
     description: 'ISMB, H-Beams and I-Beams for heavy structural load-bearing applications in commercial and industrial construction.',
     short: 'ISMB · H-Beams · I-Beams',
-    image: images.steelSections,
+    image: images.productAngles,
     alt: 'Structural sections stored in Sanghvi Agency warehouse',
     icon: 'beams',
   },
@@ -92,7 +105,7 @@ export const products = [
     categoryRoute: '/products/',
     description: 'High-quality annealed binding wire for tying rebar in RCC construction work. Available in various gauges.',
     short: 'Annealed · various gauges',
-    image: images.bindingWire,
+    image: images.productWire,
     alt: 'Coils of binding wire stored in a warehouse',
     icon: 'wire',
   },
@@ -102,7 +115,7 @@ export const products = [
     categoryRoute: '/products/',
     description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
     short: 'Construction-grade nails & hardware',
-    image: images.hardware,
+    image: images.productHardware,
     alt: 'Animated professional construction power-tool visual for steel hardware and site work',
     icon: 'hardware',
   },
@@ -621,21 +634,21 @@ export const categoryPages = [
 ];
 
 export const projects = [
-  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.steelSections, alt: 'Steel beams stacked in an industrial warehouse' },
-  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Active construction site with crane and structural work' },
-  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Industrial steel structure and warehouse interior' },
-  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Industrial interior with steel beams and overhead crane' },
-  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.steelSections, alt: 'Animated steel beam and metalwork visual for an industrial construction project' },
-  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Steel reinforcement bars stacked for construction supply' },
+  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.project1, alt: 'Steel beams stacked in an industrial warehouse' },
+  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.project2, alt: 'Active construction site with crane and structural work' },
+  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.project3, alt: 'Industrial steel structure and warehouse interior' },
+  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.project4, alt: 'Industrial interior with steel beams and overhead crane' },
+  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.project5, alt: 'Animated steel beam and metalwork visual for an industrial construction project' },
+  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.project6, alt: 'Steel reinforcement bars stacked for construction supply' },
 ];
 
 export const galleryItems = [
-  { title: 'Steel Warehouse Interior', image: images.warehouse, alt: 'Steel inventory at Sanghvi Agency warehouse' },
-  { title: 'TMT Bar Inventory Bundles', image: images.tmtBars, alt: 'Close view of bundled TMT reinforcement bars' },
-  { title: 'Structural Steel Sections Storage', image: images.steelSections, alt: 'Structural steel sections stored on warehouse racks' },
-  { title: 'On-Site Steel Delivery & Crane Loading', image: images.construction, alt: 'Construction site with steel framework and tower crane' },
-  { title: 'Binding Wire Coils Stock', image: images.bindingWire, alt: 'Coils of binding wire stored in a warehouse' },
-  { title: 'MS Channel Section Storage', image: images.msChannels, alt: 'MS channel sections stacked in warehouse stock' },
+  { title: 'Steel Warehouse Interior', image: images.gallery1, alt: 'Steel inventory at Sanghvi Agency warehouse' },
+  { title: 'TMT Bar Inventory Bundles', image: images.gallery2, alt: 'Close view of bundled TMT reinforcement bars' },
+  { title: 'Structural Steel Sections Storage', image: images.gallery3, alt: 'Structural steel sections stored on warehouse racks' },
+  { title: 'On-Site Steel Delivery & Crane Loading', image: images.gallery4, alt: 'Construction site with steel framework and tower crane' },
+  { title: 'Binding Wire Coils Stock', image: images.gallery5, alt: 'Coils of binding wire stored in a warehouse' },
+  { title: 'MS Channel Section Storage', image: images.gallery6, alt: 'MS channel sections stacked in warehouse stock' },
 ];
 
 export const faqItems: Question[] = [

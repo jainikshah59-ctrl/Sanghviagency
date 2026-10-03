@@ -59,7 +59,7 @@ export default function HomePage() {
           className="hero-video-overlay"
           aria-hidden="true"
           style={{
-            background: 'linear-gradient(90deg, rgba(25,29,32,.84) 0%, rgba(66,72,77,.68) 32%, rgba(91,98,104,.48) 58%, rgba(35,40,44,.34) 82%, rgba(8,10,12,.24) 100%), linear-gradient(0deg, rgba(8,10,12,.52), rgba(111,119,126,.20) 52%, rgba(220,225,229,.025) 100%)',
+            background: 'linear-gradient(90deg, rgba(48,54,59,.92) 0%, rgba(73,80,86,.82) 34%, rgba(86,94,101,.70) 62%, rgba(52,58,63,.58) 82%, rgba(24,28,31,.46) 100%), linear-gradient(0deg, rgba(14,17,20,.56), rgba(82,89,95,.20) 58%, rgba(145,152,158,.035) 100%)',
             boxShadow: 'inset 0 1px 0 rgba(235,239,242,.16), inset 0 -1px 0 rgba(0,0,0,.35)'
           }}
         />

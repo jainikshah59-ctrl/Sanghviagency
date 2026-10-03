@@ -91,6 +91,45 @@ function ScrollToTop() {
   return null;
 }
 
+function SectionBackgroundVideos({ pathname }: { pathname: string }) {
+  useLayoutEffect(() => {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('.route-surface section'))
+      .filter((section) => !section.classList.contains('hero-section'));
+
+    const videoUrl = 'https://res.cloudinary.com/kmkcbqvz/video/upload/v1791054826/Animate_image_on_loop_1080p_20261004003805.mp4';
+
+    sections.forEach((section) => {
+      if (section.querySelector(':scope > .section-background-video')) return;
+
+      const layer = document.createElement('div');
+      layer.className = 'section-background-video';
+      layer.setAttribute('aria-hidden', 'true');
+
+      const video = document.createElement('video');
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.setAttribute('aria-hidden', 'true');
+
+      const source = document.createElement('source');
+      source.src = videoUrl;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      layer.appendChild(video);
+      section.prepend(layer);
+      void video.play().catch(() => {});
+    });
+
+    return () => {
+      document.querySelectorAll('.route-surface .section-background-video').forEach((layer) => layer.remove());
+    };
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   const location = useLocation();
   const isShortCategoryFooter = categoryPages.some((page) => page.route === location.pathname);
@@ -100,18 +139,8 @@ export default function App() {
       <ScrollToTop />
       <SiteMotion pathname={location.pathname} />
       <SiteHeader />
+      <SectionBackgroundVideos pathname={location.pathname} />
       <div className="route-surface" key={location.pathname}>
-        <div className="site-section-video-bg" aria-hidden="true">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          >
-            <source src="https://res.cloudinary.com/kmkcbqvz/video/upload/v1791054826/Animate_image_on_loop_1080p_20261004003805.mp4" type="video/mp4" />
-          </video>
-        </div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

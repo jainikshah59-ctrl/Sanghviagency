@@ -28,16 +28,16 @@ export const contact = {
 };
 
 export const images = {
-  warehouse: '/manus-storage/sanghvi-hero-warehouse_57eef792.jpg',
-  tmtBars: '/manus-storage/sanghvi-tmt-bars-closeup_398e8335.png',
-  steelSections: '/manus-storage/sanghvi-steel-sections_825a7c8f.png',
-  construction: '/manus-storage/sanghvi-construction-site_2b5e6c19.png',
-  bindingWire: '/manus-storage/sanghvi-binding-wire_a1ef044d.png',
-  msChannels: '/manus-storage/sanghvi-ms-channels_9c69b7dc.png',
-  hardware: 'https://images.pexels.com/photos/9966689/pexels-photo-9966689.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  steelPipes: 'https://images.pexels.com/photos/36878025/pexels-photo-36878025.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  constructionFrame: 'https://images.pexels.com/photos/7523532/pexels-photo-7523532.jpeg?auto=compress&cs=tinysrgb&w=1600',
-};
+  warehouse: 'https://images.pexels.com/photos/36003983/pexels-photo-36003983.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  tmtBars: 'https://images.pexels.com/photos/4674424/pexels-photo-4674424.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  steelSections: 'https://images.pexels.com/photos/36003978/pexels-photo-36003978.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  construction: 'https://images.pexels.com/photos/3818947/pexels-photo-3818947.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  bindingWire: 'https://images.pexels.com/photos/15059762/pexels-photo-15059762.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  msChannels: 'https://images.pexels.com/photos/12951624/pexels-photo-12951624.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  hardware: 'https://images.pexels.com/photos/9966684/pexels-photo-9966684.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  steelPipes: 'https://images.pexels.com/photos/36878027/pexels-photo-36878027.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  constructionFrame: 'https://images.pexels.com/photos/8858917/pexels-photo-8858917.jpeg?auto=compress&cs=tinysrgb&w=1800',
+}
 
 export const metrics = [
   { value: '2001', label: 'Trusted Since' },

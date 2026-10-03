@@ -2004,3 +2004,30 @@ body {
 :root[data-theme="dark"] .testimonial-card footer span {
   color: #98a7b2 !important;
 }
+
+
+/* Dark testimonial backdrop: eliminate the bright left-side glow/layer. */
+:root[data-theme="dark"] .testimonials-section,
+:root[data-theme="dark"] .testimonials-section::before,
+:root[data-theme="dark"] .testimonials-section::after,
+:root[data-theme="dark"] .testimonials-marquee::before,
+:root[data-theme="dark"] .testimonials-marquee::after {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+:root[data-theme="dark"] .testimonials-section {
+  position: relative;
+  isolation: isolate;
+  background: #11171c !important;
+  overflow: hidden;
+}
+:root[data-theme="dark"] .testimonials-section > * {
+  position: relative;
+  z-index: 1;
+}
+:root[data-theme="dark"] .testimonials-marquee {
+  background: transparent !important;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+}

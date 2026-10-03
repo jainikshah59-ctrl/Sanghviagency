@@ -2474,14 +2474,14 @@ body {
 
 
 
-/* SHARED NON-HERO VANTA FOG BACKGROUND
-   One continuous Vanta Fog canvas sits behind every non-hero section.
+/* SHARED NON-HERO SILVER FOG BACKGROUND
+   A custom CSS atmosphere replaces the external animated fog library.
    The hero keeps its own dedicated background video. */
 .route-surface {
   position: relative;
   isolation: isolate;
 }
-.site-section-fog-bg {
+.site-section-silver-fog {
   position: absolute;
   top: 0;
   left: 0;
@@ -2490,12 +2490,53 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 42% at 18% 18%, rgba(235,239,242,.20), transparent 66%),
+    radial-gradient(ellipse 68% 38% at 82% 32%, rgba(182,190,196,.18), transparent 68%),
+    radial-gradient(ellipse 85% 48% at 50% 72%, rgba(221,226,230,.13), transparent 70%),
+    linear-gradient(180deg, #08090a 0%, #111315 46%, #050606 100%);
 }
-.site-section-fog-canvas {
+.silver-fog-atmosphere {
+  position: absolute;
+  inset: -12%;
+  opacity: .86;
+  filter: blur(34px) contrast(108%);
+  background:
+    radial-gradient(ellipse 42% 18% at 14% 22%, rgba(225,230,234,.52) 0%, rgba(160,169,176,.24) 34%, transparent 72%),
+    radial-gradient(ellipse 48% 20% at 74% 18%, rgba(210,217,222,.42) 0%, rgba(128,138,146,.20) 38%, transparent 74%),
+    radial-gradient(ellipse 55% 22% at 44% 48%, rgba(190,199,205,.30) 0%, rgba(102,112,120,.14) 40%, transparent 76%),
+    radial-gradient(ellipse 50% 20% at 84% 72%, rgba(225,230,233,.26) 0%, rgba(116,126,134,.12) 42%, transparent 76%);
+  animation: silverFogDrift 22s ease-in-out infinite alternate;
+  transform: translate3d(0,0,0) scale(1.08);
+}
+.silver-fog-atmosphere::before,
+.silver-fog-atmosphere::after {
+  content: "";
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  pointer-events: none;
+}
+.silver-fog-atmosphere::before {
+  background:
+    radial-gradient(ellipse 65% 14% at 24% 34%, rgba(245,247,248,.18), transparent 70%),
+    radial-gradient(ellipse 70% 16% at 70% 57%, rgba(207,214,219,.16), transparent 72%);
+  filter: blur(24px);
+  animation: silverFogWave 28s ease-in-out infinite alternate-reverse;
+}
+.silver-fog-atmosphere::after {
+  background:
+    radial-gradient(ellipse 75% 12% at 52% 82%, rgba(236,240,242,.15), transparent 70%);
+  filter: blur(30px);
+  animation: silverFogWave 34s ease-in-out infinite alternate;
+}
+@keyframes silverFogDrift {
+  0% { transform: translate3d(-2%, -1%, 0) scale(1.08); }
+  50% { transform: translate3d(2%, 1.5%, 0) scale(1.12); }
+  100% { transform: translate3d(-1%, 2%, 0) scale(1.09); }
+}
+@keyframes silverFogWave {
+  0% { transform: translate3d(-3%, 1%, 0) scale(1); }
+  100% { transform: translate3d(4%, -2%, 0) scale(1.08); }
 }
 .route-surface > .home-main,
 .route-surface > .page-main {
@@ -2504,8 +2545,8 @@ body {
   background: transparent !important;
   isolation: isolate;
 }
-.route-surface > .home-main > .site-section-fog-bg,
-.route-surface > .page-main > .site-section-fog-bg {
+.route-surface > .home-main > .site-section-silver-fog,
+.route-surface > .page-main > .site-section-silver-fog {
   z-index: 0;
 }
 .route-surface > .home-main > .hero-section {

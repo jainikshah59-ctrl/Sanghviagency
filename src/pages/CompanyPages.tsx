@@ -20,7 +20,7 @@ export function AboutPage() {
               <ActionLink href="/request-quote" tone="orange">Discuss Your Project</ActionLink>
             </div>
             <figure className="about-story-image">
-              <img src={images.companyWarehouse} alt="Steel inventory at Sanghvi Agency." />
+              <img src={images.warehouse} alt="Steel inventory at Sanghvi Agency." />
               <figcaption><span>Bhuj, Gujarat</span><span>Serving since 2001</span></figcaption>
             </figure>
           </div>

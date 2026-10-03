@@ -72,7 +72,7 @@ export function ProductDetailPage({ path }: { path: keyof typeof productsDetail 
   const detail = productsDetail[path] as ProductDetail;
   const isTmt = path === '/products/tmt-bars';
   const relevantProduct = products.find((product) => product.route === path);
-  const image = relevantProduct?.image || (isTmt ? images.productTmt : images.productAngles);
+  const image = relevantProduct?.image || (isTmt ? images.tmtBars : images.steelSections);
   const chatHref = createWhatsAppHref([`Hello Sanghvi Agency, I would like a quote for ${detail.title}.`, 'Please share current sizes, stock and transport availability.']);
 
   return (
@@ -198,7 +198,7 @@ export function CategoryPage({ route }: { route: string }) {
   const page = categoryPages.find((item) => item.route === route);
   if (!page) return <NotFoundPage />;
   const questions = categoryQuestions(route);
-  const image = route === '/tmt-bars/' ? images.productTmt : route === '/ms-channel/' ? images.productChannels : images.productAngles;
+  const image = route === '/tmt-bars/' ? images.tmtBars : route === '/ms-channel/' ? images.msChannels : images.steelSections;
 
   return (
     <main className="page-main category-page">
@@ -228,7 +228,7 @@ export function CategoryPage({ route }: { route: string }) {
 }
 
 export function BrandDetailPage({ brand }: { brand: BrandProfile }) {
-  const image = brand.group === 'TMT Bars' ? images.productTmt : brand.group === 'MS Channels' ? images.productChannels : brand.group === 'Steel Pipes' ? null : images.productAngles;
+  const image = brand.group === 'TMT Bars' ? images.tmtBars : brand.group === 'MS Channels' ? images.msChannels : brand.group === 'Steel Pipes' ? null : images.steelSections;
   const chatHref = createWhatsAppHref([`Hello Sanghvi Agency, I am interested in ${brand.brand}.`, 'Please share current sizes, stock and delivery availability.']);
 
   return (

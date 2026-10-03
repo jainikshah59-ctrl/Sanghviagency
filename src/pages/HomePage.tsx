@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { allBrandNames, advantage, faqItems, images, metrics, products, projects, testimonials } from '../data/site';
+import { images, metrics, projects } from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
 import ProjectCard from '../components/ProjectCard';
 import { ActionLink, ContentContainer } from '../components/shared';
@@ -55,14 +55,7 @@ export default function HomePage() {
         >
           <source src="https://res.cloudinary.com/kmkcbqvz/video/upload/watermark-removed-Generate_video_for_hero_page_20261003225303.mp4" type="video/mp4" />
         </video>
-        <div
-          className="hero-video-overlay"
-          aria-hidden="true"
-          style={{
-            background: 'linear-gradient(90deg, rgba(48,54,59,.92) 0%, rgba(73,80,86,.82) 34%, rgba(86,94,101,.70) 62%, rgba(52,58,63,.58) 82%, rgba(24,28,31,.46) 100%), linear-gradient(0deg, rgba(14,17,20,.56), rgba(82,89,95,.20) 58%, rgba(145,152,158,.035) 100%)',
-            boxShadow: 'inset 0 1px 0 rgba(235,239,242,.16), inset 0 -1px 0 rgba(0,0,0,.35)'
-          }}
-        />
+        <div className="hero-video-overlay" aria-hidden="true" />
         <ContentContainer className="hero-content-container">
           <div className="hero-content">
             <div className="hero-copy-block">
@@ -102,7 +95,7 @@ export default function HomePage() {
           </div>
           <div className="about-home-grid">
             <figure className="about-image about-image-small">
-              <img src={images.homeTmt} alt="Sanghvi Agency TMT reinforcement bars, shown as part of its steel inventory" loading="lazy" />
+              <img src={images.tmtBars} alt="Sanghvi Agency TMT reinforcement bars, shown as part of its steel inventory" loading="lazy" />
               <figcaption>Trusted supply since 2001</figcaption>
             </figure>
             <div className="about-home-copy">
@@ -112,73 +105,10 @@ export default function HomePage() {
               <ActionLink href="/about" tone="orange">Learn Our Story</ActionLink>
             </div>
             <figure className="about-image about-image-large">
-              <img src={images.homeSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
+              <img src={images.steelSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
               <figcaption>Structural steel · Bhuj, Gujarat</figcaption>
             </figure>
           </div>
-        </ContentContainer>
-      </section>
-
-      <section className="page-section product-index-section" aria-labelledby="home-products-title">
-        <ContentContainer>
-          <div className="split-section-heading">
-            <div><span className="section-badge"><span className="section-number">2</span><span className="section-label">Our Products</span></span><h2 id="home-products-title">Quality Steel for<br />Every Project.</h2></div>
-            <p>From reinforcement steel to structural sections, binding wire and construction hardware, Sanghvi Agency supplies the core materials builders need across Kutch and Gujarat.</p>
-          </div>
-          <div className="product-index-grid">
-            {products.map((product, index) => (
-              <article className="product-index-card" key={product.name}>
-                <Link className={`product-card-visual product-visual-${product.icon}`} to={product.route} aria-label={`View ${product.name}`}>
-                  {product.image ? <img src={product.image} alt={product.alt} loading="lazy" /> : <span className="product-line-art" aria-hidden="true"><i /><i /><i /></span>}
-                  <span className="product-card-number">0{index + 1}</span>
-                  <span className="product-card-open"><ArrowUpRight size={18} /></span>
-                </Link>
-                <div className="product-index-card-copy">
-                  <div className="product-category-line"><span>{product.short}</span><span>{product.name}</span></div>
-                  <h3><Link to={product.route}>{product.name}</Link></h3>
-                  <p>{product.description}</p>
-                  <Link className="text-link" to={product.route}>View Details <ArrowRight size={14} /></Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </ContentContainer>
-      </section>
-
-      <section className="page-section advantage-section" aria-labelledby="home-advantage-title">
-        <ContentContainer>
-          <div className="split-section-heading">
-            <div><span className="section-badge"><span className="section-number">3</span><span className="section-label">Why Choose Us</span></span><h2 id="home-advantage-title">Built on Trust,<br />Driven by Quality.</h2></div>
-            <p>Reliable supply, practical guidance and dependable delivery for residential, commercial and industrial requirements.</p>
-          </div>
-          <div className="advantage-grid trust-feature-grid">
-            {advantage.map((item, index) => (
-              <article className="advantage-card trust-feature-card" key={item}>
-                <span className="advantage-index">0{index + 1}</span>
-                <span className="trust-feature-orbit" aria-hidden="true" />
-                <h3>{item}</h3>
-              </article>
-            ))}
-          </div>
-        </ContentContainer>
-      </section>
-
-      <section className="page-section brand-directory-section" aria-labelledby="home-brands-title">
-        <ContentContainer>
-          <div className="split-section-heading">
-            <div><span className="section-badge"><span className="section-number">4</span><span className="section-label">Trusted Brands</span></span><h2 id="home-brands-title">We Stock India’s<br />Best.</h2></div>
-            <p>Genuine steel from the source-listed manufacturer portfolio, with availability confirmed against current stock and requirement.</p>
-          </div>
-          <div className="brand-showcase" aria-label="Trusted steel brands">
-            {allBrandNames.map((name, index) => (
-              <Link className="brand-showcase-item" key={name} to="/brands">
-                <span className="brand-showcase-index">{String(index + 1).padStart(2, '0')}</span>
-                <span className="brand-showcase-name">{name}</span>
-                <ArrowUpRight size={14} aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
-          <div className="center-cta"><ActionLink href="/brands" tone="orange">View All Brands</ActionLink></div>
         </ContentContainer>
       </section>
 
@@ -186,7 +116,7 @@ export default function HomePage() {
         <ContentContainer>
           <div className="featured-heading-row">
             <div>
-              <span className="section-badge"><span className="section-number">5</span><span className="section-label">Featured Supply &amp; Projects</span></span>
+              <span className="section-badge"><span className="section-number">2</span><span className="section-label">Featured Supply &amp; Projects</span></span>
               <h2 id="featured-projects-title">Steel That Builds<br className="featured-heading-break" /> the Region.</h2>
             </div>
             <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
@@ -194,35 +124,6 @@ export default function HomePage() {
           <div className="project-grid">
             {projects.map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}
           </div>
-          <section className="page-section testimonials-section home-testimonials-section" aria-labelledby="home-testimonials-title">
-            <div className="split-section-heading">
-              <div><span className="section-badge"><span className="section-number">6</span><span className="section-label">What Our Customers Say</span></span><h2 id="home-testimonials-title">Trust is built<br />in every delivery.</h2></div>
-              <p>Customer testimonials captured in the website content inventory, including their stated roles, locations and ratings.</p>
-            </div>
-            <div className="testimonials-marquee" aria-label="Customer testimonials">
-              <div className="testimonials-track">
-                {[...testimonials, ...testimonials].map((testimonial, index) => (
-                  <blockquote className="testimonial-card" key={`${testimonial.name}-${index}`}>
-                    <div className="testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>{Array.from({ length: testimonial.stars }, (_, i) => <span key={i}>★</span>)}</div>
-                    <p>“{testimonial.quote}”</p>
-                    <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>
-                  </blockquote>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="page-section faq-page home-faq-section" aria-labelledby="home-faq-title">
-            <div className="split-section-heading">
-              <div><span className="section-badge"><span className="section-number">7</span><span className="section-label">Frequently Asked Questions</span></span><h2 id="home-faq-title">Need to know<br />before you order?</h2></div>
-              <p>Common questions about bulk orders, brands, delivery territory, quantities, payment terms and quotations.</p>
-            </div>
-            <div className="accordion-list faq-accordion-list">
-              {faqItems.slice(0, 5).map((item, index) => <details className="accordion-item" key={item.question} open={index === 0}><summary><span>{item.question}</span><span className="accordion-mark" /></summary><p>{item.answer}</p></details>)}
-            </div>
-            <div className="center-cta"><ActionLink href="/faq" tone="dark">View All FAQs</ActionLink></div>
-          </section>
-
           <div className="home-bottom-cta">
             <p>Need steel for your next project?</p>
             <ActionLink href="/request-quote" tone="dark">Request a Quote</ActionLink>

@@ -28,27 +28,12 @@ export const contact = {
 };
 
 export const images = {
-  "homeTmt": "https://image.vietnamnews.vn/uploadvnnews/Article/2022/12/13/256166_thep-b500b.jpeg",
-  "homeSections": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit%2Cfl_lossy%2Ch_9000%2Cw_1200%2Cf_auto%2Cq_auto/1151816/520854_751781.jpeg",
-  "companyWarehouse": "https://www.nssco.com/assets/images/content/Pipes_1.jpg",
-  "productTmt": "https://tiimg.tistatic.com/fp/1/004/275/tmt-bar-572.jpg",
-  "productAngles": "https://www.nssco.com/assets/images/content/angle_steel_62_2.jpg",
-  "productChannels": "https://ironsteels.com/wp-content/uploads/2025/03/Channel-1024x551.webp",
-  "productBeams": "https://www.hfsteels.com/assets/images/home-fabrication-process-visual.jpg",
-  "productWire": "https://5.imimg.com/data5/SELLER/Default/2026/1/579505867/VW/XC/XD/3028189/ms-binding-wire-500x500.jpg",
-  "productHardware": "https://www.manasquanfasteners.com/cdn/shop/articles/nails-screws-bolts_4742d8ed-85a5-4b85-8f96-00152036cc5a.png?v=1772636482",
-  "project1": "https://www.ramengineers.in/images/recent-project4.png",
-  "project2": "https://www.bhandericonsultant.com/images/projects/project-slide/img5.jpg",
-  "project3": "https://www.zamilsteel.co.in/img/article/109-03.jpg",
-  "project4": "https://upplus.in/uploads/images/202512/image_870x_6952405f09a3b.jpg",
-  "project5": "https://www.nbmcw.com/images/48-PEB/46968-Tubular-Construction-2.webp",
-  "project6": "https://pulitzercenter.org/sites/default/files/styles/768x600/public/inline-images/killer%20heat%204.png.webp?itok=DzRfKNWv",
-  "gallery1": "https://brettcon.com/app/uploads/2015/05/Harbor-Steel-064.jpg",
-  "gallery2": "https://images.squarespace-cdn.com/content/v1/5ff8afb6c1ead434c217c459/eb7f3a4f-6d06-4134-8384-5419b49a5185/DSC_3854_1500x1000.jpg",
-  "gallery3": "https://s.alicdn.com/%40sc04/kf/Hbdf4fa5b1e3246239c34e089b4ce1040R/KAITAI-ASTM-A36-Carbon-Galvanized-Iron-L-Shape-Mild-Steel-Angle-Bar-Equal-Type-Construction-Manufacturing-Use-Welding-Cutting.png",
-  "gallery4": "https://csarnok4you.hu/pics/acelszerkezet-szallitas.jpg",
-  "gallery5": "https://image.made-in-china.com/202f0j00SiQqEnAJAuzP/Bwg-18-Black-Annealed-Binding-Wire-for-Building-Construction.webp",
-  "gallery6": "https://image.made-in-china.com/2f0j00swKWJBZjcizP/C-Payments-Cold-Formed-C-Section-Steel-Custom-Galvanized-C-Section-Steel.jpg"
+  warehouse: '/manus-storage/sanghvi-hero-warehouse_57eef792.jpg',
+  tmtBars: '/manus-storage/sanghvi-tmt-bars-closeup_398e8335.png',
+  steelSections: '/manus-storage/sanghvi-steel-sections_825a7c8f.png',
+  construction: '/manus-storage/sanghvi-construction-site_2b5e6c19.png',
+  bindingWire: '/manus-storage/sanghvi-binding-wire_a1ef044d.png',
+  msChannels: '/manus-storage/sanghvi-ms-channels_9c69b7dc.png',
 };
 
 export const metrics = [
@@ -65,7 +50,7 @@ export const products = [
     categoryRoute: '/tmt-bars/',
     description: 'Thermo Mechanically Treated bars in Fe500, Fe550 and Fe550D grades. High strength, earthquake resistant, corrosion proof. Available in 8mm to 32mm.',
     short: 'Fe500, Fe550, Fe550D · 8–32mm',
-    image: images.productTmt,
+    image: images.tmtBars,
     alt: 'Close view of ribbed TMT reinforcement bars in a warehouse bundle',
     icon: 'bars',
   },
@@ -75,7 +60,7 @@ export const products = [
     categoryRoute: '/ms-angle/',
     description: 'Mild steel equal and unequal angles for structural framing, supports, brackets and fabrication. 25x25mm to 200x200mm.',
     short: 'MS equal & unequal · 25x25–200x200mm',
-    image: images.productAngles,
+    image: images.steelSections,
     alt: 'Structural steel sections stored on industrial warehouse racks',
     icon: 'angles',
   },
@@ -85,7 +70,7 @@ export const products = [
     categoryRoute: '/ms-channel/',
     description: 'Indian Standard Medium Channels (ISMC) for structural frames, supports, purlins and industrial applications. ISMC 75 to ISMC 400.',
     short: 'ISMC 75–400',
-    image: images.productChannels,
+    image: images.msChannels,
     alt: 'MS channel sections in warehouse stock',
     icon: 'channels',
   },
@@ -95,8 +80,8 @@ export const products = [
     categoryRoute: '/products/steel-beams',
     description: 'ISMB, H-Beams and I-Beams for heavy structural load-bearing applications in commercial and industrial construction.',
     short: 'ISMB · H-Beams · I-Beams',
-    image: images.productBeams,
-    alt: 'Steel beams for heavy structural construction applications',
+    image: images.steelSections,
+    alt: 'Structural sections stored in Sanghvi Agency warehouse',
     icon: 'beams',
   },
   {
@@ -105,8 +90,8 @@ export const products = [
     categoryRoute: '/products/',
     description: 'High-quality annealed binding wire for tying rebar in RCC construction work. Available in various gauges.',
     short: 'Annealed · various gauges',
-    image: images.productWire,
-    alt: 'Black annealed binding wire coils for construction',
+    image: images.bindingWire,
+    alt: 'Coils of binding wire stored in a warehouse',
     icon: 'wire',
   },
   {
@@ -115,8 +100,8 @@ export const products = [
     categoryRoute: '/products/',
     description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
     short: 'Construction-grade nails & hardware',
-    image: images.productHardware,
-    alt: 'Animated professional construction power-tool visual for steel hardware and site work',
+    image: null,
+    alt: '',
     icon: 'hardware',
   },
 ];
@@ -634,21 +619,21 @@ export const categoryPages = [
 ];
 
 export const projects = [
-  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.project1, alt: 'Pre-engineered steel building frame under construction in Gujarat' },
-  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.project2, alt: 'Residential construction site with reinforced concrete slab and steel rebar' },
-  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.project3, alt: 'Commercial steel-frame building under construction' },
-  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.project4, alt: 'Steel warehouse loading operation with overhead crane and truck' },
-  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.project5, alt: 'Industrial steel building frame rising on an active construction site' },
-  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.project6, alt: 'Construction workers tying reinforcement steel on a building slab' },
+  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.steelSections, alt: 'Sanghvi Agency warehouse steel sections; illustrative category image, not a photograph of the named plant' },
+  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Official Sanghvi Agency construction-site image; illustrative only, not a photograph of the named project' },
+  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Sanghvi Agency MS channel inventory; illustrative category image, not a photograph of the named project' },
+  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Sanghvi Agency warehouse interior; illustrative source image, not a photograph of the named facility' },
+  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: null, alt: '' },
+  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Sanghvi Agency TMT bar inventory; illustrative category image, not a photograph of the named project' },
 ];
 
 export const galleryItems = [
-  { title: 'Steel Warehouse Interior', image: images.gallery1, alt: 'Organized steel pipe and structural steel inventory inside an industrial warehouse' },
-  { title: 'TMT Bar Inventory Bundles', image: images.gallery2, alt: 'Steel bars being loaded for transport in an Indian steel facility' },
-  { title: 'Structural Steel Sections Storage', image: images.gallery3, alt: 'Bundled MS angle bars staged at a construction site' },
-  { title: 'On-Site Steel Delivery & Crane Loading', image: images.gallery4, alt: 'Steel beam transport and crane loading operation' },
-  { title: 'Binding Wire Coils Stock', image: images.gallery5, alt: 'Black annealed binding wire coils for construction' },
-  { title: 'MS Channel Section Storage', image: images.gallery6, alt: 'Galvanized C-section steel channels stacked at a construction site' },
+  { title: 'Steel Warehouse Interior', image: images.warehouse, alt: 'Steel inventory at Sanghvi Agency warehouse' },
+  { title: 'TMT Bar Inventory Bundles', image: images.tmtBars, alt: 'Close view of bundled TMT reinforcement bars' },
+  { title: 'Structural Steel Sections Storage', image: images.steelSections, alt: 'Structural steel sections stored on warehouse racks' },
+  { title: 'On-Site Steel Delivery & Crane Loading', image: images.construction, alt: 'Construction site with steel framework and tower crane' },
+  { title: 'Binding Wire Coils Stock', image: images.bindingWire, alt: 'Coils of binding wire stored in a warehouse' },
+  { title: 'MS Channel Section Storage', image: images.msChannels, alt: 'MS channel sections stacked in warehouse stock' },
 ];
 
 export const faqItems: Question[] = [

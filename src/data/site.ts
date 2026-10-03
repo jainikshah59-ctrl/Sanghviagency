@@ -34,6 +34,8 @@ export const images = {
   construction: 'https://images.unsplash.com/photo-1609867271967-a82f85c48531?auto=format&fit=crop&fm=jpg&q=85&w=1800',
   bindingWire: 'https://images.unsplash.com/photo-1736793513114-ba3d41fec65a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
   msChannels: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  pipeStock: 'https://images.unsplash.com/photo-1699322039731-fdc996a9bb1c?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  hardware: 'https://images.unsplash.com/photo-1783587354869-de09cfffaf9a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
 };
 
 export const metrics = [

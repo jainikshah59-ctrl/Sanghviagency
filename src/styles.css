@@ -2473,22 +2473,22 @@ body {
 }
 
 
-/* SHARED SECTION BACKGROUND VIDEO
-   Used by every routed page section except the hero. The video is fixed behind
-   section content so it visually continues through all sections without touching
-   the hero's dedicated background video. */
-.route-surface {
+
+/* INDIVIDUAL SECTION BACKGROUND VIDEOS
+   Every non-hero section owns its own video element. */
+.route-surface section:not(.hero-section) {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
 }
-.site-section-video-bg {
-  position: fixed;
+.section-background-video {
+  position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.site-section-video-bg video {
+.section-background-video video {
   width: 100%;
   height: 100%;
   display: block;
@@ -2497,23 +2497,21 @@ body {
   opacity: .92;
   filter: saturate(.82) contrast(.98);
 }
-.route-surface > .site-section-video-bg + * {
+.route-surface section:not(.hero-section) > *:not(.section-background-video) {
   position: relative;
   z-index: 1;
 }
 
-/* Let the shared video show through every non-hero section. */
-.route-surface .page-main section,
-.route-surface .home-main > section:not(.hero-section) {
-  position: relative;
+/* Allow the section-owned video to actually be visible instead of being
+   covered by the old solid section backgrounds. */
+.route-surface .home-main > section:not(.hero-section),
+.route-surface .page-main > section {
   background: transparent !important;
   background-image: none !important;
 }
 
-/* Keep cards/content surfaces readable above the moving background. */
-.route-surface .page-main section::before,
-.route-surface .page-main section::after,
-.route-surface .home-main > section:not(.hero-section)::before,
-.route-surface .home-main > section:not(.hero-section)::after {
+/* Preserve readability through the video while keeping each section independent. */
+.route-surface section:not(.hero-section)::before,
+.route-surface section:not(.hero-section)::after {
   pointer-events: none;
 }

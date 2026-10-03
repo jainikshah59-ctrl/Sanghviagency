@@ -167,7 +167,7 @@ export default function App() {
       <SiteMotion pathname={location.pathname} />
       <SiteHeader />
       <div className="route-surface" key={location.pathname}>
-        <SiteSectionBackgroundVideo pathname={location.pathname} />
+        <SiteSectionBackgroundEffect pathname={location.pathname} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

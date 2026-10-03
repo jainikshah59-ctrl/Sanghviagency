@@ -34,6 +34,9 @@ export const images = {
   construction: '/manus-storage/sanghvi-construction-site_2b5e6c19.png',
   bindingWire: '/manus-storage/sanghvi-binding-wire_a1ef044d.png',
   msChannels: '/manus-storage/sanghvi-ms-channels_9c69b7dc.png',
+  hardware: 'https://images.pexels.com/photos/9966689/pexels-photo-9966689.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  steelPipes: 'https://images.pexels.com/photos/36878025/pexels-photo-36878025.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  constructionFrame: 'https://images.pexels.com/photos/7523532/pexels-photo-7523532.jpeg?auto=compress&cs=tinysrgb&w=1600',
 };
 
 export const metrics = [
@@ -100,8 +103,8 @@ export const products = [
     categoryRoute: '/products/',
     description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
     short: 'Construction-grade nails & hardware',
-    image: null,
-    alt: '',
+    image: images.hardware,
+    alt: 'Steel screws and construction hardware arranged as industrial fastener inventory',
     icon: 'hardware',
   },
 ];
@@ -623,7 +626,7 @@ export const projects = [
   { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Official Sanghvi Agency construction-site image; illustrative only, not a photograph of the named project' },
   { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Sanghvi Agency MS channel inventory; illustrative category image, not a photograph of the named project' },
   { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Sanghvi Agency warehouse interior; illustrative source image, not a photograph of the named facility' },
-  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: null, alt: '' },
+  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.constructionFrame, alt: 'Steel-framed construction site illustrating structural steel erection; illustrative only, not a photograph of the named project' },
   { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Sanghvi Agency TMT bar inventory; illustrative category image, not a photograph of the named project' },
 ];
 

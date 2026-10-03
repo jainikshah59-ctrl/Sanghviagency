@@ -28,12 +28,12 @@ export const contact = {
 };
 
 export const images = {
-  warehouse: '/manus-storage/sanghvi-hero-warehouse_57eef792.jpg',
-  tmtBars: '/manus-storage/sanghvi-tmt-bars-closeup_398e8335.png',
-  steelSections: '/manus-storage/sanghvi-steel-sections_825a7c8f.png',
-  construction: '/manus-storage/sanghvi-construction-site_2b5e6c19.png',
-  bindingWire: '/manus-storage/sanghvi-binding-wire_a1ef044d.png',
-  msChannels: '/manus-storage/sanghvi-ms-channels_9c69b7dc.png',
+  warehouse: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  tmtBars: 'https://images.unsplash.com/photo-1763926062529-1edf8664c366?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  steelSections: 'https://images.unsplash.com/photo-1671022442106-c787685d9fed?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  construction: 'https://images.unsplash.com/photo-1609867271967-a82f85c48531?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  bindingWire: 'https://images.unsplash.com/photo-1736793513114-ba3d41fec65a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
+  msChannels: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&fm=jpg&q=85&w=1800',
 };
 
 export const metrics = [
@@ -100,7 +100,7 @@ export const products = [
     categoryRoute: '/products/',
     description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
     short: 'Construction-grade nails & hardware',
-    image: 'https://media.giphy.com/media/KETJborCITw4r6goxB/giphy.gif',
+    image: images.hardware,
     alt: 'Animated professional construction power-tool visual for steel hardware and site work',
     icon: 'hardware',
   },
@@ -619,12 +619,12 @@ export const categoryPages = [
 ];
 
 export const projects = [
-  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.steelSections, alt: 'Sanghvi Agency warehouse steel sections; illustrative category image, not a photograph of the named plant' },
-  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Official Sanghvi Agency construction-site image; illustrative only, not a photograph of the named project' },
-  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Sanghvi Agency MS channel inventory; illustrative category image, not a photograph of the named project' },
-  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Sanghvi Agency warehouse interior; illustrative source image, not a photograph of the named facility' },
-  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: 'https://media.giphy.com/media/sLR06zHzLkUTsgF4Dl/giphy.gif', alt: 'Animated steel beam and metalwork visual for an industrial construction project' },
-  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Sanghvi Agency TMT bar inventory; illustrative category image, not a photograph of the named project' },
+  { title: 'Industrial Plant Steelwork', location: 'Gandhidham, Kutch', supply: '120 Tonnes Steel Supplied', sector: 'Industrial', image: images.steelSections, alt: 'Steel beams stacked in an industrial warehouse' },
+  { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Active construction site with crane and structural work' },
+  { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Industrial steel structure and warehouse interior' },
+  { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Industrial interior with steel beams and overhead crane' },
+  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: images.steelSections, alt: 'Animated steel beam and metalwork visual for an industrial construction project' },
+  { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Steel reinforcement bars stacked for construction supply' },
 ];
 
 export const galleryItems = [

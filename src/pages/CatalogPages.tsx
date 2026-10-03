@@ -228,7 +228,7 @@ export function CategoryPage({ route }: { route: string }) {
 }
 
 export function BrandDetailPage({ brand }: { brand: BrandProfile }) {
-  const image = brand.group === 'TMT Bars' ? images.tmtBars : brand.group === 'MS Channels' ? images.msChannels : brand.group === 'Steel Pipes' ? null : images.steelSections;
+  const image = brand.group === 'TMT Bars' ? images.tmtBars : brand.group === 'MS Channels' ? images.msChannels : brand.group === 'Steel Pipes' ? images.steelPipes : images.steelSections;
   const chatHref = createWhatsAppHref([`Hello Sanghvi Agency, I am interested in ${brand.brand}.`, 'Please share current sizes, stock and delivery availability.']);
 
   return (
@@ -238,7 +238,7 @@ export function BrandDetailPage({ brand }: { brand: BrandProfile }) {
           <PageHeading eyebrow={brand.relationship || brand.group} title={brand.title} subtitle={brand.subtitle} actions={<><ActionLink href={chatHref} tone="orange">WhatsApp</ActionLink><ActionLink href="tel:+919428220385" tone="outline" arrow={false}>Call Now</ActionLink></>} />
           <div className="brand-overview-card">
             <div className="brand-overview-copy"><span className="brand-detail-logo"><ShieldCheck size={20} /></span><p className="eyebrow"><span className="eyebrow-dot" />About {brand.brand} at Sanghvi Agency</p><h2>Genuine supply.<br />Technical confidence.</h2><p>{brand.overview}</p><span className="availability-note">Brand availability may vary by stock and requirement. Contact us to confirm current stock.</span></div>
-            <div className={`brand-overview-media ${image ? '' : 'brand-overview-media-pattern'}`}>{image ? <img src={image} alt={`${brand.group} inventory shown on the official Sanghvi Agency source site`} /> : <div className="brand-section-pattern" aria-hidden="true"><i /><i /><i /><i /></div>}<span>{brand.group} · Bhuj, Gujarat</span></div>
+            <div className="brand-overview-media">{image && <img src={image} alt={`${brand.group} inventory shown as a representative industrial supply image`} />}<span>{brand.group} · Bhuj, Gujarat</span></div>
           </div>
         </ContentContainer>
       </section>

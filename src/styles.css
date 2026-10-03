@@ -2031,3 +2031,68 @@ body {
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
 }
+
+
+/* Final visual blending pass: section lighting should read as one continuous surface,
+   not as stacked white/orange/dark sheets. */
+.home-main section,
+.page-main section {
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+}
+
+:root[data-theme="dark"] .home-main,
+:root[data-theme="dark"] .page-main {
+  background: #11171c !important;
+}
+
+:root[data-theme="dark"] .home-main section,
+:root[data-theme="dark"] .page-main section {
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 0%, rgba(242,101,34,.045), transparent 72%),
+    linear-gradient(180deg, rgba(17,23,28,.98), rgba(17,23,28,.98)) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Let intentional orange accents feather into the surrounding dark surface. */
+:root[data-theme="dark"] .home-main section::before,
+:root[data-theme="dark"] .home-main section::after,
+:root[data-theme="dark"] .page-main section::before,
+:root[data-theme="dark"] .page-main section::after {
+  border-color: transparent !important;
+}
+
+/* Remove visual seams created by adjacent translucent surfaces. */
+:root[data-theme="dark"] .home-about-section,
+:root[data-theme="dark"] .featured-projects-section,
+:root[data-theme="dark"] .featured-brands-section,
+:root[data-theme="dark"] .home-projects-section,
+:root[data-theme="dark"] .brand-directory-section,
+:root[data-theme="dark"] .advantage-section,
+:root[data-theme="dark"] .principles-section,
+:root[data-theme="dark"] .testimonials-section,
+:root[data-theme="dark"] .faq-section,
+:root[data-theme="dark"] .contact-section,
+:root[data-theme="dark"] .page-section {
+  background:
+    radial-gradient(ellipse 65% 48% at 82% 0%, rgba(242,101,34,.055), transparent 68%),
+    #11171c !important;
+}
+
+/* Light mode gets the same continuous treatment: white stays the base,
+   while warm/cool lighting fades into it instead of forming visible sheets. */
+:root:not([data-theme="dark"]) .home-main section,
+:root:not([data-theme="dark"]) .page-main section {
+  border-color: transparent !important;
+  background:
+    radial-gradient(ellipse 65% 48% at 82% 0%, rgba(242,101,34,.035), transparent 68%),
+    linear-gradient(180deg, rgba(247,248,247,.96), rgba(247,248,247,.96)) !important;
+  box-shadow: none !important;
+}
+
+/* Keep image overlays and content cards independent; only the page-level
+   background layers are being blended here. */
+:root[data-theme="dark"] .hero-section {
+  background-color: #11171c !important;
+}

@@ -95,7 +95,7 @@ export default function HomePage() {
           </div>
           <div className="about-home-grid">
             <figure className="about-image about-image-small">
-              <img src={images.tmtBars} alt="Sanghvi Agency TMT reinforcement bars, shown as part of its steel inventory" loading="lazy" />
+              <img src={images.homeTmt} alt="Sanghvi Agency TMT reinforcement bars, shown as part of its steel inventory" loading="lazy" />
               <figcaption>Trusted supply since 2001</figcaption>
             </figure>
             <div className="about-home-copy">
@@ -105,7 +105,7 @@ export default function HomePage() {
               <ActionLink href="/about" tone="orange">Learn Our Story</ActionLink>
             </div>
             <figure className="about-image about-image-large">
-              <img src={images.steelSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
+              <img src={images.homeSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
               <figcaption>Structural steel · Bhuj, Gujarat</figcaption>
             </figure>
           </div>

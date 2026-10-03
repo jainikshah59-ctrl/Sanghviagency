@@ -94,14 +94,9 @@ function ScrollToTop() {
 function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
   useLayoutEffect(() => {
     const main = document.querySelector<HTMLElement>('.route-surface > .home-main, .route-surface > .page-main');
-    if (!main || main.querySelector('.site-section-silver-fog')) return;
+    if (!main) return;
 
     const root = document.documentElement;
-    const isDark = root.dataset.theme === 'dark';
-
-    // Keep the existing dark steel treatment untouched. Vanta Cells is for light mode only.
-    if (isDark) return;
-
     const layer = document.createElement('div');
     layer.className = 'site-section-cells-background';
     layer.setAttribute('aria-hidden', 'true');
@@ -113,6 +108,7 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
 
     let effect: { destroy?: () => void } | null = null;
     let cancelled = false;
+    let loading = false;
 
     const loadScript = (src: string) => new Promise<void>((resolve, reject) => {
       const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
@@ -139,6 +135,9 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
     });
 
     const initCells = async () => {
+      if (loading || effect || cancelled || root.dataset.theme === 'dark') return;
+      loading = true;
+
       try {
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js');
         await loadScript('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js');
@@ -167,13 +166,29 @@ function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
         });
       } catch {
         // The page remains usable if the optional visual CDN is unavailable.
+      } finally {
+        loading = false;
       }
     };
 
-    void initCells();
+    const syncTheme = () => {
+      if (root.dataset.theme === 'dark') {
+        effect?.destroy?.();
+        effect = null;
+        canvasHost.replaceChildren();
+        return;
+      }
+      void initCells();
+    };
+
+    const themeObserver = new MutationObserver(syncTheme);
+    themeObserver.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+    syncTheme();
 
     return () => {
       cancelled = true;
+      themeObserver.disconnect();
       effect?.destroy?.();
       layer.remove();
     };

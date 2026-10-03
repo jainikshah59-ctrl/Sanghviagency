@@ -2474,12 +2474,14 @@ body {
 
 
 
-/* SHARED NON-HERO SILVER/WHITE FOG BACKGROUND */
+/* SHARED NON-HERO BACKGROUND
+   Light mode: Vanta Cells via Three.js CDN.
+   Dark mode: preserve the existing black / silver-steel treatment. */
 .route-surface {
   position: relative;
   isolation: isolate;
 }
-.site-section-silver-fog {
+.site-section-cells-background {
   position: absolute;
   top: 0;
   left: 0;
@@ -2488,83 +2490,51 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #000;
-}
-.silver-fog-atmosphere {
-  position: absolute;
-  inset: -12%;
-  opacity: .92;
-  filter: blur(34px) contrast(108%);
-  background:
-    radial-gradient(ellipse 42% 18% at 14% 22%, rgba(225,230,234,.52) 0%, rgba(160,169,176,.24) 34%, transparent 72%),
-    radial-gradient(ellipse 48% 20% at 74% 18%, rgba(210,217,222,.42) 0%, rgba(128,138,146,.20) 38%, transparent 74%),
-    radial-gradient(ellipse 55% 22% at 44% 48%, rgba(190,199,205,.30) 0%, rgba(102,112,120,.14) 40%, transparent 76%),
-    radial-gradient(ellipse 50% 20% at 84% 72%, rgba(225,230,233,.26) 0%, rgba(116,126,134,.12) 42%, transparent 76%);
-  animation: silverFogDrift 22s ease-in-out infinite alternate;
-  transform: translate3d(0,0,0) scale(1.08);
-}
-.silver-fog-atmosphere::before,
-.silver-fog-atmosphere::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.silver-fog-atmosphere::before {
-  background:
-    radial-gradient(ellipse 65% 14% at 24% 34%, rgba(245,247,248,.18), transparent 70%),
-    radial-gradient(ellipse 70% 16% at 70% 57%, rgba(207,214,219,.16), transparent 72%);
-  filter: blur(24px);
-  animation: silverFogWave 28s ease-in-out infinite alternate-reverse;
-}
-.silver-fog-atmosphere::after {
-  background: radial-gradient(ellipse 75% 12% at 52% 82%, rgba(236,240,242,.15), transparent 70%);
-  filter: blur(30px);
-  animation: silverFogWave 34s ease-in-out infinite alternate;
-}
-@keyframes silverFogDrift {
-  0% { transform: translate3d(-2%, -1%, 0) scale(1.08); }
-  50% { transform: translate3d(2%, 1.5%, 0) scale(1.12); }
-  100% { transform: translate3d(-1%, 2%, 0) scale(1.09); }
-}
-@keyframes silverFogWave {
-  0% { transform: translate3d(-3%, 1%, 0) scale(1); }
-  100% { transform: translate3d(4%, -2%, 0) scale(1.08); }
-}
-
-/* Light mode: pure white fog over a clean white atmospheric field. */
-:root:not([data-theme="dark"]) .site-section-silver-fog {
   background: #fff;
 }
-:root:not([data-theme="dark"]) .silver-fog-atmosphere {
-  opacity: .96;
-  background:
-    radial-gradient(ellipse 46% 20% at 12% 20%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.76) 38%, transparent 74%),
-    radial-gradient(ellipse 52% 22% at 78% 24%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.72) 40%, transparent 76%),
-    radial-gradient(ellipse 60% 24% at 42% 54%, rgba(255,255,255,.96) 0%, rgba(255,255,255,.68) 42%, transparent 78%),
-    radial-gradient(ellipse 55% 22% at 82% 76%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.70) 42%, transparent 78%);
-  filter: blur(34px) contrast(103%);
+.site-section-cells-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
 }
-:root:not([data-theme="dark"]) .silver-fog-atmosphere::before {
-  background:
-    radial-gradient(ellipse 70% 15% at 22% 34%, rgba(255,255,255,.98), transparent 72%),
-    radial-gradient(ellipse 72% 17% at 72% 58%, rgba(255,255,255,.96), transparent 74%);
-}
-:root:not([data-theme="dark"]) .silver-fog-atmosphere::after {
-  background: radial-gradient(ellipse 78% 13% at 52% 82%, rgba(255,255,255,.98), transparent 72%);
+.site-section-cells-canvas canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-/* Dark mode: retain a dark silver/steel fog instead of white fog. */
-:root[data-theme="dark"] .site-section-silver-fog {
-  background: #050607;
+/* Keep content above the animated background. */
+.route-surface > .home-main,
+.route-surface > .page-main {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  isolation: isolate;
 }
-:root[data-theme="dark"] .silver-fog-atmosphere {
-  opacity: .90;
-  filter: blur(34px) contrast(110%);
+.route-surface > .home-main > .site-section-cells-background,
+.route-surface > .page-main > .site-section-cells-background {
+  z-index: 0;
+}
+.route-surface > .home-main > .hero-section {
+  position: relative;
+  z-index: 2;
+}
+.route-surface > .home-main > section:not(.hero-section),
+.route-surface > .page-main > section {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  background-image: none !important;
 }
 
-/* FAQ + testimonials must reveal the shared atmosphere directly.
-   Remove their opaque white/black section and card background layers. */
+/* Vanta Cells is intentionally light-mode only. */
+:root:not([data-theme="dark"]) .site-section-cells-background {
+  background: #fff;
+}
+
+/* FAQ + testimonials reveal the animated light-mode atmosphere. */
 .faq-section,
 .faq-page section,
 .testimonials-section,
@@ -2592,25 +2562,7 @@ body {
   background-image: none !important;
 }
 
-.route-surface > .home-main,
-.route-surface > .page-main {
-  position: relative;
-  z-index: 1;
-  background: transparent !important;
-  isolation: isolate;
-}
-.route-surface > .home-main > .site-section-silver-fog,
-.route-surface > .page-main > .site-section-silver-fog {
-  z-index: 0;
-}
-.route-surface > .home-main > .hero-section {
-  position: relative;
-  z-index: 2;
-}
-.route-surface > .home-main > section:not(.hero-section),
-.route-surface > .page-main > section {
-  position: relative;
-  z-index: 1;
-  background: transparent !important;
-  background-image: none !important;
+/* Dark mode keeps the existing black/silver visual system and never loads Cells. */
+:root[data-theme="dark"] .site-section-cells-background {
+  display: none !important;
 }

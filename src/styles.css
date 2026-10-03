@@ -2312,3 +2312,162 @@ body {
   background-image: none !important;
   box-shadow: none !important;
 }
+
+
+/* FINAL DARK-MODE SILVER SURFACE OVERRIDE
+   Dark mode must never use white as a surface, wash, glow, or polished edge.
+   Black remains the base canvas; all formerly-white visual surfaces become silver/steel. */
+:root[data-theme="dark"] {
+  --dark-silver-hi: #c8ced3;
+  --dark-silver: #9fa8ae;
+  --dark-silver-mid: #78838b;
+  --dark-silver-deep: #465057;
+  --dark-silver-glass: rgba(116,128,137,.34);
+  --dark-silver-edge: rgba(184,194,201,.42);
+}
+
+/* Hero: force the entire video treatment into a uniform gunmetal/silver field.
+   This deliberately overrides the inline overlay so no white wash can survive. */
+:root[data-theme="dark"] .hero-video-overlay {
+  background:
+    linear-gradient(90deg,
+      rgba(56,63,69,.96) 0%,
+      rgba(76,84,91,.92) 34%,
+      rgba(91,99,106,.86) 62%,
+      rgba(69,77,84,.78) 82%,
+      rgba(43,49,54,.70) 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(184,194,201,.28),
+    inset 0 -1px 0 rgba(0,0,0,.55) !important;
+}
+
+/* Replace white/super-light translucent surface fills with silver glass. */
+:root[data-theme="dark"] .liquid-glass,
+:root[data-theme="dark"] .liquid-glass-strong,
+:root[data-theme="dark"] .trust-badge,
+:root[data-theme="dark"] .about-image figcaption,
+:root[data-theme="dark"] .product-card-visual .product-card-number,
+:root[data-theme="dark"] .project-hover-action,
+:root[data-theme="dark"] .showcase-caption,
+:root[data-theme="dark"] .about-story-image figcaption,
+:root[data-theme="dark"] .brand-overview-media > span {
+  background: linear-gradient(145deg, rgba(184,194,201,.46), rgba(105,116,124,.34)) !important;
+  color: #080a0b !important;
+  border-color: rgba(194,202,208,.44) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(224,229,233,.28),
+    inset 0 -1px 0 rgba(35,40,44,.34),
+    0 10px 28px rgba(0,0,0,.32) !important;
+}
+
+/* Remove white from glass pseudo-polish and rebuild it as silver. */
+:root[data-theme="dark"] .liquid-glass::before {
+  background: linear-gradient(
+    135deg,
+    rgba(196,204,210,.48),
+    rgba(112,123,131,.12) 48%,
+    rgba(174,184,191,.28)
+  ) !important;
+}
+
+/* Any inline white/translucent white surface used by components becomes silver. */
+:root[data-theme="dark"] [style*="255,255,255"],
+:root[data-theme="dark"] [style*="255, 255, 255"],
+:root[data-theme="dark"] [style*="#fff"],
+:root[data-theme="dark"] [style*="#FFF"],
+:root[data-theme="dark"] [style*="#ffffff"],
+:root[data-theme="dark"] [style*="#FFFFFF"] {
+  background-color: rgba(116,128,137,.34) !important;
+  color: #d7dde1 !important;
+  border-color: rgba(184,194,201,.34) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(194,202,208,.22),
+    inset 0 -1px 0 rgba(0,0,0,.38) !important;
+}
+
+/* Common white UI surfaces: silver, not white. */
+:root[data-theme="dark"] .action-light,
+:root[data-theme="dark"] .mobile-menu-sheet,
+:root[data-theme="dark"] .products-popover,
+:root[data-theme="dark"] .project-hover-action,
+:root[data-theme="dark"] .product-card-open {
+  background: linear-gradient(145deg, #c5ccd1, #7e8991) !important;
+  color: #080a0b !important;
+  border-color: rgba(207,214,219,.48) !important;
+}
+
+/* Silver structural highlights; never bright white. */
+:root[data-theme="dark"] .nav-pill::after,
+:root[data-theme="dark"] .site-footer::before,
+:root[data-theme="dark"] .testimonial-card,
+:root[data-theme="dark"] .trust-feature-card,
+:root[data-theme="dark"] .advantage-card,
+:root[data-theme="dark"] .principle-card {
+  border-color: rgba(170,181,189,.34) !important;
+}
+
+:root[data-theme="dark"] .nav-pill::after,
+:root[data-theme="dark"] .site-footer::before {
+  background: linear-gradient(90deg, transparent, rgba(170,181,189,.30), transparent) !important;
+  box-shadow: none !important;
+}
+
+/* Eliminate bright white inset highlights from dark-mode cards. */
+:root[data-theme="dark"] .testimonial-card,
+:root[data-theme="dark"] .trust-feature-card,
+:root[data-theme="dark"] .advantage-card,
+:root[data-theme="dark"] .principle-card,
+:root[data-theme="dark"] .product-index-card,
+:root[data-theme="dark"] .category-brand-card,
+:root[data-theme="dark"] .brand-card,
+:root[data-theme="dark"] .brand-overview-card,
+:root[data-theme="dark"] .brand-info-panel,
+:root[data-theme="dark"] .contact-detail-card,
+:root[data-theme="dark"] .contact-location-card,
+:root[data-theme="dark"] .lead-form,
+:root[data-theme="dark"] .gallery-card,
+:root[data-theme="dark"] .accordion-item,
+:root[data-theme="dark"] .trust-card,
+:root[data-theme="dark"] .portfolio-summary,
+:root[data-theme="dark"] .custom-quote-panel,
+:root[data-theme="dark"] .brands-intro-stamp,
+:root[data-theme="dark"] .quote-process,
+:root[data-theme="dark"] .table-frame {
+  background:
+    linear-gradient(145deg, rgba(112,124,133,.38), rgba(48,57,63,.34) 58%, rgba(88,99,107,.30)) !important;
+  border-color: rgba(170,181,189,.34) !important;
+  box-shadow:
+    0 18px 48px rgba(0,0,0,.48),
+    inset 0 1px 0 rgba(188,197,203,.18),
+    inset 0 -1px 0 rgba(0,0,0,.72) !important;
+}
+
+/* Kill white decorative pseudo-layers on dark-mode surfaces. */
+:root[data-theme="dark"] .home-main .card::before,
+:root[data-theme="dark"] .home-main .card::after,
+:root[data-theme="dark"] .page-main .card::before,
+:root[data-theme="dark"] .page-main .card::after,
+:root[data-theme="dark"] .home-main [class*="glass"]::before,
+:root[data-theme="dark"] .home-main [class*="glass"]::after,
+:root[data-theme="dark"] .page-main [class*="glass"]::before,
+:root[data-theme="dark"] .page-main [class*="glass"]::after {
+  border-color: rgba(170,181,189,.24) !important;
+}
+
+/* White text is allowed for legibility only; visual surfaces/polish are silver. */
+:root[data-theme="dark"] .hero-eyebrow,
+:root[data-theme="dark"] .hero-support,
+:root[data-theme="dark"] .hero-whatsapp-action,
+:root[data-theme="dark"] .hero-story-link,
+:root[data-theme="dark"] .hero-metric-label,
+:root[data-theme="dark"] .hero-scroll-cue {
+  color: #aeb8be !important;
+}
+
+/* Prevent the dark mode from inheriting any bright white body/surface background. */
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #root,
+:root[data-theme="dark"] main,
+:root[data-theme="dark"] section {
+  background-color: #000 !important;
+}

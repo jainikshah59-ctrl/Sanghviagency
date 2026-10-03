@@ -55,7 +55,14 @@ export default function HomePage() {
         >
           <source src="https://res.cloudinary.com/kmkcbqvz/video/upload/watermark-removed-Generate_video_for_hero_page_20261003225303.mp4" type="video/mp4" />
         </video>
-        <div className="hero-video-overlay" aria-hidden="true" />
+        <div
+          className="hero-video-overlay"
+          aria-hidden="true"
+          style={{
+            background: 'linear-gradient(90deg, rgba(52,58,64,.72) 0%, rgba(104,112,119,.46) 38%, rgba(30,35,39,.30) 72%, rgba(10,12,14,.18) 100%), linear-gradient(0deg, rgba(18,22,25,.42), rgba(198,204,209,.10) 44%, rgba(255,255,255,.05) 100%)',
+            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.08)'
+          }}
+        />
         <ContentContainer className="hero-content-container">
           <div className="hero-content">
             <div className="hero-copy-block">

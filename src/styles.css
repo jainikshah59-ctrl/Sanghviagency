@@ -2501,6 +2501,8 @@ body {
   object-position: center;
   opacity: .92;
   filter: saturate(.82) contrast(.98);
+  transform: scale(1);
+  transform-origin: center;
 }
 .route-surface > .home-main,
 .route-surface > .page-main {

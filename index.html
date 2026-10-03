@@ -3,8 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sanghvi Agency — premium steel & construction material supplier in Bhuj, Kutch & Gujarat since 2001." />
-    <title>Sanghvi Agency — Premium Steel & Construction Material Supplier, Bhuj</title>
+    <meta name="theme-color" content="#e9eef3" />
+    <meta name="description" content="Sanghvi Agency supplies trusted steel and construction materials across Bhuj, Kutch and Gujarat. Serving builders, contractors and industries since 2001." />
+    <script>
+      (() => {
+        try {
+          const theme = window.localStorage.getItem('sanghvi-theme') === 'dark' ? 'dark' : 'light';
+          document.documentElement.dataset.theme = theme;
+          const meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#11171c' : '#e9eef3');
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="https://sanghviagency.com/assets/images/logo.jpg" />
+    <title>Sanghvi Agency — Steel & Construction Material Supplier</title>
   </head>
   <body>
     <div id="root"></div>

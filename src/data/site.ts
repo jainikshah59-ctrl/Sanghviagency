@@ -100,8 +100,8 @@ export const products = [
     categoryRoute: '/products/',
     description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
     short: 'Construction-grade nails & hardware',
-    image: null,
-    alt: '',
+    image: 'https://media.giphy.com/media/KETJborCITw4r6goxB/giphy.gif',
+    alt: 'Animated professional construction power-tool visual for steel hardware and site work',
     icon: 'hardware',
   },
 ];
@@ -623,7 +623,7 @@ export const projects = [
   { title: 'Multi-Story Residential Towers', location: 'Bhuj', supply: 'TMT Fe550D Supplied', sector: 'Residential', image: images.construction, alt: 'Official Sanghvi Agency construction-site image; illustrative only, not a photograph of the named project' },
   { title: 'Commercial Plaza Framework', location: 'Mundra', supply: 'MS Channels & Beams', sector: 'Commercial', image: images.msChannels, alt: 'Sanghvi Agency MS channel inventory; illustrative category image, not a photograph of the named project' },
   { title: 'Logistics Storage Facility', location: 'Anjar', supply: 'Structural Sections', sector: 'Warehouses', image: images.warehouse, alt: 'Sanghvi Agency warehouse interior; illustrative source image, not a photograph of the named facility' },
-  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: null, alt: '' },
+  { title: 'Factory Expansion Shed', location: 'Bhachau', supply: 'Structural Angles & Beams', sector: 'Industrial', image: 'https://media.giphy.com/media/sLR06zHzLkUTsgF4Dl/giphy.gif', alt: 'Animated steel beam and metalwork visual for an industrial construction project' },
   { title: 'Private Villa Gated Community', location: 'Mandvi', supply: 'High Ductility TMT Bars', sector: 'Residential', image: images.tmtBars, alt: 'Sanghvi Agency TMT bar inventory; illustrative category image, not a photograph of the named project' },
 ];
 

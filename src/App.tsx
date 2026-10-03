@@ -101,6 +101,17 @@ export default function App() {
       <SiteMotion pathname={location.pathname} />
       <SiteHeader />
       <div className="route-surface" key={location.pathname}>
+        <div className="site-section-video-bg" aria-hidden="true">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source src="https://res.cloudinary.com/kmkcbqvz/video/upload/v1791054826/Animate_image_on_loop_1080p_20261004003805.mp4" type="video/mp4" />
+          </video>
+        </div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

@@ -91,50 +91,65 @@ function ScrollToTop() {
   return null;
 }
 
-function SiteSectionBackgroundVideo({ pathname }: { pathname: string }) {
+function SiteSectionBackgroundEffect({ pathname }: { pathname: string }) {
   useLayoutEffect(() => {
-    const videoUrl = 'https://res.cloudinary.com/kmkcbqvz/video/upload/v1791056108/InShot_20261004_010104496.mp4';
     const main = document.querySelector<HTMLElement>('.route-surface > .home-main, .route-surface > .page-main');
-    if (!main) return;
+    if (!main || main.querySelector('.site-section-fog-bg')) return;
 
     const layer = document.createElement('div');
-    layer.className = 'site-section-video-bg';
+    layer.className = 'site-section-fog-bg';
     layer.setAttribute('aria-hidden', 'true');
 
-    const video = document.createElement('video');
-    video.autoplay = true;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.setAttribute('aria-hidden', 'true');
-
-    const source = document.createElement('source');
-    source.src = videoUrl;
-    source.type = 'video/mp4';
-    video.appendChild(source);
-    layer.appendChild(video);
-
-    const hero = main.querySelector<HTMLElement>(':scope > .hero-section');
-
-    const syncPosition = () => {
-      layer.style.top = hero ? `${hero.offsetHeight}px` : '0px';
-    };
-
+    const canvas = document.createElement('div');
+    canvas.className = 'site-section-fog-canvas';
+    layer.appendChild(canvas);
     main.prepend(layer);
-    syncPosition();
 
-    const resizeObserver = 'ResizeObserver' in window && hero
-      ? new ResizeObserver(syncPosition)
-      : null;
-    if (resizeObserver && hero) {
-      resizeObserver.observe(hero);
-    }
+    const loadScript = (src: string) => new Promise<void>((resolve, reject) => {
+      const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
+      if (existing) {
+        if (existing.dataset.loaded === 'true') resolve();
+        else existing.addEventListener('load', () => resolve(), { once: true });
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.onload = () => {
+        script.dataset.loaded = 'true';
+        resolve();
+      };
+      script.onerror = () => reject(new Error(`Failed to load ${src}`));
+      document.head.appendChild(script);
+    });
 
-    void video.play().catch(() => {});
+    let effect: { destroy?: () => void } | null = null;
+    let cancelled = false;
+
+    void loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js')
+      .then(() => loadScript('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js'))
+      .then(() => {
+        if (cancelled) return;
+        const vanta = (window as Window & { VANTA?: { FOG?: (options: Record<string, unknown>) => { destroy?: () => void } } }).VANTA;
+        if (!vanta?.FOG) return;
+        effect = vanta.FOG({
+          el: canvas,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0x302801,
+          midtoneColor: 0x423634,
+          lowlightColor: 0x34303f,
+          baseColor: 0xcfadad,
+        });
+      })
+      .catch(() => {});
 
     return () => {
-      resizeObserver?.disconnect();
+      cancelled = true;
+      effect?.destroy?.();
       layer.remove();
     };
   }, [pathname]);

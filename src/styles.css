@@ -2096,3 +2096,77 @@ body {
 :root[data-theme="dark"] .hero-section {
   background-color: #11171c !important;
 }
+
+
+/* DARK MODE — pure black background system.
+   No orange/white background washes or color layers; only restrained silver glass edges. */
+:root[data-theme="dark"] .home-main,
+:root[data-theme="dark"] .page-main,
+:root[data-theme="dark"] .home-main section,
+:root[data-theme="dark"] .page-main section,
+:root[data-theme="dark"] .hero-section,
+:root[data-theme="dark"] .home-about-section,
+:root[data-theme="dark"] .featured-projects-section,
+:root[data-theme="dark"] .featured-brands-section,
+:root[data-theme="dark"] .home-projects-section,
+:root[data-theme="dark"] .brand-directory-section,
+:root[data-theme="dark"] .advantage-section,
+:root[data-theme="dark"] .principles-section,
+:root[data-theme="dark"] .testimonials-section,
+:root[data-theme="dark"] .faq-section,
+:root[data-theme="dark"] .contact-section,
+:root[data-theme="dark"] .page-section,
+:root[data-theme="dark"] .page-hero-surface {
+  background-color: #000 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Kill decorative section-level color washes. */
+:root[data-theme="dark"] .home-main section::before,
+:root[data-theme="dark"] .home-main section::after,
+:root[data-theme="dark"] .page-main section::before,
+:root[data-theme="dark"] .page-main section::after,
+:root[data-theme="dark"] .hero-section::before,
+:root[data-theme="dark"] .hero-section::after,
+:root[data-theme="dark"] .page-hero-surface::before,
+:root[data-theme="dark"] .page-hero-surface::after {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* Glass surfaces stay dark; their definition comes from a subtle silver edge, not color fill. */
+:root[data-theme="dark"] .testimonial-card,
+:root[data-theme="dark"] .trust-card,
+:root[data-theme="dark"] .brand-card,
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .product-card,
+:root[data-theme="dark"] .faq-item,
+:root[data-theme="dark"] .contact-card,
+:root[data-theme="dark"] .quote-card,
+:root[data-theme="dark"] .glass-card {
+  background-color: rgba(8, 8, 8, .72) !important;
+  background-image: none !important;
+  border-color: rgba(190, 198, 205, .24) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(220, 225, 230, .08) !important;
+}
+
+/* Remove orange/white background fills from generic dark-mode surfaces while preserving content. */
+:root[data-theme="dark"] .home-main .surface,
+:root[data-theme="dark"] .page-main .surface,
+:root[data-theme="dark"] .home-main .card,
+:root[data-theme="dark"] .page-main .card,
+:root[data-theme="dark"] .home-main [class*="glass"],
+:root[data-theme="dark"] .page-main [class*="glass"] {
+  background-color: rgba(8, 8, 8, .72) !important;
+  background-image: none !important;
+}
+
+/* The page itself remains a single uninterrupted black canvas. */
+:root[data-theme="dark"],
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #root {
+  background: #000 !important;
+}

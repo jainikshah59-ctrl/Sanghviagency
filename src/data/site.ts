@@ -95,8 +95,8 @@ export const products = [
     categoryRoute: '/products/steel-beams',
     description: 'ISMB, H-Beams and I-Beams for heavy structural load-bearing applications in commercial and industrial construction.',
     short: 'ISMB · H-Beams · I-Beams',
-    image: images.productAngles,
-    alt: 'Structural sections stored in Sanghvi Agency warehouse',
+    image: images.productBeams,
+    alt: 'Steel beams for heavy structural construction applications',
     icon: 'beams',
   },
   {

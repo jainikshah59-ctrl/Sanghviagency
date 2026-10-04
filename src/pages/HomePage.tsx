@@ -8,6 +8,7 @@ import {
   Handshake,
   Headphones,
   PackageCheck,
+  Star,
   Truck,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -406,7 +407,7 @@ export default function HomePage() {
                 {[...testimonials, ...testimonials].map((testimonial, index) => (
                   <blockquote className="testimonial-card" key={`${testimonial.name}-${index}`}>
                     <div className="testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>
-                      {Array.from({ length: testimonial.stars }, (_, i) => <span className="testimonial-star" key={i} aria-hidden="true">★</span>)}
+                      {Array.from({ length: testimonial.stars }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}
                     </div>
                     <p>“{testimonial.quote}”</p>
                     <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>

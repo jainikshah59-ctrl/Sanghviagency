@@ -3622,3 +3622,398 @@ main p { text-wrap: pretty; }
     -webkit-backface-visibility: hidden;
   }
 }
+
+
+/* Homepage section heading system — stronger hierarchy, cleaner structure, no motion changes. */
+.home-main .home-section-heading {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.14fr) minmax(300px, .56fr);
+  gap: clamp(34px, 5vw, 84px);
+  align-items: end;
+  margin-bottom: 48px;
+}
+.home-main .home-section-heading .section-heading-main {
+  position: relative;
+  min-width: 0;
+}
+.home-main .home-section-heading h2 {
+  max-width: 780px;
+  margin: 15px 0 0;
+  font-size: clamp(40px, 5.15vw, 68px);
+  font-weight: 680;
+  line-height: .96;
+  letter-spacing: -.082em;
+  text-wrap: balance;
+}
+.home-main .home-section-heading .section-heading-rule {
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--orange), rgba(242,101,34,.12));
+  box-shadow: 0 6px 16px rgba(242,101,34,.16);
+}
+.home-main .home-section-heading .section-heading-aside {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: 17px 0 2px 25px;
+  border-left: 1px solid rgba(84,101,114,.17);
+}
+.home-main .home-section-heading .section-heading-aside::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 17px;
+  width: 3px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--orange);
+  box-shadow: 0 7px 18px rgba(242,101,34,.2);
+}
+.home-main .section-heading-aside-label {
+  margin: 0 0 8px;
+  color: #8b9298;
+  font-size: 9px;
+  font-weight: 720;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.home-main .home-section-heading .section-heading-aside p {
+  max-width: 430px;
+  margin: 0;
+  color: #657079;
+  font-size: 12px;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+.home-main .about-home-heading {
+  margin-bottom: 52px;
+}
+.home-main .featured-heading-row .section-heading-aside {
+  justify-content: space-between;
+  gap: 20px;
+}
+.home-main .featured-heading-row .all-projects-link {
+  align-self: flex-start;
+  margin-top: auto;
+}
+.home-main .home-section-heading .all-projects-link {
+  padding-bottom: 7px;
+}
+.home-main .about-home-section .home-section-heading h2 {
+  max-width: 850px;
+}
+
+/* Why Choose Us — clean 3×2 card system with no card numbering. */
+.home-main .advantage-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.home-main .advantage-card {
+  min-height: 222px;
+  padding: 23px 22px 24px;
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(242,101,34,.06), transparent 28%),
+    linear-gradient(145deg, rgba(255,255,255,.93), rgba(246,249,251,.66) 56%, rgba(255,255,255,.84));
+  box-shadow:
+    0 18px 42px rgba(48,64,78,.075),
+    0 7px 16px rgba(48,64,78,.035),
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 0 -1px 0 rgba(66,82,96,.045);
+}
+.home-main .advantage-card::after {
+  content: "";
+  position: absolute;
+  right: -44px;
+  bottom: -46px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(82,101,116,.08);
+  box-shadow: inset 0 0 0 15px rgba(255,255,255,.18);
+  pointer-events: none;
+}
+.home-main .advantage-card .advantage-icon {
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(242,101,34,.13);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff8f3, #ffe9dc);
+  box-shadow:
+    0 10px 20px rgba(242,101,34,.09),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+.home-main .advantage-card h3 {
+  position: relative;
+  z-index: 1;
+  max-width: 250px;
+  margin: 26px 0 8px;
+  font-size: 16px;
+  font-weight: 720;
+  line-height: 1.18;
+  letter-spacing: -.045em;
+}
+.home-main .advantage-card p {
+  position: relative;
+  z-index: 1;
+  max-width: 295px;
+  margin: 0;
+  color: #69737b;
+  font-size: 11px;
+  line-height: 1.72;
+}
+
+/* Trusted Brands — retain the numbers, but make every card feel intentional and premium. */
+.home-main .brand-feature-grid {
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.home-main .brand-directory-grid {
+  gap: 10px;
+}
+.home-main .brand-directory-section .brand-card {
+  position: relative;
+  min-height: 154px;
+  padding: 16px 16px 17px;
+  overflow: hidden;
+  border-radius: 18px;
+  border-color: rgba(82,98,111,.15);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(242,101,34,.055), transparent 30%),
+    linear-gradient(145deg, rgba(255,255,255,.94), rgba(246,249,251,.68) 56%, rgba(255,255,255,.88));
+  box-shadow:
+    0 18px 40px rgba(48,64,78,.07),
+    0 6px 14px rgba(48,64,78,.035),
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 0 -1px 0 rgba(59,76,90,.045);
+}
+.home-main .brand-directory-section .brand-card::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -46px;
+  bottom: -50px;
+  border-radius: 50%;
+  border: 1px solid rgba(82,101,116,.08);
+  pointer-events: none;
+}
+.home-main .brand-directory-section .brand-card-top {
+  position: relative;
+  z-index: 1;
+  align-items: center;
+}
+.home-main .brand-directory-section .brand-card-index {
+  width: 31px;
+  height: 31px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(82,98,111,.16);
+  border-radius: 10px;
+  color: #606b73;
+  background: rgba(255,255,255,.72);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95);
+  font-size: 9px;
+  font-weight: 700;
+}
+.home-main .brand-directory-section .brand-card-top > svg {
+  width: 15px;
+  height: 15px;
+  color: #8b949b;
+}
+.home-main .brand-directory-section .brand-relationship {
+  margin-top: 10px;
+  padding: 6px 9px;
+  border: 1px solid rgba(242,101,34,.11);
+  background: rgba(255,241,232,.78);
+}
+.home-main .brand-directory-section .brand-card-group {
+  position: relative;
+  z-index: 1;
+  padding-top: 13px;
+  color: #889198;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+.home-main .brand-directory-section .brand-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 7px 0 6px;
+  font-size: 18px;
+  font-weight: 720;
+  line-height: 1.08;
+}
+.home-main .brand-directory-section .brand-card > p {
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+  margin: 0;
+  color: #68747c;
+  font-size: 10px;
+  line-height: 1.58;
+}
+.home-main .brand-directory-section .brand-card-bottom {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 13px;
+  border-top: 1px solid rgba(82,98,111,.1);
+  color: #39454d;
+}
+.home-main .brand-directory-section .brand-card-featured {
+  min-height: 188px;
+  padding: 17px 17px 18px;
+  border-top: 2px solid rgba(242,101,34,.72);
+}
+.home-main .brand-directory-section .brand-card-featured h3 {
+  font-size: 20px;
+}
+.home-main .brand-directory-section .brand-card-featured > p {
+  max-width: 255px;
+}
+.home-main .brand-directory-section .brand-card:hover {
+  transform: translate3d(0,-5px,0);
+  border-color: rgba(242,101,34,.28);
+  box-shadow:
+    0 24px 48px rgba(48,64,78,.11),
+    0 8px 18px rgba(48,64,78,.05),
+    inset 0 1px 0 rgba(255,255,255,1);
+}
+
+/* Keep the final footer fully white in light mode; remove the old translucent top wash entirely. */
+:root:not([data-theme="dark"]) .site-footer {
+  color: #273039;
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fa 100%) !important;
+}
+:root:not([data-theme="dark"]) .site-footer::before {
+  display: none !important;
+}
+:root:not([data-theme="dark"]) .site-footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark-mode counterparts for the refined homepage blocks. */
+:root[data-theme="dark"] .home-main .home-section-heading .section-heading-aside {
+  border-left-color: rgba(231,239,245,.13);
+}
+:root[data-theme="dark"] .home-main .section-heading-aside-label {
+  color: #8997a1;
+}
+:root[data-theme="dark"] .home-main .home-section-heading .section-heading-aside p {
+  color: #aeb9c2;
+}
+:root[data-theme="dark"] .home-main .advantage-card {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(242,101,34,.08), transparent 28%),
+    linear-gradient(145deg, rgba(30,39,46,.92), rgba(20,28,34,.74) 56%, rgba(27,36,43,.9));
+  border-color: rgba(224,234,241,.13);
+  box-shadow:
+    0 20px 44px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.2);
+}
+:root[data-theme="dark"] .home-main .advantage-card p {
+  color: #aeb9c2;
+}
+:root[data-theme="dark"] .home-main .advantage-card .advantage-icon {
+  background: linear-gradient(145deg, rgba(255,247,241,.1), rgba(242,101,34,.14));
+  border-color: rgba(242,101,34,.22);
+}
+:root[data-theme="dark"] .home-main .brand-directory-section .brand-card {
+  border-color: rgba(224,234,241,.12);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(242,101,34,.08), transparent 30%),
+    linear-gradient(145deg, rgba(31,40,47,.92), rgba(21,29,35,.74) 56%, rgba(27,36,43,.88));
+  box-shadow:
+    0 20px 44px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.18);
+}
+:root[data-theme="dark"] .home-main .brand-directory-section .brand-card-index {
+  color: #dce4e8;
+  border-color: rgba(224,234,241,.14);
+  background: rgba(255,255,255,.05);
+}
+:root[data-theme="dark"] .home-main .brand-directory-section .brand-card-group {
+  color: #84939e;
+}
+:root[data-theme="dark"] .home-main .brand-directory-section .brand-card > p {
+  color: #aeb9c2;
+}
+:root[data-theme="dark"] .home-main .brand-directory-section .brand-card-bottom {
+  color: #e4ebef;
+  border-top-color: rgba(224,234,241,.09);
+}
+
+/* Responsive heading/cards. */
+@media (max-width: 900px) {
+  .home-main .home-section-heading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-bottom: 34px;
+  }
+  .home-main .home-section-heading .section-heading-aside {
+    align-self: auto;
+    padding: 14px 0 0 20px;
+  }
+  .home-main .home-section-heading .section-heading-aside::before {
+    top: 14px;
+  }
+  .home-main .advantage-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .home-main .home-section-heading {
+    gap: 18px;
+    margin-bottom: 29px;
+  }
+  .home-main .home-section-heading h2 {
+    font-size: clamp(34px, 9vw, 48px);
+  }
+  .home-main .home-section-heading .section-heading-aside {
+    padding: 15px 0 0;
+    border-left: 0;
+    border-top: 1px solid rgba(84,101,114,.15);
+  }
+  .home-main .home-section-heading .section-heading-aside::before {
+    left: 0;
+    top: -1px;
+    width: 38px;
+    height: 2px;
+  }
+  .home-main .home-section-heading .section-heading-aside p {
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .home-main .featured-heading-row .all-projects-link {
+    align-self: flex-start;
+  }
+  .home-main .advantage-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+  .home-main .advantage-card {
+    min-height: 190px;
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .home-main .brand-directory-section .brand-card {
+    min-height: 142px;
+    border-radius: 16px;
+  }
+  .home-main .brand-directory-section .brand-card-featured {
+    min-height: 170px;
+  }
+}

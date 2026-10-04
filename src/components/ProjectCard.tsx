@@ -18,7 +18,6 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
           </div>
         )}
         <span className="project-media-wash" aria-hidden="true" />
-        <span className="project-media-kicker">{project.image ? `Illustrative supply image · ${project.sector}` : 'Decorative steel illustration · no project photo supplied'}</span>
         <span className="project-hover-action"><span>View Project</span><ArrowUpRight size={17} /></span>
       </Link>
       <div className="project-card-copy">

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import {
   ArrowDownRight,
   ArrowRight,
@@ -163,6 +163,37 @@ function AnimatedStat({ value, label, index }: { value: string; label: string; i
   );
 }
 
+
+function HomeSectionHeading({
+  eyebrow,
+  title,
+  intro,
+  titleId,
+  asideLabel,
+  className = '',
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  intro: string;
+  titleId: string;
+  asideLabel: string;
+  className?: string;
+}) {
+  return (
+    <div className={`split-section-heading home-section-heading ${className}`.trim()}>
+      <div className="section-heading-main">
+        <p className="eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
+        <h2 id={titleId}>{title}</h2>
+        <span className="section-heading-rule" aria-hidden="true" />
+      </div>
+      <div className="section-heading-aside">
+        <span className="section-heading-aside-label">{asideLabel}</span>
+        <p>{intro}</p>
+      </div>
+    </div>
+  );
+}
+
 const homeAdvantages = [
   { title: 'Certified Quality', copy: 'ISI-marked and BIS-certified products from trusted steel manufacturers.', icon: BadgeCheck },
   { title: 'Competitive Pricing', copy: 'Competitive market pricing for retail and wholesale requirements.', icon: Boxes },
@@ -224,10 +255,14 @@ export default function HomePage() {
 
       <section className="home-about-section" aria-labelledby="home-about-title">
         <ContentContainer>
-          <div className="about-home-heading">
-            <span className="section-badge"><span className="section-number">1</span><span className="section-label">About Sanghvi Agency</span></span>
-            <h2 id="home-about-title">Your Trusted Partner in<br className="about-heading-break" /> Construction Steel.</h2>
-          </div>
+          <HomeSectionHeading
+            className="about-home-heading"
+            eyebrow="About Sanghvi Agency"
+            title={<>Your Trusted Partner in<br className="about-heading-break" /> Construction Steel.</>}
+            titleId="home-about-title"
+            asideLabel="Company profile"
+            intro="Established in Bhuj in 2001, Sanghvi Agency supplies construction steel and related materials across Kutch and Gujarat with a focus on reliable service."
+          />
           <div className="about-home-grid">
             <div className="about-home-copy">
               <div className="about-copy-lead">
@@ -254,10 +289,13 @@ export default function HomePage() {
 
       <section id="home-products-section" className="page-section" aria-labelledby="home-products-title">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />Our Products</p><h2 id="home-products-title">Quality Steel for Every Project.</h2></div>
-            <p>From residential construction to industrial requirements, the existing Sanghvi Agency product catalogue covers steel and construction materials across project scales.</p>
-          </div>
+          <HomeSectionHeading
+            eyebrow="Our Products"
+            title="Quality Steel for Every Project."
+            titleId="home-products-title"
+            asideLabel="Supply range"
+            intro="From residential construction to industrial requirements, the Sanghvi Agency product catalogue covers steel and construction materials across different project scales."
+          />
           <div className="product-index-grid">
             {products.map((product, index) => (
               <article className="product-index-card" key={product.name}>
@@ -295,15 +333,17 @@ export default function HomePage() {
 
       <section className="page-section advantage-section" aria-labelledby="home-advantage-title">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />Why Choose Us</p><h2 id="home-advantage-title">Built on Trust,<br />Driven by Quality.</h2></div>
-            <p>Reliable supply for builders and contractors who need dependable quality, fair dealing, timely delivery and project-ready availability.</p>
-          </div>
+          <HomeSectionHeading
+            eyebrow="Why Choose Us"
+            title={<>Built on Trust,<br />Driven by Quality.</>}
+            titleId="home-advantage-title"
+            asideLabel="Why it matters"
+            intro="Reliable supply for builders and contractors who need dependable quality, fair dealing, timely delivery and project-ready availability."
+          />
           <div className="advantage-grid">
-            {homeAdvantages.map(({ title, copy, icon: Icon }, index) => (
+            {homeAdvantages.map(({ title, copy, icon: Icon }) => (
               <article className="advantage-card" key={title}>
-                <span className="advantage-icon"><Icon size={19} strokeWidth={1.6} /></span>
-                <span className="advantage-index">0{index + 1}</span>
+                <span className="advantage-icon"><Icon size={20} strokeWidth={1.6} /></span>
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </article>
@@ -314,10 +354,13 @@ export default function HomePage() {
 
       <section className="page-section brand-directory-section" aria-labelledby="home-brands-title">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />Trusted Brands</p><h2 id="home-brands-title">We Stock India's Best.</h2></div>
-            <p>Existing brand information includes authorized relationships and a broader multi-brand portfolio. Availability varies by current stock and requirement.</p>
-          </div>
+          <HomeSectionHeading
+            eyebrow="Trusted Brands"
+            title="We Stock India's Best."
+            titleId="home-brands-title"
+            asideLabel="Brand portfolio"
+            intro="A multi-brand portfolio built around dependable steel manufacturers and established supplier relationships. Availability varies by current stock and requirement."
+          />
           <div className="brand-feature-grid">
             {featuredBrands.slice(0, 4).map((name, index) => (
               <Link className="brand-card brand-card-featured" to={getBrandRoute(name)} key={name}>
@@ -346,12 +389,17 @@ export default function HomePage() {
 
       <section className="featured-projects-section" aria-labelledby="home-projects-title">
         <ContentContainer>
-          <div className="featured-heading-row">
-            <div>
-              <span className="section-badge"><span className="section-number">7</span><span className="section-label">Our Projects</span></span>
+          <div className="featured-heading-row home-section-heading">
+            <div className="section-heading-main">
+              <p className="eyebrow"><span className="eyebrow-dot" />Our Projects</p>
               <h2 id="home-projects-title">Steel That Builds<br className="featured-heading-break" /> the Region.</h2>
+              <span className="section-heading-rule" aria-hidden="true" />
             </div>
-            <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
+            <div className="section-heading-aside">
+              <span className="section-heading-aside-label">Selected supply work</span>
+              <p>Selected industrial, residential, commercial and logistics supply work from the Sanghvi Agency project portfolio.</p>
+              <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
+            </div>
           </div>
           <div className="project-grid">
             {projects.slice(0, 4).map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}
@@ -362,10 +410,13 @@ export default function HomePage() {
 
       <section className="page-section testimonials-section" aria-labelledby="home-testimonials-title">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />Testimonials</p><h2 id="home-testimonials-title">What Our Customers Say.</h2></div>
-            <p>These testimonials are the existing source entries from the Sanghvi Agency content set.</p>
-          </div>
+          <HomeSectionHeading
+            eyebrow="Testimonials"
+            title="What Our Customers Say."
+            titleId="home-testimonials-title"
+            asideLabel="Customer perspective"
+            intro="Feedback from builders, contractors, industrial customers and homeowners who rely on Sanghvi Agency for consistent steel supply and service."
+          />
           <div className="home-testimonials-carousel">
             <div className="home-testimonials-viewport">
               <div className="home-testimonials-track" aria-label="Customer testimonials">
@@ -386,10 +437,13 @@ export default function HomePage() {
 
       <section className="page-section faq-content-section" aria-labelledby="home-faq-title">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />FAQ</p><h2 id="home-faq-title">Frequently Asked Questions.</h2></div>
-            <p>Quick answers to common questions about brands, quantities, delivery and quotations.</p>
-          </div>
+          <HomeSectionHeading
+            eyebrow="FAQ"
+            title="Frequently Asked Questions."
+            titleId="home-faq-title"
+            asideLabel="Need to know"
+            intro="Clear answers on brands, order quantities, delivery coverage, certifications and quotations—so you can plan your next steel requirement with confidence."
+          />
           <div className="accordion-list home-faq-list">
             {faqItems.slice(0, 4).map((item, index) => (
               <details className="accordion-item" key={item.question} open={index === 0}>

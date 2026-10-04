@@ -94,11 +94,13 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
 }
 
 function AnimatedStat({ value, label, index }: { value: string; label: string; index: number }) {
-  const numericMatch = value.match(/^(\d+)(\+?)$/);
+  const numericMatch = value.match(/^(\d+)([+%]?)$/);
   const isNumeric = Boolean(numericMatch);
   const suffix = numericMatch?.[2] ?? '';
   const target = numericMatch ? Number(numericMatch[1]) : 0;
   const [displayValue, setDisplayValue] = useState(isNumeric ? `0${suffix}` : value);
+  const statRef = useRef<HTMLDivElement>(null);
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
 
   useEffect(() => {
     if (!isNumeric || !Number.isFinite(target)) {
@@ -109,13 +111,43 @@ function AnimatedStat({ value, label, index }: { value: string; label: string; i
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     if (prefersReducedMotion) {
       setDisplayValue(value);
+      setHasEnteredViewport(true);
+      return;
+    }
+
+    const element = statRef.current;
+    if (!element || !('IntersectionObserver' in window)) {
+      setHasEnteredViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEnteredViewport(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [isNumeric, target, value]);
+
+  useEffect(() => {
+    if (!isNumeric || !Number.isFinite(target) || !hasEnteredViewport) return;
+
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    if (prefersReducedMotion) {
+      setDisplayValue(value);
       return;
     }
 
     setDisplayValue(`0${suffix}`);
     let frame = 0;
     const timer = window.setTimeout(() => {
-      const duration = 1300;
+      const duration = 1450;
       const startTime = performance.now();
 
       const tick = (now: number) => {
@@ -127,16 +159,16 @@ function AnimatedStat({ value, label, index }: { value: string; label: string; i
       };
 
       frame = window.requestAnimationFrame(tick);
-    }, 120 + index * 120);
+    }, 90 + index * 110);
 
     return () => {
       window.clearTimeout(timer);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [index, isNumeric, suffix, target, value]);
+  }, [hasEnteredViewport, index, isNumeric, suffix, target, value]);
 
   return (
-    <div className="home-stat">
+    <div className="home-stat" ref={statRef}>
       <strong>{displayValue}</strong>
       <span>{label}</span>
     </div>
@@ -188,9 +220,9 @@ export default function HomePage() {
               <p className="hero-support">Serving Builders, Contractors &amp; Industries Across Kutch &amp; Gujarat with trusted quality steel.</p>
               <div className="hero-actions">
                 <ActionLink href="/request-quote" tone="orange" className="hero-quote-action">Request a Quote</ActionLink>
-                <a className="hero-whatsapp-action" href={createWhatsAppHref(['Hello Sanghvi Agency, I would like to ask about steel availability and pricing.'])} target="_blank" rel="noopener noreferrer">
-                  Chat on WhatsApp <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
+                <ActionLink href="#home-products-section" tone="dark" className="hero-explore-action">
+                  Explore Products
+                </ActionLink>
               </div>
               <div className="hero-metrics" aria-label="Sanghvi Agency at a glance">
                 {metrics.map((metric, index) => (
@@ -232,7 +264,7 @@ export default function HomePage() {
         </ContentContainer>
       </section>
 
-      <section className="page-section" aria-labelledby="home-products-title">
+      <section id="home-products-section" className="page-section" aria-labelledby="home-products-title">
         <ContentContainer>
           <div className="split-section-heading">
             <div><p className="eyebrow"><span className="eyebrow-dot" />Our Products</p><h2 id="home-products-title">Quality Steel for Every Project.</h2></div>
@@ -268,7 +300,7 @@ export default function HomePage() {
             <AnimatedStat value="20+" label="Years of Experience" index={0} />
             <AnimatedStat value="1000+" label="Customers" index={1} />
             <AnimatedStat value="500+" label="Projects Supplied" index={2} />
-            <div className="home-stat"><strong>100%</strong><span>Gujarat Coverage</span></div>
+            <AnimatedStat value="100%" label="Gujarat Coverage" index={3} />
           </div>
         </ContentContainer>
       </section>
@@ -336,10 +368,6 @@ export default function HomePage() {
           <div className="project-grid">
             {projects.slice(0, 4).map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}
           </div>
-          <div className="home-bottom-cta">
-            <p>Need steel for your next project?</p>
-            <ActionLink href="/request-quote" tone="dark">Request a Quote</ActionLink>
-          </div>
           <span className="featured-mark" aria-hidden="true"><ArrowDownRight size={20} /><span>SA · 2001</span></span>
         </ContentContainer>
       </section>
@@ -386,21 +414,6 @@ export default function HomePage() {
         </ContentContainer>
       </section>
 
-      <section className="page-section home-final-cta-section" aria-labelledby="home-final-cta-title">
-        <ContentContainer>
-          <div className="faq-final-cta">
-            <div>
-              <p className="eyebrow"><span className="eyebrow-dot" />Quick quotation</p>
-              <h2 id="home-final-cta-title">Need Steel for Your Next Project?</h2>
-              <p>Share your sizes and quantities for a quick quotation and availability check.</p>
-            </div>
-            <div>
-              <ActionLink href="/request-quote" tone="orange">Request Quote</ActionLink>
-              <ActionLink href="tel:+919428220385" tone="dark" arrow={false}>Call Now</ActionLink>
-            </div>
-          </div>
-        </ContentContainer>
-      </section>
     </main>
   );
 }

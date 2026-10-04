@@ -154,10 +154,6 @@ const homeAdvantages = [
 
 export default function HomePage() {
   const [videoMotionAllowed, setVideoMotionAllowed] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [testimonialAnimating, setTestimonialAnimating] = useState(true);
-  const [testimonialPaused, setTestimonialPaused] = useState(false);
-  const [testimonialMobile, setTestimonialMobile] = useState(() => window.matchMedia('(max-width: 760px)').matches);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -174,49 +170,6 @@ export default function HomePage() {
     motionPreference.addEventListener('change', update);
     return () => motionPreference.removeEventListener('change', update);
   }, []);
-
-  useEffect(() => {
-    const query = window.matchMedia('(max-width: 760px)');
-    const update = () => setTestimonialMobile(query.matches);
-    update();
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
-
-  useEffect(() => {
-    if (testimonialPaused) return;
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    if (prefersReducedMotion) return;
-
-    const timer = window.setInterval(() => {
-      setTestimonialIndex((current) => current + 1);
-    }, 4800);
-    return () => window.clearInterval(timer);
-  }, [testimonialPaused]);
-
-  useEffect(() => {
-    if (testimonialIndex !== testimonials.length) return;
-
-    const resetTimer = window.setTimeout(() => {
-      setTestimonialAnimating(false);
-      setTestimonialIndex(0);
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => setTestimonialAnimating(true));
-      });
-    }, 760);
-
-    return () => window.clearTimeout(resetTimer);
-  }, [testimonialIndex]);
-
-  const shiftTestimonials = (direction: number) => {
-    setTestimonialAnimating(true);
-    setTestimonialIndex((current) => {
-      const next = current + direction;
-      if (next < 0) return testimonials.length - 1;
-      if (next >= testimonials.length) return 0;
-      return next;
-    });
-  };
 
   const featuredBrands = allBrandNames.slice(0, 16);
 
@@ -397,20 +350,10 @@ export default function HomePage() {
             <div><p className="eyebrow"><span className="eyebrow-dot" />Testimonials</p><h2 id="home-testimonials-title">What Our Customers Say.</h2></div>
             <p>These testimonials are the existing source entries from the Sanghvi Agency content set.</p>
           </div>
-          <div
-            className="home-testimonials-carousel"
-            onMouseEnter={() => setTestimonialPaused(true)}
-            onMouseLeave={() => setTestimonialPaused(false)}
-          >
+          <div className="home-testimonials-carousel">
             <div className="home-testimonials-viewport">
-              <div
-                className="home-testimonials-track"
-                style={{
-                  transform: `translate3d(${-(testimonialIndex * 10)}%, 0, 0)`,
-                  transition: testimonialAnimating ? undefined : 'none',
-                }}
-              >
-                {[...testimonials, ...testimonials.slice(0, 3)].map((testimonial, index) => (
+              <div className="home-testimonials-track" aria-label="Customer testimonials">
+                {[...testimonials, ...testimonials].map((testimonial, index) => (
                   <blockquote className="testimonial-card" key={`${testimonial.name}-${index}`}>
                     <div className="testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>
                       {Array.from({ length: testimonial.stars }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}
@@ -421,27 +364,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <button type="button" className="home-testimonial-control home-testimonial-control--left" aria-label="Previous testimonial" onClick={() => shiftTestimonials(-1)}>
-              <ArrowRight size={17} />
-            </button>
-            <button type="button" className="home-testimonial-control home-testimonial-control--right" aria-label="Next testimonial" onClick={() => shiftTestimonials(1)}>
-              <ArrowRight size={17} />
-            </button>
-          </div>
-          <div className="home-testimonial-dots" aria-label="Choose testimonial">
-            {testimonials.map((testimonial, index) => (
-              <button
-                type="button"
-                key={testimonial.name}
-                className={testimonialIndex % testimonials.length === index ? 'active' : ''}
-                aria-label={`Show testimonial ${index + 1}`}
-                aria-pressed={testimonialIndex % testimonials.length === index}
-                onClick={() => {
-                  setTestimonialAnimating(true);
-                  setTestimonialIndex(index);
-                }}
-              />
-            ))}
           </div>
         </ContentContainer>
       </section>

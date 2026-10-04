@@ -168,6 +168,7 @@ export default function SiteHeader() {
               ))}
             </nav>
           </div>
+          <span className="mobile-header-title" aria-hidden="true">Sanghvi Agency</span>
           <div className="nav-utility">
             <span className="service-region">Serving Kutch &amp; Gujarat</span>
             <span className="header-clock"><Clock size={14} strokeWidth={1.7} /><span>{time} IST</span></span>

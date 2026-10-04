@@ -117,7 +117,7 @@ export const products = [
     categoryRoute: '/products/',
     description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
     short: 'Construction-grade nails & hardware',
-    image: images.hardware,
+    image: '/images/hardware.jpg',
     fallbackImage: '/images/hardware.jpg',
     alt: 'Nuts and bolts used as construction and engineering hardware',
     icon: 'hardware',

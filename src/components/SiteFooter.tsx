@@ -1,4 +1,22 @@
-import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BadgeCheck,
+  Boxes,
+  Clock,
+  FileText,
+  FolderKanban,
+  HelpCircle,
+  Home,
+  Image,
+  Info,
+  Layers3,
+  Mail,
+  MapPin,
+  Package,
+  Phone,
+  PhoneCall,
+  ShieldCheck,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { contact } from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
@@ -18,6 +36,26 @@ const categoryLinks = [
   { label: 'MS Angles', to: '/ms-angle/' },
   { label: 'MS Channels', to: '/ms-channel/' },
   { label: 'Steel Pipes', to: '/pipes/' },
+];
+
+const quickLinks = [
+  { label: 'Home', to: '/', icon: Home },
+  { label: 'About Us', to: '/about', icon: Info },
+  { label: 'All Products', to: '/products/', icon: Package },
+  { label: 'Brand Portfolio', to: '/brands', icon: BadgeCheck },
+  { label: 'Projects Portfolio', to: '/projects', icon: FolderKanban },
+  { label: 'Photo Gallery', to: '/gallery', icon: Image },
+  { label: 'FAQ', to: '/faq', icon: HelpCircle },
+  { label: 'Contact Us', to: '/contact', icon: PhoneCall },
+];
+
+const steelProductLinks = [
+  { label: 'Mono TMT Bars (Fe500/550D)', to: '/tmt-bars/mono-tmt-bars/', icon: Layers3 },
+  { label: 'Steel Angles (MS)', to: '/products/steel-angles', icon: Boxes },
+  { label: 'MS Channels (ISMC)', to: '/products/steel-channels', icon: Layers3 },
+  { label: 'Steel Beams (ISMB / H-Beams)', to: '/products/steel-beams', icon: Layers3 },
+  { label: 'Binding Wire & Nails', to: '/products/', icon: Package },
+  { label: 'Request Instant Quote', to: '/request-quote', icon: FileText },
 ];
 
 export function MobileWhatsApp() {
@@ -77,26 +115,35 @@ export default function SiteFooter({ compact = false }: { compact?: boolean }) {
           <div className="footer-brand-column">
             <BrandMark />
             <p className="footer-brand-copy">Primary industrial wholesale steel supplier in Bhuj specializing in structural steel, binding wires, nails, and custom-length TMT bars.</p>
-            <p className="authorized-line"><span>Authorized distributor</span> Mono TMT · Utkarsh TMX · Varrsana TMX · National TMX</p>
+            <p className="authorized-line"><span><ShieldCheck size={11} /> Authorized distributor</span> Mono TMT · Utkarsh TMX · Varrsana TMX · National TMX</p>
             <p className="footer-business"><strong>GSTIN</strong> {contact.gstin}<br /><strong>Business type</strong> {contact.businessType}</p>
           </div>
 
           <div className="footer-link-column">
             <h3>Quick Links</h3>
-            {[
-              { label: 'Home', to: '/' }, { label: 'About Us', to: '/about' }, { label: 'All Products', to: '/products/' },
-              { label: 'Brand Portfolio', to: '/brands' }, { label: 'Projects Portfolio', to: '/projects' },
-              { label: 'Photo Gallery', to: '/gallery' }, { label: 'FAQ', to: '/faq' }, { label: 'Contact Us', to: '/contact' },
-            ].map((link) => <Link key={link.to} to={link.to}>{link.label}</Link>)}
+            <div className="footer-column-heading"><span className="footer-heading-icon"><Home size={13} /></span><h3>Quick Links</h3></div>
+            {quickLinks.map(({ label, to, icon: Icon }) => (
+              <Link key={to} to={to}>
+                <span className="footer-link-icon"><Icon size={13} /></span>
+                <span>{label}</span>
+                <ArrowUpRight size={12} aria-hidden="true" />
+              </Link>
+            ))}
           </div>
 
           <div className="footer-link-column">
-            <h3>Steel Products</h3>
-            {footerProducts.map((item) => <Link key={item.to} to={item.to}>{item.label}</Link>)}
+            <div className="footer-column-heading"><span className="footer-heading-icon"><Package size={13} /></span><h3>Steel Products</h3></div>
+            {steelProductLinks.map(({ label, to, icon: Icon }) => (
+              <Link key={to} to={to}>
+                <span className="footer-link-icon"><Icon size={13} /></span>
+                <span>{label}</span>
+                <ArrowUpRight size={12} aria-hidden="true" />
+              </Link>
+            ))}
           </div>
 
           <div className="footer-contact-column">
-            <h3>Contact Sanghvi Agency</h3>
+            <div className="footer-column-heading"><span className="footer-heading-icon"><PhoneCall size={13} /></span><h3>Contact Sanghvi Agency</h3></div>
             <a href={`tel:${contact.primaryPhone.replaceAll(' ', '')}`}><Phone size={15} /><span><strong>Dhaval Sanghvi</strong>{contact.primaryPhone}</span></a>
             <a href={`tel:${contact.secondaryPhone.replaceAll(' ', '')}`}><Phone size={15} /><span><strong>Vinesh Sanghvi</strong>{contact.secondaryPhone}</span></a>
             <a href={`mailto:${contact.email}`}><Mail size={15} /><span>{contact.email}</span></a>

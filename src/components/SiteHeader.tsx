@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, Clock, Menu, Moon, Sun, X } from 'lucide-react';
+import { ArrowLeft, Menu, Moon, Sun, X } from 'lucide-react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { navItems } from '../data/site';
 
@@ -12,15 +12,6 @@ const productLinks = [
   { label: 'MS Channels', to: '/products/steel-channels' },
   { label: 'Steel Beams', to: '/products/steel-beams' },
 ];
-
-function indiaTime() {
-  return new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Kolkata',
-    hour: '2-digit',
-    minute: '2-digit',
-    hourCycle: 'h23',
-  }).format(new Date());
-}
 
 function ThemeToggle({ darkMode, onToggle, className }: { darkMode: boolean; onToggle: () => void; className: string }) {
   const label = darkMode ? 'Switch to light mode' : 'Switch to dark mode';
@@ -40,7 +31,6 @@ function ThemeToggle({ darkMode, onToggle, className }: { darkMode: boolean; onT
 }
 
 export default function SiteHeader() {
-  const [time, setTime] = useState(indiaTime);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuMounted, setMenuMounted] = useState(false);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
@@ -84,11 +74,6 @@ export default function SiteHeader() {
     }
     setDarkMode(nextTheme === 'dark');
   };
-
-  useEffect(() => {
-    const interval = window.setInterval(() => setTime(indiaTime()), 1000);
-    return () => window.clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     if (menuMounted) closeMenu();
@@ -173,7 +158,6 @@ export default function SiteHeader() {
           <span className="mobile-header-title" aria-hidden="true">Sanghvi Agency</span>
           <div className="nav-utility">
             <span className="service-region">Serving Kutch &amp; Gujarat</span>
-            <span className="header-clock"><Clock size={14} strokeWidth={1.7} /><span>{time} IST</span></span>
             <ThemeToggle darkMode={darkMode} onToggle={toggleTheme} className="theme-toggle--utility" />
             <ActionLink href="/request-quote" className="header-quote" arrow>Request Quote</ActionLink>
           </div>
@@ -207,7 +191,6 @@ export default function SiteHeader() {
               </button>
               <a className="site-logo-image site-logo-image--menu" href="/" aria-label="Sanghvi Agency home"><img src={SANGHVI_LOGO_URL} alt="Sanghvi Agency" /></a>
               <div className="mobile-sheet-tools">
-                <span className="mobile-time-badge"><Clock size={14} />{time} IST</span>
                 <ThemeToggle darkMode={darkMode} onToggle={toggleTheme} className="theme-toggle--mobile" />
               </div>
             </div>

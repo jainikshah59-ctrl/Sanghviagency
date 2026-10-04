@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import SiteHeader from './components/SiteHeader';
-import SiteFooter from './components/SiteFooter';
+import SiteFooter, { MobileWhatsApp } from './components/SiteFooter';
 import HomePage from './pages/HomePage';
 import { AboutPage } from './pages/CompanyPages';
 import { BrandsPage, BrandDetailPage, CategoryPage, NotFoundPage, ProductDetailPage, ProductsPage } from './pages/CatalogPages';
@@ -200,6 +200,7 @@ export default function App() {
         </Routes>
       </div>
       <SiteFooter compact={isShortCategoryFooter} />
+      <MobileWhatsApp />
     </>
   );
 }

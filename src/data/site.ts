@@ -646,15 +646,15 @@ export const projects = [
 ];
 
 export const galleryItems = [
-  { title: 'Steel Supply Warehouse', image: images.warehouse, alt: 'Industrial warehouse with steel beams and overhead crane handling' },title: 'Steel Supply Warehouse', fallbackImage: '/images/warehouse.jpg', image: images.warehouse, alt: 'Industrial warehouse with steel beams and overhead crane handling' },
-  { title: 'TMT Rebar Bundles', image: images.tmtBars, alt: 'Construction worker inspecting exposed rebar reinforcement on a building site' },title: 'TMT Rebar Bundles', fallbackImage: '/images/tmtBars.jpg', image: images.tmtBars, alt: 'Construction worker inspecting exposed rebar reinforcement on a building site' },
-  { title: 'Steel Angles & Structural Sections', image: images.steelAngles, alt: 'Stacked structural steel sections and angles in an industrial yard' },title: 'Steel Angles & Structural Sections', fallbackImage: '/images/steelAngles.jpg', image: images.steelAngles, alt: 'Stacked structural steel sections and angles in an industrial yard' },
-  { title: 'Steel Beam Stock', image: images.steelBeams, alt: 'Large pile of structural steel beams in a warehouse' },title: 'Steel Beam Stock', fallbackImage: '/images/steelBeams.jpg', image: images.steelBeams, alt: 'Large pile of structural steel beams in a warehouse' },
-  { title: 'Construction & Crane Loading', image: images.portLoading, alt: 'Industrial overhead crane and steel material-handling operation inside a warehouse' },
-  { title: 'Binding Wire Coils', image: images.bindingWire, alt: 'Close-up coil of steel wire used as construction binding material' },title: 'Binding Wire Coils', fallbackImage: '/images/bindingWire.jpg', image: images.bindingWire, alt: 'Close-up coil of steel wire used as construction binding material' },
-  { title: 'MS Channel Section Storage', image: images.msChannels, alt: 'Structural steel profiles including channel sections in industrial stock' },title: 'MS Channel Section Storage', fallbackImage: '/images/msChannels.jpg', image: images.msChannels, alt: 'Structural steel profiles including channel sections in industrial stock' },
-  { title: 'Steel Pipe Inventory', image: images.steelPipes, alt: 'Large stack of steel pipes in a warehouse' },title: 'Steel Pipe Inventory', fallbackImage: '/images/steelPipes.jpg', image: images.steelPipes, alt: 'Large stack of steel pipes in a warehouse' },
-  { title: 'Construction Hardware', image: images.hardware, alt: 'Nuts and bolts used as construction and engineering hardware' },title: 'Construction Hardware', fallbackImage: '/images/hardware.jpg', image: images.hardware, alt: 'Nuts and bolts used as construction and engineering hardware' },
+  { title: 'Steel Supply Warehouse', fallbackImage: '/images/warehouse.jpg', image: images.warehouse, alt: 'Industrial warehouse with steel profiles and overhead crane handling' },
+  { title: 'TMT Rebar Bundles', fallbackImage: '/images/tmtBars.jpg', image: images.tmtBars, alt: 'TMT reinforcement bars used for concrete construction' },
+  { title: 'Steel Angles & Structural Sections', fallbackImage: '/images/steelAngles.jpg', image: images.steelAngles, alt: 'Steel angle sections stacked in an industrial stockyard' },
+  { title: 'Steel Beam Stock', fallbackImage: '/images/steelBeams.jpg', image: images.steelBeams, alt: 'Structural steel beams stacked for fabrication and construction' },
+  { title: 'Industrial Crane & Material Handling', fallbackImage: '/images/portLoading.jpg', image: images.portLoading, alt: 'Industrial crane and steel material handling operation' },
+  { title: 'Binding Wire Coils', fallbackImage: '/images/bindingWire.jpg', image: images.bindingWire, alt: 'Binding wire coils used for construction reinforcement tying' },
+  { title: 'MS Channel Section Storage', fallbackImage: '/images/msChannels.jpg', image: images.msChannels, alt: 'MS channel steel sections organized in industrial storage' },
+  { title: 'Steel Pipe Inventory', fallbackImage: '/images/steelPipes.jpg', image: images.steelPipes, alt: 'Steel pipes stacked for industrial construction supply' },
+  { title: 'Construction Hardware', fallbackImage: '/images/hardware.jpg', image: images.hardware, alt: 'Construction bolts, nuts and steel hardware' },
 ];
 
 export const faqItems: Question[] = [

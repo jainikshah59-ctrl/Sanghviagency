@@ -35,7 +35,7 @@ export function ProjectsPage() {
       </section>
       <section className="page-section testimonials-section">
         <ContentContainer>
-          <SectionHeading eyebrow="Customer Voices" title="Trust Is Built in Every Delivery." intro="Feedback from the five source testimonials, shown without added claims or altered ratings."
+          <SectionHeading eyebrow="Customer Voices" title="Trust Is Built in Every Delivery." intro="Feedback from the five source testimonials, shown without added claims or altered ratings." />
           <div className="testimonials-grid">
             {testimonials.map((testimonial) => (
               <blockquote className="testimonial-card" key={testimonial.name}>

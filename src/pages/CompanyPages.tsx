@@ -70,7 +70,7 @@ export function AboutPage() {
 
       <section className="page-section advantage-section">
         <ContentContainer>
-          <SectionHeading eyebrow="The Sanghvi Advantage" title="Experience That Moves Projects Forward." intro="Retail and wholesale supply for residential, commercial, industrial and infrastructure requirements across Gujarat."
+          <SectionHeading eyebrow="The Sanghvi Advantage" title="Experience That Moves Projects Forward." intro="Retail and wholesale supply for residential, commercial, industrial and infrastructure requirements across Gujarat." />
           <div className="advantage-grid">
             {advantage.map((item, index) => {
               const Icon = advantageIcons[index] ?? BadgeCheck;

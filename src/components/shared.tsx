@@ -1,6 +1,6 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export type ButtonTone = 'dark' | 'orange' | 'light' | 'outline';
 
@@ -113,8 +113,18 @@ export function PageHeading({
   subtitle?: string;
   actions?: ReactNode;
 }) {
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.length > 1) navigate(-1);
+    else navigate('/');
+  };
+
   return (
     <header className="page-heading">
+      <button className="page-back-button" type="button" onClick={handleBack}>
+        <span aria-hidden="true">←</span>
+        <span>Back</span>
+      </button>
       <p className="eyebrow page-heading-eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
       <h1>{title}</h1>
       {subtitle && <p className="page-heading-copy">{subtitle}</p>}

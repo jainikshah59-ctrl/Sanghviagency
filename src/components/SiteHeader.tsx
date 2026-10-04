@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Clock, Menu, Moon, Sun, X } from 'lucide-react';
+import { ArrowLeft, Clock, Menu, Moon, Sun, X } from 'lucide-react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { navItems } from '../data/site';
-import { ActionLink, BrandMark, ContentContainer } from './shared';
+
+const SANGHVI_LOGO_URL = 'https://res.cloudinary.com/kmkcbqvz/image/upload/v1791107200/logo_1.jpg';
+import { ActionLink, ContentContainer } from './shared';
 
 const productLinks = [
   { label: 'TMT Bars', to: '/products/tmt-bars' },
@@ -150,7 +152,7 @@ export default function SiteHeader() {
       <ContentContainer className="header-container">
         <div className="nav-pill">
           <div className="nav-primary">
-            <BrandMark compact />
+            <a className="site-logo-image site-logo-image--header" href="/" aria-label="Sanghvi Agency home"><img src={SANGHVI_LOGO_URL} alt="Sanghvi Agency" /></a>
             <nav className="desktop-navigation" aria-label="Primary navigation">
               {navItems.map((item) => item.label === 'Products' ? (
                 <div className="nav-products" key={item.label}>
@@ -195,7 +197,15 @@ export default function SiteHeader() {
           <button className="mobile-menu-scrim" type="button" aria-label="Close navigation menu" onClick={closeMenu} />
           <nav ref={menuDialogRef} id="mobile-navigation-sheet" className={`mobile-menu-sheet ${menuOpen ? 'is-open' : 'is-closing'}`} aria-label="Mobile navigation" aria-modal="true" role="dialog">
             <div className="mobile-sheet-top">
-              <BrandMark />
+              <button className="mobile-menu-back" type="button" onClick={() => {
+                closeMenu();
+                if (window.history.length > 1) window.setTimeout(() => window.history.back(), 20);
+                else window.setTimeout(() => window.location.assign('/'), 20);
+              }}>
+                <ArrowLeft size={16} aria-hidden="true" />
+                <span>Back</span>
+              </button>
+              <a className="site-logo-image site-logo-image--menu" href="/" aria-label="Sanghvi Agency home"><img src={SANGHVI_LOGO_URL} alt="Sanghvi Agency" /></a>
               <div className="mobile-sheet-tools">
                 <span className="mobile-time-badge"><Clock size={14} />{time} IST</span>
                 <ThemeToggle darkMode={darkMode} onToggle={toggleTheme} className="theme-toggle--mobile" />

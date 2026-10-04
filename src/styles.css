@@ -5306,3 +5306,283 @@ main p { text-wrap: pretty; }
   .mobile-whatsapp::before { animation: none !important; opacity: 0 !important; }
   .mobile-nav-list a,.mobile-sheet-subnav a { transition: none !important; }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Final mobile refinement pass                                                */
+/* -------------------------------------------------------------------------- */
+
+/* Page-level back affordance: unobtrusive, text-first and consistent with the
+   homepage typography rather than another glass card. */
+.page-back-button {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 11px;
+  padding: 0;
+  border: 0;
+  color: #7a858c;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 180ms ease, transform 180ms ease;
+}
+.page-back-button span:first-child {
+  font-size: 16px;
+  line-height: 1;
+}
+.page-back-button:hover,
+.page-back-button:focus-visible {
+  color: var(--orange-dark);
+  transform: translateX(-2px);
+}
+:root[data-theme="dark"] .page-back-button {
+  color: #aab5bd;
+}
+
+/* The supplied agency logo is the actual header/menu identity; keep it
+   optically crisp at both sizes without replacing it with the text monogram. */
+.site-logo-image {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: #fff;
+}
+.site-logo-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.site-logo-image--header {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 0 6px 16px rgba(25,35,44,.12), inset 0 1px 0 rgba(255,255,255,.95);
+}
+.site-logo-image--menu {
+  width: 132px;
+  height: 46px;
+  border-radius: 10px;
+  padding: 4px 9px;
+  box-shadow: 0 8px 18px rgba(25,35,44,.1), inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+.mobile-sheet-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+.mobile-sheet-top .site-logo-image--menu {
+  justify-self: center;
+}
+.mobile-menu-back {
+  min-height: 36px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(82,98,111,.15);
+  border-radius: 10px;
+  color: #4d5961;
+  background: rgba(255,255,255,.72) !important;
+  box-shadow: 0 5px 12px rgba(37,50,61,.07), inset 0 1px 0 rgba(255,255,255,.9);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.mobile-menu-back:hover,
+.mobile-menu-back:focus-visible {
+  transform: translate3d(0,-2px,4px);
+  border-color: rgba(82,98,111,.28);
+}
+.mobile-menu-back:active {
+  transform: translate3d(0,1px,0) scale(.98);
+  box-shadow: inset 0 2px 4px rgba(37,50,61,.11);
+}
+:root[data-theme="dark"] .mobile-menu-back {
+  color: #d8e0e5;
+  border-color: rgba(230,238,244,.14);
+  background: rgba(255,255,255,.07) !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* About section mobile order:
+   heading -> image -> lead copy -> body copy -> metadata -> CTA.
+   Everything is intentionally centered on narrow screens. */
+@media (max-width: 760px) {
+  .home-main .home-about-section .about-home-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+  .home-main .home-about-section .about-image-large {
+    order: -1;
+    width: 100%;
+    height: min(61vw, 250px);
+    margin: 0;
+  }
+  .home-main .home-about-section .about-image-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .home-main .home-about-section .about-image-large figcaption {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: 34px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center !important;
+    text-align: center;
+    padding: 8px 11px !important;
+    border-radius: 12px !important;
+    z-index: 4;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: visible !important;
+  }
+  .home-main .home-about-section .about-home-copy {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .home-main .home-about-section .about-copy-lead {
+    width: min(100%, 600px);
+    padding: 0 0 15px !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(82,98,111,.12);
+  }
+  .home-main .home-about-section .about-copy-kicker {
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .home-main .home-about-section .about-copy-lead p {
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.58;
+  }
+  .home-main .home-about-section .about-copy-body {
+    width: min(100%, 600px);
+    padding: 1px 0 0 !important;
+    gap: 11px;
+    text-align: center;
+  }
+  .home-main .home-about-section .about-copy-body p {
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 10.5px;
+    line-height: 1.76;
+  }
+  .home-main .home-about-section .about-copy-meta {
+    width: min(100%, 600px);
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 8px 18px;
+    margin: 18px auto 0 !important;
+    padding: 11px 0 0 !important;
+    border-top: 1px solid rgba(82,98,111,.12);
+    text-align: center;
+  }
+  .home-main .home-about-section .about-copy-meta span {
+    justify-content: center;
+  }
+  .home-main .home-about-section .about-home-copy .action-pill {
+    align-self: center;
+    margin: 17px auto 0 !important;
+  }
+}
+
+/* Gallery cards must be a true single vertical sequence on phones, with no
+   masonry/grid spans left over from the desktop composition. */
+@media (max-width: 760px) {
+  .page-main .gallery-section .gallery-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-flow: row !important;
+    gap: 25px !important;
+  }
+  .page-main .gallery-section .gallery-card,
+  .page-main .gallery-section .gallery-card:nth-child(n) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    width: 100%;
+  }
+}
+
+/* Footer navigation icons remain explicit and non-collapsible at narrow
+   widths so they cannot disappear as the footer stack reflows. */
+.footer-link-column > a .footer-link-icon,
+.footer-link-column > a .footer-link-icon svg {
+  display: grid;
+  place-items: center;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.footer-link-column > a .footer-link-icon {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+}
+.footer-link-column > a .footer-link-icon svg {
+  width: 13px;
+  height: 13px;
+  color: currentColor;
+}
+.footer-contact-column > a > svg:first-child {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Keep the new centered header title styled as a genuine wordmark. */
+@media (max-width: 1100px) {
+  .mobile-header-title {
+    max-width: 42%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    line-height: 1;
+    letter-spacing: -.05em !important;
+  }
+}
+@media (max-width: 480px) {
+  .mobile-header-title {
+    font-size: 13px !important;
+  }
+  .site-logo-image--header {
+    width: 43px;
+    height: 43px;
+  }
+  .site-logo-image--menu {
+    width: 120px;
+    height: 42px;
+  }
+  .mobile-sheet-top {
+    gap: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-back-button,
+  .mobile-menu-back {
+    transition: none !important;
+  }
+}

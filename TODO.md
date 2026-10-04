@@ -88,3 +88,13 @@ This project uses this repository checklist because no native WebDev TODO tool i
 - Fully self-contained media: all 18 site images + hero video vendored into public/ (no Pexels/Cloudinary hotlinks) — the site now renders identically on any network.
 - Micro-craft: button shine sweeps, card lift + image zoom + orange edge sweep on hover, nav link underlines, section-number orange chips, styled scrollbar, SA monogram SVG favicon, page transition, dark-mode verified.
 - All 45 routes, copy, product/brand data, contact details and WhatsApp flows unchanged.
+
+## 12. [x] Hero section restored to original (2026-10-04)
+
+- Per review feedback: reverted HomePage hero to the original glass-card design
+  (original headline, CTAs, trust badge, metrics, scroll cue) and removed the
+  cinematic hero overrides + brand marquee ribbon from elevation.css.
+- Kept the vendored local hero video (`/hero.mp4`, same footage) instead of the
+  Cloudinary hotlink so the hero plays reliably on any network.
+- Rest of the elevation pass (type system, cards, nav, footer, local images)
+  unchanged.

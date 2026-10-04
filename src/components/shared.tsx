@@ -79,10 +79,24 @@ export function ActionLink({
   );
 }
 
-export function BrandMark({ compact = false }: { compact?: boolean }) {
+const SANGHVI_LOGO_URL = 'https://res.cloudinary.com/kmkcbqvz/image/upload/v1791107200/logo_1.jpg';
+
+export function BrandMark({ compact = false, useLogo = false }: { compact?: boolean; useLogo?: boolean }) {
   return (
     <Link className={`brand-mark ${compact ? 'brand-mark-compact' : ''}`} to="/" aria-label="Sanghvi Agency home">
-      <span className="brand-monogram" aria-hidden="true">SA</span>
+      {useLogo ? (
+        <img
+          className="brand-logo-image"
+          src={SANGHVI_LOGO_URL}
+          alt="Sanghvi Agency logo"
+          width={compact ? 40 : 44}
+          height={compact ? 40 : 44}
+          loading="eager"
+          decoding="async"
+        />
+      ) : (
+        <span className="brand-monogram" aria-hidden="true">SA</span>
+      )}
       {!compact && (
         <span className="brand-wordmark">
           <strong>Sanghvi</strong>

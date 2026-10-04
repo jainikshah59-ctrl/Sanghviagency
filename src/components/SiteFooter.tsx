@@ -72,7 +72,7 @@ export default function SiteFooter({ compact = false }: { compact?: boolean }) {
       <footer className="site-footer category-footer">
         <ContentContainer>
           <div className="category-footer-top">
-            <BrandMark />
+            <BrandMark useLogo />
             <p>Primary industrial wholesale steel supplier in Bhuj, specializing in structural steel, binding wire, nails and custom-length TMT bars.</p>
             <ActionLink href="/request-quote" tone="dark" arrow>Request Quote</ActionLink>
           </div>
@@ -104,7 +104,7 @@ export default function SiteFooter({ compact = false }: { compact?: boolean }) {
 
         <div className="footer-main-grid">
           <div className="footer-brand-column">
-            <BrandMark />
+            <BrandMark useLogo />
             <p className="footer-brand-copy">Primary industrial wholesale steel supplier in Bhuj specializing in structural steel, binding wires, nails, and custom-length TMT bars.</p>
             <p className="authorized-line"><span><ShieldCheck size={11} /> Authorized distributor</span> Mono TMT · Utkarsh TMX · Varrsana TMX · National TMX</p>
             <p className="footer-business"><strong>GSTIN</strong> {contact.gstin}<br /><strong>Business type</strong> {contact.businessType}</p>

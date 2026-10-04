@@ -49,7 +49,9 @@ img { display: block; max-width: 100%; }
 .nav-utility { gap: 17px; flex-shrink: 0; }
 .brand-mark { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand-monogram { width: 44px; height: 44px; flex-shrink: 0; display: grid; place-items: center; border-radius: 50%; background: #20201e; color: #fff; font-size: 12px; font-weight: 650; letter-spacing: -.06em; }
+.brand-logo-image { width: 44px; height: 44px; flex: 0 0 44px; display: block; object-fit: cover; border-radius: 50%; background: #fff; border: 2px solid rgba(255,255,255,.92); box-shadow: 0 7px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.95); }
 .brand-mark-compact .brand-monogram { width: 40px; height: 40px; font-size: 11px; }
+.brand-mark-compact .brand-logo-image { width: 40px; height: 40px; flex-basis: 40px; }
 .brand-wordmark { display: flex; flex-direction: column; line-height: 1.02; color: var(--ink); }
 .brand-wordmark strong { font-size: 15px; font-weight: 680; letter-spacing: -.045em; }
 .brand-wordmark small { margin-top: 3px; font-size: 9px; text-transform: uppercase; letter-spacing: .22em; color: #85857f; }

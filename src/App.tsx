@@ -114,6 +114,7 @@ function SiteMotion({ pathname }: { pathname: string }) {
       observed.add(element);
       element.classList.add('motion-reveal');
       element.dataset.motionVariant = getMotionVariant(element);
+      element.dataset.motionDirection = scrollDirectionRef.current;
       const siblings = Array.from(element.parentElement?.children ?? [])
         .filter((sibling): sibling is HTMLElement => sibling instanceof HTMLElement && sibling.matches(motionSelector));
       const siblingIndex = Math.max(0, siblings.indexOf(element));

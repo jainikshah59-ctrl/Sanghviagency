@@ -28,25 +28,25 @@ export const contact = {
 };
 
 export const images = {
-  warehouse: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&w=2000&q=82',
+  warehouse: 'https://images.unsplash.com/photo-1781156215907-e3b8da4091b0?auto=format&fit=crop&w=2000&q=82',
   tmtBars: 'https://images.unsplash.com/photo-1768677903496-becc4be07258?auto=format&fit=crop&w=2000&q=82',
-  steelAngles: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Steel_profiles_%287352880686%29.jpg',
-  steelSections: 'https://images.unsplash.com/photo-1764185800646-f75f7e16e465?auto=format&fit=crop&w=2000&q=82',
+  steelAngles: 'https://lirp.cdn-website.com/ca9d037d/dms3rep/multi/opt/0001-1920w.png',
+  steelSections: 'https://sisnometals.com/Uploads/66221d0d31e11.jpg',
   steelBeams: 'https://images.unsplash.com/photo-1671022442106-c787685d9fed?auto=format&fit=crop&w=2000&q=82',
-  construction: 'https://images.unsplash.com/photo-1780147346166-cc4610d9555b?auto=format&fit=crop&w=2000&q=82',
+  construction: 'https://images.unsplash.com/photo-1774531740905-02e4fbb80232?auto=format&fit=crop&w=2000&q=82',
   bindingWire: 'https://images.unsplash.com/photo-1736793513114-ba3d41fec65a?auto=format&fit=crop&w=2000&q=82',
-  msChannels: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Steel_profiles_%287352880686%29.jpg',
-  hardware: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Nuts_and_bolts.jpg',
-  steelPipes: 'https://images.unsplash.com/photo-1699322039731-fdc996a9bb1c?auto=format&fit=crop&w=2000&q=82',
-  constructionFrame: 'https://upload.wikimedia.org/wikipedia/commons/4/47/Steel_frame_structure.jpg',
-  gandhidhamPlant: 'https://images.unsplash.com/photo-1786532850237-b4ce3231fd10?auto=format&fit=crop&w=2000&q=82',
-  bhujTowers: 'https://images.unsplash.com/photo-1768807126172-a84321876dec?auto=format&fit=crop&w=2000&q=82',
-  mundraPlaza: 'https://images.unsplash.com/photo-1783581613599-f5f032f5e444?auto=format&fit=crop&w=2000&q=82',
-  anjarLogistics: 'https://images.unsplash.com/photo-1776090188275-72957bae4ed7?auto=format&fit=crop&w=2000&q=82',
-  bhachauShed: 'https://images.unsplash.com/photo-1785741393022-4131a9b6bdda?auto=format&fit=crop&w=2000&q=82',
-  mandviVilla: 'https://images.unsplash.com/photo-1778910554261-837b19e25c26?auto=format&fit=crop&w=2000&q=82',
-  portLoading: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&w=2000&q=82',
-}
+  msChannels: 'https://img03.71360.com/file/read/www2/M00/57/FD/wKj2K2MyuquAPmnoAAFzDu_Rky493.webp',
+  hardware: 'https://bsg-i.nbxc.com/product/fb/76/c8/f46b8cb97e0076d77481b8bc64.jpg',
+  steelPipes: 'https://images.unsplash.com/photo-1763776300100-634a95978d26?auto=format&fit=crop&w=2000&q=82',
+  constructionFrame: 'https://mannigroup.b-cdn.net/2026/03/4O9A8198.jpg',
+  gandhidhamPlant: 'https://btma.org/userfiles/images/members/198/Cranes.jpg',
+  bhujTowers: 'https://www.roofandfloor.com/project/4208/gallery/Eden_Park_Phase_2_9.jpg',
+  mundraPlaza: 'https://ik.imagekit.io/sjnshacs8/propertygallery/69980763a8a54_22.webp',
+  anjarLogistics: 'https://www.goldbeck.cz/_next/image?q=50&url=https%3A%2F%2Fik.imagekit.io%2Fwofyqrpwmlp%2F_processed_%2F1%2F6%2Fcsm_halle_ref_in_time_buchholz_2_66766e61e9.jpg%3Ftr%3Dfo-auto%2Cw%3D1088%2Ch%3D720&w=3840',
+  bhachauShed: 'https://angary.pro/upload/iblock/523/523c7cf2226ecf4a9c19137154fb4d81.jpg',
+  mandviVilla: 'https://img.squareyards.com/secondaryPortal/IN_638879192360139718-1207251213561356.jpg',
+  portLoading: 'https://images.unsplash.com/photo-1730584476103-9c02778e6335?auto=format&fit=crop&w=2000&q=82',
+};
 
 export const metrics = [
   { value: '2001', label: 'Trusted Since' },

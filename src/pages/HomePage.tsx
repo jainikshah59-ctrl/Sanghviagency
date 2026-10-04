@@ -15,7 +15,6 @@ import {
 import { Link } from 'react-router-dom';
 import {
   allBrandNames,
-  advantage,
   faqItems,
   getBrandRoute,
   images,

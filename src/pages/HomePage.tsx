@@ -8,7 +8,6 @@ import {
   Handshake,
   Headphones,
   PackageCheck,
-  ShieldCheck,
   Star,
   Truck,
 } from 'lucide-react';
@@ -24,6 +23,7 @@ import {
   testimonials,
 } from '../data/site';
 import ProjectCard from '../components/ProjectCard';
+import { createWhatsAppHref } from '../lib/whatsapp';
 import { ActionLink, ContentContainer } from '../components/shared';
 
 function TrustBadge() {

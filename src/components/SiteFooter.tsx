@@ -111,7 +111,6 @@ export default function SiteFooter({ compact = false }: { compact?: boolean }) {
           </div>
 
           <div className="footer-link-column">
-            <h3>Quick Links</h3>
             <div className="footer-column-heading"><span className="footer-heading-icon"><Home size={13} /></span><h3>Quick Links</h3></div>
             {quickLinks.map(({ label, to, icon: Icon }) => (
               <Link key={to} to={to}>

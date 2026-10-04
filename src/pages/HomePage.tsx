@@ -181,7 +181,6 @@ function HomeSectionHeading({
     <header className={`home-section-heading ${className}`.trim()}>
       <p className="eyebrow home-section-eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
       <h2 id={titleId}>{title}</h2>
-      <span className="section-heading-rule" aria-hidden="true" />
       <p className="home-section-description">{intro}</p>
     </header>
   );

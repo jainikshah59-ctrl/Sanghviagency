@@ -169,28 +169,21 @@ function HomeSectionHeading({
   title,
   intro,
   titleId,
-  asideLabel,
   className = '',
 }: {
   eyebrow: string;
   title: ReactNode;
   intro: string;
   titleId: string;
-  asideLabel: string;
   className?: string;
 }) {
   return (
-    <div className={`split-section-heading home-section-heading ${className}`.trim()}>
-      <div className="section-heading-main">
-        <p className="eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
-        <h2 id={titleId}>{title}</h2>
-        <span className="section-heading-rule" aria-hidden="true" />
-      </div>
-      <div className="section-heading-aside">
-        <span className="section-heading-aside-label">{asideLabel}</span>
-        <p>{intro}</p>
-      </div>
-    </div>
+    <header className={`home-section-heading ${className}`.trim()}>
+      <p className="eyebrow home-section-eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
+      <h2 id={titleId}>{title}</h2>
+      <span className="section-heading-rule" aria-hidden="true" />
+      <p className="home-section-description">{intro}</p>
+    </header>
   );
 }
 
@@ -258,9 +251,8 @@ export default function HomePage() {
           <HomeSectionHeading
             className="about-home-heading"
             eyebrow="About Sanghvi Agency"
-            title={<>Your Trusted Partner in<br className="about-heading-break" /> Construction Steel.</>}
+            title="Your Trusted Partner in Construction Steel."
             titleId="home-about-title"
-            asideLabel="Company profile"
             intro="Established in Bhuj in 2001, Sanghvi Agency supplies construction steel and related materials across Kutch and Gujarat with a focus on reliable service."
           />
           <div className="about-home-grid">
@@ -293,7 +285,6 @@ export default function HomePage() {
             eyebrow="Our Products"
             title="Quality Steel for Every Project."
             titleId="home-products-title"
-            asideLabel="Supply range"
             intro="From residential construction to industrial requirements, the Sanghvi Agency product catalogue covers steel and construction materials across different project scales."
           />
           <div className="product-index-grid">
@@ -335,9 +326,8 @@ export default function HomePage() {
         <ContentContainer>
           <HomeSectionHeading
             eyebrow="Why Choose Us"
-            title={<>Built on Trust,<br />Driven by Quality.</>}
+            title="Built on Trust, Driven by Quality."
             titleId="home-advantage-title"
-            asideLabel="Why it matters"
             intro="Reliable supply for builders and contractors who need dependable quality, fair dealing, timely delivery and project-ready availability."
           />
           <div className="advantage-grid">
@@ -358,7 +348,6 @@ export default function HomePage() {
             eyebrow="Trusted Brands"
             title="We Stock India's Best."
             titleId="home-brands-title"
-            asideLabel="Brand portfolio"
             intro="A multi-brand portfolio built around dependable steel manufacturers and established supplier relationships. Availability varies by current stock and requirement."
           />
           <div className="brand-feature-grid">
@@ -389,17 +378,14 @@ export default function HomePage() {
 
       <section className="featured-projects-section" aria-labelledby="home-projects-title">
         <ContentContainer>
-          <div className="featured-heading-row home-section-heading">
-            <div className="section-heading-main">
-              <p className="eyebrow"><span className="eyebrow-dot" />Our Projects</p>
-              <h2 id="home-projects-title">Steel That Builds<br className="featured-heading-break" /> the Region.</h2>
-              <span className="section-heading-rule" aria-hidden="true" />
-            </div>
-            <div className="section-heading-aside">
-              <span className="section-heading-aside-label">Selected supply work</span>
-              <p>Selected industrial, residential, commercial and logistics supply work from the Sanghvi Agency project portfolio.</p>
-              <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
-            </div>
+          <HomeSectionHeading
+            eyebrow="Our Projects"
+            title="Steel That Builds the Region."
+            titleId="home-projects-title"
+            intro="Selected industrial, residential, commercial and logistics supply work from the Sanghvi Agency project portfolio."
+          />
+          <div className="center-cta projects-heading-cta">
+            <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
           </div>
           <div className="project-grid">
             {projects.slice(0, 4).map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}
@@ -414,7 +400,6 @@ export default function HomePage() {
             eyebrow="Testimonials"
             title="What Our Customers Say."
             titleId="home-testimonials-title"
-            asideLabel="Customer perspective"
             intro="Feedback from builders, contractors, industrial customers and homeowners who rely on Sanghvi Agency for consistent steel supply and service."
           />
           <div className="home-testimonials-carousel">
@@ -441,7 +426,6 @@ export default function HomePage() {
             eyebrow="FAQ"
             title="Frequently Asked Questions."
             titleId="home-faq-title"
-            asideLabel="Need to know"
             intro="Clear answers on brands, order quantities, delivery coverage, certifications and quotations—so you can plan your next steel requirement with confidence."
           />
           <div className="accordion-list home-faq-list">

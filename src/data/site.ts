@@ -52,7 +52,7 @@ export const metrics = [
   { value: '2001', label: 'Trusted Since' },
   { value: '1000+', label: 'Customers' },
   { value: '500+', label: 'Projects Supplied' },
-  { value: 'Gujarat-Wide', label: 'Service' },
+  { value: '20+', label: 'Years of Trust' },
 ];
 
 export const products = [

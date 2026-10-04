@@ -114,13 +114,13 @@ function AnimatedStat({ value, label, index }: { value: string; label: string; i
     }
 
     setDisplayValue(`0${suffix}`);
+    let frame = 0;
     const timer = window.setTimeout(() => {
       const duration = 1300;
-      const start = performance.now();
-      let frame = 0;
+      const startTime = performance.now();
 
       const tick = (now: number) => {
-        const progress = Math.min(1, (now - start) / duration);
+        const progress = Math.min(1, (now - startTime) / duration);
         const eased = 1 - Math.pow(1 - progress, 3);
         setDisplayValue(`${Math.round(target * eased)}${suffix}`);
         if (progress < 1) frame = window.requestAnimationFrame(tick);
@@ -128,10 +128,12 @@ function AnimatedStat({ value, label, index }: { value: string; label: string; i
       };
 
       frame = window.requestAnimationFrame(tick);
-      return () => window.cancelAnimationFrame(frame);
     }, 120 + index * 120);
 
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.clearTimeout(timer);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, [index, isNumeric, suffix, target, value]);
 
   return (

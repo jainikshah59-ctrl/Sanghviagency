@@ -55,17 +55,6 @@ function getMotionVariant(element: HTMLElement) {
   return 'section';
 }
 
-function decorateAnimatedIcons(root: HTMLElement) {
-  root.querySelectorAll<SVGElement>('svg').forEach((icon) => {
-    if (icon.closest('.brand-mark, .action-arrow, .hero-video-background, .hero-video-overlay, [data-static-icon="true"]')) return;
-    icon.classList.add('icon-3d');
-    const shell = icon.parentElement;
-    if (shell instanceof HTMLElement && shell.matches('.advantage-icon, .footer-heading-icon, .footer-link-icon, .feature-check, .contact-card-icon, .brand-detail-logo, .accordion-mark')) {
-      shell.classList.add('icon-3d-shell');
-    }
-  });
-}
-
 function SiteMotion({ pathname }: { pathname: string }) {
   const scrollDirectionRef = useRef<'down' | 'up'>('down');
 
@@ -76,7 +65,10 @@ function SiteMotion({ pathname }: { pathname: string }) {
     if (!root || prefersReducedMotion || !('IntersectionObserver' in window)) return;
 
     let lastScrollY = window.scrollY;
-    const handleScroll = () => {
+    let scrollFrame = 0;
+
+    const updateScrollDirection = () => {
+      scrollFrame = 0;
       const nextScrollY = window.scrollY;
       const delta = nextScrollY - lastScrollY;
       if (Math.abs(delta) > 1.5) {
@@ -86,18 +78,23 @@ function SiteMotion({ pathname }: { pathname: string }) {
       }
     };
 
+    const handleScroll = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(updateScrollDirection);
+    };
+
     const handleVisibility = (element: HTMLElement, isVisible: boolean) => {
       if (!isVisible) {
-        element.classList.remove('motion-visible');
+        if (element.classList.contains('motion-visible')) element.classList.remove('motion-visible');
         return;
       }
 
       element.dataset.motionDirection = scrollDirectionRef.current;
-      element.classList.remove('motion-visible');
+      if (element.classList.contains('motion-visible')) return;
       window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          if (element.isConnected) element.classList.add('motion-visible');
-        });
+        if (element.isConnected && !element.classList.contains('motion-visible')) {
+          element.classList.add('motion-visible');
+        }
       });
     };
 
@@ -128,16 +125,15 @@ function SiteMotion({ pathname }: { pathname: string }) {
       node.querySelectorAll<HTMLElement>(motionSelector).forEach(observe);
     };
 
+    documentElement.dataset.scrollDirection = scrollDirectionRef.current;
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     scan(root);
-    decorateAnimatedIcons(root);
 
     const mutationObserver = new MutationObserver((records) => {
       records.forEach((record) => {
         record.addedNodes.forEach((node) => {
           scan(node);
-          if (node instanceof HTMLElement) decorateAnimatedIcons(node);
         });
       });
     });
@@ -145,6 +141,7 @@ function SiteMotion({ pathname }: { pathname: string }) {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
       mutationObserver.disconnect();
       intersectionObserver.disconnect();
       if (documentElement.dataset.scrollDirection) delete documentElement.dataset.scrollDirection;

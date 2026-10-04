@@ -4171,3 +4171,36 @@ main p { text-wrap: pretty; }
     inset 0 1px 0 rgba(255,255,255,.11),
     inset 0 -1px 0 rgba(0,0,0,.2);
 }
+
+
+/* Targeted theme-only refinements: light advantage half-circle + dark hero metric silver material. */
+:root:not([data-theme="dark"]) .home-main .advantage-card::after {
+  border-color: rgba(25,25,24,.24);
+  box-shadow: inset 0 0 0 15px rgba(20,20,19,.18);
+}
+
+:root[data-theme="dark"] .hero-metric {
+  border-color: rgba(205,214,220,.34);
+  background:
+    linear-gradient(145deg, rgba(177,188,196,.48), rgba(126,139,149,.34) 48%, rgba(88,101,112,.26)),
+    rgba(108,120,130,.3);
+  box-shadow:
+    0 18px 36px rgba(0,0,0,.34),
+    0 5px 12px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(0,0,0,.24);
+}
+
+:root[data-theme="dark"] .hero-metric::before {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.18), transparent 42%),
+    radial-gradient(circle at 82% 18%, rgba(255,255,255,.22), transparent 31%);
+}
+
+:root[data-theme="dark"] .hero-metric-glow {
+  background: rgba(210,219,225,.2);
+}
+
+:root[data-theme="dark"] .hero-metric-value {
+  text-shadow: 0 2px 12px rgba(0,0,0,.34);
+}

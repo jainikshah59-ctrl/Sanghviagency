@@ -406,7 +406,7 @@ export default function HomePage() {
               <div
                 className="home-testimonials-track"
                 style={{
-                  transform: `translate3d(${-(testimonialIndex * (testimonialMobile ? 25 : 12.5))}%, 0, 0)`,
+                  transform: `translate3d(${-(testimonialIndex * 10)}%, 0, 0)`,
                   transition: testimonialAnimating ? undefined : 'none',
                 }}
               >

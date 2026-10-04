@@ -52,7 +52,12 @@ function SiteMotion({ pathname }: { pathname: string }) {
       }
     };
 
-    const handleVisibility = (element: HTMLElement) => {
+    const handleVisibility = (element: HTMLElement, isVisible: boolean) => {
+      if (!isVisible) {
+        element.classList.remove('motion-visible');
+        return;
+      }
+
       element.dataset.motionDirection = scrollDirectionRef.current;
       element.classList.remove('motion-visible');
       window.requestAnimationFrame(() => {
@@ -65,8 +70,8 @@ function SiteMotion({ pathname }: { pathname: string }) {
     const observed = new Set<HTMLElement>();
     const intersectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) return;
-        handleVisibility(entry.target);
+        if (!(entry.target instanceof HTMLElement)) return;
+        handleVisibility(entry.target, entry.isIntersecting);
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
 

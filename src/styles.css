@@ -3596,8 +3596,8 @@ main p { text-wrap: pretty; }
   .motion-reveal.motion-visible[data-motion-variant] {
     opacity: 1;
     transform: translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0) scale(1);
+  }
 }
-
 
 /* Remove the translucent white wash that was sitting over the top of the light footer. */
 :root:not([data-theme="dark"]) .site-footer::before {

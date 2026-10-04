@@ -40,11 +40,35 @@ function ThemeToggle({ darkMode, onToggle, className }: { darkMode: boolean; onT
 export default function SiteHeader() {
   const [time, setTime] = useState(indiaTime);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuMounted, setMenuMounted] = useState(false);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
   const location = useLocation();
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const menuDialogRef = useRef<HTMLElement>(null);
   const wasMenuOpenRef = useRef(false);
+  const menuCloseTimerRef = useRef<number | null>(null);
+
+  const clearMenuCloseTimer = () => {
+    if (menuCloseTimerRef.current !== null) {
+      window.clearTimeout(menuCloseTimerRef.current);
+      menuCloseTimerRef.current = null;
+    }
+  };
+
+  const openMenu = () => {
+    clearMenuCloseTimer();
+    setMenuMounted(true);
+    window.requestAnimationFrame(() => setMenuOpen(true));
+  };
+
+  const closeMenu = () => {
+    clearMenuCloseTimer();
+    setMenuOpen(false);
+    menuCloseTimerRef.current = window.setTimeout(() => {
+      setMenuMounted(false);
+      menuCloseTimerRef.current = null;
+    }, 460);
+  };
 
   const toggleTheme = () => {
     const nextTheme = darkMode ? 'light' : 'dark';
@@ -65,8 +89,21 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
+    if (menuMounted) closeMenu();
   }, [location.pathname]);
+
+  useEffect(() => {
+    return () => clearMenuCloseTimer();
+  }, []);
+
+  useEffect(() => {
+    if (!menuMounted) {
+      document.body.classList.remove('menu-open');
+      return;
+    }
+    document.body.classList.add('menu-open');
+    return () => document.body.classList.remove('menu-open');
+  }, [menuMounted]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -77,14 +114,13 @@ export default function SiteHeader() {
       return;
     }
     wasMenuOpenRef.current = true;
-    document.body.classList.add('menu-open');
     const focusableElements = () => Array.from(
       menuDialogRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
     );
     window.requestAnimationFrame(() => focusableElements()[0]?.focus());
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setMenuOpen(false);
+        closeMenu();
         return;
       }
       if (event.key !== 'Tab') return;
@@ -106,10 +142,7 @@ export default function SiteHeader() {
       }
     };
     document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.classList.remove('menu-open');
-      document.removeEventListener('keydown', onKeyDown);
-    };
+    return () => document.removeEventListener('keydown', onKeyDown);
   }, [menuOpen]);
 
   return (
@@ -148,7 +181,7 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation-sheet"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={menuOpen ? closeMenu : openMenu}
           >
             {menuOpen ? <X size={20} strokeWidth={1.8} /> : <Menu size={20} strokeWidth={1.8} />}
             <span>{menuOpen ? 'Close' : 'Menu'}</span>
@@ -156,10 +189,10 @@ export default function SiteHeader() {
         </div>
       </ContentContainer>
 
-      {menuOpen && (
-        <div className="mobile-menu-overlay">
-          <button className="mobile-menu-scrim" type="button" aria-label="Close navigation menu" onClick={() => setMenuOpen(false)} />
-          <nav ref={menuDialogRef} id="mobile-navigation-sheet" className="mobile-menu-sheet" aria-label="Mobile navigation" aria-modal="true" role="dialog">
+      {menuMounted && (
+        <div className={`mobile-menu-overlay ${menuOpen ? 'is-open' : 'is-closing'}`}>
+          <button className="mobile-menu-scrim" type="button" aria-label="Close navigation menu" onClick={closeMenu} />
+          <nav ref={menuDialogRef} id="mobile-navigation-sheet" className={`mobile-menu-sheet ${menuOpen ? 'is-open' : 'is-closing'}`} aria-label="Mobile navigation" aria-modal="true" role="dialog">
             <div className="mobile-sheet-top">
               <BrandMark />
               <div className="mobile-sheet-tools">
@@ -169,7 +202,12 @@ export default function SiteHeader() {
             </div>
             <div className="mobile-nav-list">
               {navItems.map((item, index) => (
-                <NavLink key={item.label} to={item.to} end={item.to === '/'}>
+                <NavLink
+                  key={item.label}
+                  to={item.to}
+                  end={item.to === '/'}
+                  style={{ animationDelay: `${90 + index * 45}ms` }}
+                >
                   <span>{item.label}</span><span className="mobile-nav-number">0{index + 1}</span>
                 </NavLink>
               ))}

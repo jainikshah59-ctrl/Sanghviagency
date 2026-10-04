@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
@@ -33,19 +33,42 @@ const motionSelector = [
 ].join(',');
 
 function SiteMotion({ pathname }: { pathname: string }) {
+  const scrollDirectionRef = useRef<'down' | 'up'>('down');
+
   useLayoutEffect(() => {
     const root = document.getElementById('root');
+    const documentElement = document.documentElement;
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     if (!root || prefersReducedMotion || !('IntersectionObserver' in window)) return;
+
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      const nextScrollY = window.scrollY;
+      const delta = nextScrollY - lastScrollY;
+      if (Math.abs(delta) > 1.5) {
+        scrollDirectionRef.current = delta > 0 ? 'down' : 'up';
+        documentElement.dataset.scrollDirection = scrollDirectionRef.current;
+        lastScrollY = nextScrollY;
+      }
+    };
+
+    const handleVisibility = (element: HTMLElement) => {
+      element.dataset.motionDirection = scrollDirectionRef.current;
+      element.classList.remove('motion-visible');
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (element.isConnected) element.classList.add('motion-visible');
+        });
+      });
+    };
 
     const observed = new Set<HTMLElement>();
     const intersectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('motion-visible');
-        intersectionObserver.unobserve(entry.target);
+        if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) return;
+        handleVisibility(entry.target);
       });
-    }, { threshold: 0.02, rootMargin: '0px 0px -5% 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
 
     const observe = (element: HTMLElement) => {
       if (observed.has(element)) return;
@@ -54,7 +77,7 @@ function SiteMotion({ pathname }: { pathname: string }) {
       const siblings = Array.from(element.parentElement?.children ?? [])
         .filter((sibling): sibling is HTMLElement => sibling instanceof HTMLElement && sibling.matches(motionSelector));
       const siblingIndex = Math.max(0, siblings.indexOf(element));
-      element.style.setProperty('--motion-delay', `${Math.min(siblingIndex, 4) * 55}ms`);
+      element.style.setProperty('--motion-delay', `${Math.min(siblingIndex, 5) * 48}ms`);
       intersectionObserver.observe(element);
     };
 
@@ -64,17 +87,23 @@ function SiteMotion({ pathname }: { pathname: string }) {
       node.querySelectorAll<HTMLElement>(motionSelector).forEach(observe);
     };
 
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     scan(root);
+
     const mutationObserver = new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach(scan));
     });
     mutationObserver.observe(root, { childList: true, subtree: true });
 
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       mutationObserver.disconnect();
       intersectionObserver.disconnect();
+      if (documentElement.dataset.scrollDirection) delete documentElement.dataset.scrollDirection;
       observed.forEach((element) => {
         element.classList.remove('motion-reveal', 'motion-visible');
+        element.removeAttribute('data-motion-direction');
         element.style.removeProperty('--motion-delay');
       });
     };
@@ -86,7 +115,13 @@ function SiteMotion({ pathname }: { pathname: string }) {
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
   }, [pathname]);
   return null;
 }

@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowDownRight,
-  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  CircleDollarSign,
+  BadgeCheck,
+  Boxes,
   Handshake,
   Headphones,
   PackageCheck,
@@ -24,9 +24,8 @@ import {
   projects,
   testimonials,
 } from '../data/site';
-import { createWhatsAppHref } from '../lib/whatsapp';
-import { ActionLink, ContentContainer } from '../components/shared';
 import ProjectCard from '../components/ProjectCard';
+import { ActionLink, ContentContainer } from '../components/shared';
 
 function TrustBadge() {
   return (
@@ -72,11 +71,9 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
         const eased = 1 - Math.pow(1 - progress, 3);
         const current = Math.round(target * eased);
         setDisplayValue(`${current}${suffix}`);
-        if (progress < 1) {
-          frame = window.requestAnimationFrame(tick);
-        } else {
-          setDisplayValue(value);
-        }
+
+        if (progress < 1) frame = window.requestAnimationFrame(tick);
+        else setDisplayValue(value);
       };
 
       frame = window.requestAnimationFrame(tick);
@@ -97,119 +94,66 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
   );
 }
 
-function AnimatedHomeStat({ value, label, index }: { value: string; label: string; index: number }) {
+function AnimatedStat({ value, label, index }: { value: string; label: string; index: number }) {
   const numericMatch = value.match(/^(\d+)(\+?)$/);
   const isNumeric = Boolean(numericMatch);
   const suffix = numericMatch?.[2] ?? '';
   const target = numericMatch ? Number(numericMatch[1]) : 0;
-  const [display, setDisplay] = useState(isNumeric ? `0${suffix}` : value);
+  const [displayValue, setDisplayValue] = useState(isNumeric ? `0${suffix}` : value);
 
   useEffect(() => {
     if (!isNumeric || !Number.isFinite(target)) {
-      setDisplay(value);
+      setDisplayValue(value);
       return;
     }
 
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     if (prefersReducedMotion) {
-      setDisplay(value);
+      setDisplayValue(value);
       return;
     }
 
-    const delay = 120 + index * 120;
-    const duration = 1400;
-    let frame = 0;
-
+    setDisplayValue(`0${suffix}`);
     const timer = window.setTimeout(() => {
-      const startTime = performance.now();
-      const tick = (now: number) => {
-        const progress = Math.min(1, (now - startTime) / duration);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setDisplay(`${Math.round(target * eased)}${suffix}`);
-        if (progress < 1) frame = window.requestAnimationFrame(tick);
-        else setDisplay(value);
-      };
-      frame = window.requestAnimationFrame(tick);
-    }, delay);
+      const duration = 1300;
+      const start = performance.now();
+      let frame = 0;
 
-    return () => {
-      window.clearTimeout(timer);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplayValue(`${Math.round(target * eased)}${suffix}`);
+        if (progress < 1) frame = window.requestAnimationFrame(tick);
+        else setDisplayValue(value);
+      };
+
+      frame = window.requestAnimationFrame(tick);
+      return () => window.cancelAnimationFrame(frame);
+    }, 120 + index * 120);
+
+    return () => window.clearTimeout(timer);
   }, [index, isNumeric, suffix, target, value]);
 
   return (
-    <div className="home-stat-item">
-      <strong>{display}</strong>
+    <div className="home-stat">
+      <strong>{displayValue}</strong>
       <span>{label}</span>
     </div>
   );
 }
 
-function HomeFAQItem({ question, answer }: { question: string; answer: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <article className={`home-faq-item ${open ? 'is-open' : ''}`}>
-      <button
-        type="button"
-        className="home-faq-trigger"
-        aria-expanded={open}
-        onClick={() => setOpen((current) => !current)}
-      >
-        <span>{question}</span>
-        <span className="home-faq-icon" aria-hidden="true">+</span>
-      </button>
-      <div className="home-faq-answer">
-        <p>{answer}</p>
-      </div>
-    </article>
-  );
-}
-
-const whyChooseCards = [
-  {
-    title: 'Certified Quality',
-    copy: 'ISI-marked and BIS-certified products from trusted steel manufacturers, with certification available for applicable products.',
-    icon: ShieldCheck,
-  },
-  {
-    title: 'Competitive Pricing',
-    copy: advantage.find((item) => item.includes('Competitive')) || 'Competitive market pricing for retail and wholesale requirements.',
-    icon: CircleDollarSign,
-  },
-  {
-    title: 'Timely Delivery',
-    copy: 'Prompt dispatch across Kutch and Gujarat, with site delivery arranged for eligible requirements.',
-    icon: Truck,
-  },
-  {
-    title: '20+ Years of Trust',
-    copy: advantage.find((item) => item.includes('20+')) || 'Established in Bhuj in 2001 with long-standing customer relationships.',
-    icon: Handshake,
-  },
-  {
-    title: 'Bulk Order Ready',
-    copy: 'From individual bundles to full truckloads, we support construction requirements of different scales.',
-    icon: PackageCheck,
-  },
-  {
-    title: 'Expert Guidance',
-    copy: 'A knowledgeable team helps builders and contractors choose the right products for the project.',
-    icon: Headphones,
-  },
+const homeAdvantages = [
+  { title: 'Certified Quality', copy: 'ISI-marked and BIS-certified products from trusted steel manufacturers.', icon: BadgeCheck },
+  { title: 'Competitive Pricing', copy: 'Competitive market pricing for retail and wholesale requirements.', icon: Boxes },
+  { title: 'Timely Delivery', copy: 'Prompt dispatch across Kutch and Gujarat, with site delivery arranged for eligible requirements.', icon: Truck },
+  { title: '20+ Years Experience', copy: 'Established in Bhuj in 2001 with long-standing builder and contractor relationships.', icon: Handshake },
+  { title: 'Bulk Order Ready', copy: 'From individual bundles to full truckloads, we support requirements of different scales.', icon: PackageCheck },
+  { title: 'Expert Guidance', copy: 'A knowledgeable team helps customers choose suitable products for their project.', icon: Headphones },
 ];
-
-const featuredBrandNames = ['Mono TMT', 'Utkarsh TMX', 'Varrsana TMX', 'National TMX'];
 
 export default function HomePage() {
   const [videoMotionAllowed, setVideoMotionAllowed] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  const moreBrandNames = useMemo(
-    () => allBrandNames.filter((name) => !featuredBrandNames.includes(name)).slice(0, 20),
-    [],
-  );
 
   useEffect(() => {
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -226,24 +170,12 @@ export default function HomePage() {
     return () => motionPreference.removeEventListener('change', update);
   }, []);
 
-  const shiftTestimonials = (direction: number) => {
-    setTestimonialIndex((current) => (current + direction + testimonials.length) % testimonials.length);
-  };
+  const featuredBrands = allBrandNames.slice(0, 16);
 
   return (
     <main className="home-main">
       <section className="hero-section" aria-labelledby="hero-title">
-        <video
-          ref={heroVideoRef}
-          className="hero-video-background"
-          autoPlay={videoMotionAllowed}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          tabIndex={-1}
-        >
+        <video ref={heroVideoRef} className="hero-video-background" autoPlay={videoMotionAllowed} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1}>
           <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div className="hero-video-overlay" aria-hidden="true" />
@@ -276,81 +208,81 @@ export default function HomePage() {
 
       <section className="home-about-section" aria-labelledby="home-about-title">
         <ContentContainer>
-          <div className="home-section-heading home-section-heading--split">
-            <div>
-              <p className="eyebrow"><span className="eyebrow-dot" />About Sanghvi Agency</p>
-              <h2 id="home-about-title">Your Trusted Partner in<br className="desktop-only" /> Construction Steel</h2>
-            </div>
-            <p>Serving builders, contractors, engineers, fabricators, industries and homeowners across Bhuj, Kutch and Gujarat.</p>
+          <div className="about-home-heading">
+            <span className="section-badge"><span className="section-number">1</span><span className="section-label">About Sanghvi Agency</span></span>
+            <h2 id="home-about-title">Your Trusted Partner in<br className="about-heading-break" /> Construction Steel.</h2>
           </div>
-          <div className="home-about-layout">
-            <div className="home-about-copy">
-              <p>Sanghvi Agency supplies construction steel with a focus on quality, timely delivery, competitive pricing and dependable customer service.</p>
-              <p>From individual homeowners to large commercial and industrial requirements, the same commitment to genuine products and straightforward service applies.</p>
-              <ActionLink href="/about" tone="outline">Learn Our Story</ActionLink>
+          <div className="about-home-grid">
+            <figure className="about-image about-image-small">
+              <img src={images.tmtBars} alt="Sanghvi Agency TMT reinforcement bars, shown as part of its steel inventory" loading="lazy" />
+              <figcaption>Trusted supply since 2001</figcaption>
+            </figure>
+            <div className="about-home-copy">
+              <p>Sanghvi Agency serves builders, contractors, engineers, fabricators, industries, and homeowners across Bhuj, Kutch and Gujarat—with a focus on quality, timely delivery and customer service.</p>
+              <p>From individual homeowners to multi-crore projects, Sanghvi Agency brings the same focus on quality, timely delivery and customer service.</p>
+              <p>From a small dealership in Bhuj to a recognized regional supplier, the principle remains simple: keep your promises with on-time delivery, transparent pricing and recommendations aligned to each project.</p>
+              <ActionLink href="/about" tone="orange">Learn Our Story</ActionLink>
             </div>
-            <figure className="home-about-visual">
+            <figure className="about-image about-image-large">
               <img src={images.steelSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
-              <figcaption><strong>2001</strong><span>Trusted supply since 2001 · Bhuj, Gujarat</span></figcaption>
+              <figcaption>Structural steel · Bhuj, Gujarat</figcaption>
             </figure>
           </div>
         </ContentContainer>
       </section>
 
-      <section className="home-products-section" aria-labelledby="home-products-title">
+      <section className="page-section" aria-labelledby="home-products-title">
         <ContentContainer>
-          <div className="home-section-heading home-section-heading--center">
-            <p className="eyebrow"><span className="eyebrow-dot" />Our Products</p>
-            <h2 id="home-products-title">Quality Steel for Every Project</h2>
-            <p>From residential construction to industrial requirements, we stock a comprehensive range of steel and construction materials.</p>
+          <div className="split-section-heading">
+            <div><p className="eyebrow"><span className="eyebrow-dot" />Our Products</p><h2 id="home-products-title">Quality Steel for Every Project.</h2></div>
+            <p>From residential construction to industrial requirements, the existing Sanghvi Agency product catalogue covers steel and construction materials across project scales.</p>
           </div>
-          <div className="home-product-grid">
+          <div className="product-index-grid">
             {products.map((product, index) => (
-              <article className="home-product-card" key={product.name}>
-                <Link className="home-product-media" to={product.route} aria-label={`View ${product.name}`}>
+              <article className="product-index-card" key={product.name}>
+                <Link className={`product-card-visual product-visual-${product.icon}`} to={product.route} aria-label={`View ${product.name}`}>
                   <img src={product.image} alt={product.alt} loading="lazy" />
-                  <span className="home-product-index">0{index + 1}</span>
-                  <span className="home-product-open"><ArrowUpRight size={17} /></span>
+                  <span className="product-card-number">0{index + 1}</span>
+                  <span className="product-card-open"><ArrowUpRight size={18} /></span>
                 </Link>
-                <div className="home-product-copy">
-                  <span className="home-product-kicker">{product.short}</span>
-                  <h3>{product.name}</h3>
+                <div className="product-index-card-copy">
+                  <div className="product-category-line"><span>{product.short}</span><span>{product.name}</span></div>
+                  <h2><Link to={product.route}>{product.name}</Link></h2>
                   <p>{product.description}</p>
-                  <div className="home-product-actions">
+                  <div className="product-card-actions">
                     <Link to={product.route}>View Details <ArrowRight size={14} /></Link>
-                    <a href={createWhatsAppHref([`Hello Sanghvi Agency, please share current availability for ${product.name}.`])} target="_blank" rel="noopener noreferrer">Enquire <ArrowUpRight size={14} /></a>
+                    <a href={createWhatsAppHref([`Hello Sanghvi Agency, please share details and availability for ${product.name}.`])} target="_blank" rel="noopener noreferrer">Enquire Now <ArrowUpRight size={14} /></a>
                   </div>
                 </div>
               </article>
             ))}
           </div>
-          <div className="home-centered-action"><ActionLink href="/products/" tone="outline">View All Products</ActionLink></div>
+          <div className="center-cta"><ActionLink href="/products/" tone="outline">View All Products</ActionLink></div>
         </ContentContainer>
       </section>
 
-      <section className="home-stats-section" aria-label="Sanghvi Agency milestones">
+      <section className="page-section home-stat-section" aria-label="Sanghvi Agency milestones">
         <ContentContainer>
-          <div className="home-stats-grid">
-            <AnimatedHomeStat value="20+" label="Years of Experience" index={0} />
-            <AnimatedHomeStat value="1000+" label="Customers" index={1} />
-            <AnimatedHomeStat value="500+" label="Projects Supplied" index={2} />
-            <div className="home-stat-item"><strong>Gujarat-Wide</strong><span>Service Coverage</span></div>
+          <div className="home-stat-strip">
+            <AnimatedStat value="20+" label="Years of Experience" index={0} />
+            <AnimatedStat value="1000+" label="Customers" index={1} />
+            <AnimatedStat value="500+" label="Projects Supplied" index={2} />
+            <div className="home-stat"><strong>Gujarat-Wide</strong><span>Service Coverage</span></div>
           </div>
         </ContentContainer>
       </section>
 
-      <section className="home-advantages-section" aria-labelledby="home-advantages-title">
+      <section className="page-section advantage-section" aria-labelledby="home-advantage-title">
         <ContentContainer>
-          <div className="home-section-heading home-section-heading--center">
-            <p className="eyebrow"><span className="eyebrow-dot" />Why Choose Us</p>
-            <h2 id="home-advantages-title">Built on Trust, Driven by Quality</h2>
-            <p>Reliable supply for builders and contractors who need the right material, the right quantity and dependable service.</p>
+          <div className="split-section-heading">
+            <div><p className="eyebrow"><span className="eyebrow-dot" />Why Choose Us</p><h2 id="home-advantage-title">Built on Trust,<br />Driven by Quality.</h2></div>
+            <p>Reliable supply for builders and contractors who need dependable quality, fair dealing, timely delivery and project-ready availability.</p>
           </div>
-          <div className="home-advantage-grid">
-            {whyChooseCards.map(({ title, copy, icon: Icon }, index) => (
-              <article className="home-advantage-card" key={title}>
-                <span className="home-advantage-icon"><Icon size={22} strokeWidth={1.7} /></span>
-                <span className="home-card-index">0{index + 1}</span>
+          <div className="advantage-grid">
+            {homeAdvantages.map(({ title, copy, icon: Icon }, index) => (
+              <article className="advantage-card" key={title}>
+                <span className="advantage-icon"><Icon size={19} strokeWidth={1.6} /></span>
+                <span className="advantage-index">0{index + 1}</span>
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </article>
@@ -359,115 +291,105 @@ export default function HomePage() {
         </ContentContainer>
       </section>
 
-      <section className="home-brands-section" aria-labelledby="home-brands-title">
+      <section className="page-section brand-directory-section" aria-labelledby="home-brands-title">
         <ContentContainer>
-          <div className="home-section-heading home-section-heading--center">
-            <p className="eyebrow"><span className="eyebrow-dot" />Trusted Brands</p>
-            <h2 id="home-brands-title">We Stock India's Best</h2>
-            <p>Authorized relationships plus a broad multi-brand portfolio across TMT, structural steel and construction materials.</p>
+          <div className="split-section-heading">
+            <div><p className="eyebrow"><span className="eyebrow-dot" />Trusted Brands</p><h2 id="home-brands-title">We Stock India's Best.</h2></div>
+            <p>Existing brand information includes authorized relationships and a broader multi-brand portfolio. Availability varies by current stock and requirement.</p>
           </div>
-          <div className="home-featured-brands">
-            {featuredBrandNames.map((name, index) => {
-              const profile = allBrandNames.find((item) => item === name);
-              return (
-                <Link className="home-brand-featured" to={getBrandRoute(name)} key={name}>
-                  <span>0{index + 1}</span>
-                  <strong>{profile}</strong>
-                  <small>{index < 2 ? 'Distributor' : index === 2 ? 'Partner' : 'Dealer'}</small>
-                  <ArrowUpRight size={16} />
-                </Link>
-              );
-            })}
-          </div>
-          <div className="home-brand-grid">
-            {moreBrandNames.map((name) => (
-              <Link className="home-brand-card" to={getBrandRoute(name)} key={name}>
-                <span>{name}</span><ArrowUpRight size={14} />
+          <div className="brand-feature-grid">
+            {featuredBrands.slice(0, 4).map((name, index) => (
+              <Link className="brand-card brand-card-featured" to={getBrandRoute(name)} key={name}>
+                <div className="brand-card-top"><span className="brand-card-index">0{index + 1}</span><ArrowUpRight size={16} /></div>
+                <span className="brand-relationship">{index < 2 ? 'Authorized distributor' : index === 2 ? 'Partner' : 'Dealer'}</span>
+                <span className="brand-card-group">TMT Bars</span>
+                <h3>{name}</h3>
+                <p>View brand profile, product details and current availability.</p>
+                <span className="brand-card-bottom">View details <ArrowRight size={14} /></span>
               </Link>
             ))}
           </div>
-          <div className="home-centered-action"><ActionLink href="/brands" tone="outline">View All Brands</ActionLink></div>
-        </ContentContainer>
-      </section>
-
-      <section className="home-projects-section" aria-labelledby="home-projects-title">
-        <ContentContainer>
-          <div className="home-section-heading home-section-heading--center">
-            <p className="eyebrow"><span className="eyebrow-dot" />Our Projects</p>
-            <h2 id="home-projects-title">Steel That Builds the Region</h2>
-            <p>From homes to factories, Sanghvi Agency supplies the steel that helps projects move from drawing to delivery.</p>
-          </div>
-          <div className="home-project-grid">
-            {projects.slice(0, 4).map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
+          <div className="brand-directory-grid">
+            {featuredBrands.slice(4).map((name, index) => (
+              <Link className="brand-card" to={getBrandRoute(name)} key={name}>
+                <div className="brand-card-top"><span className="brand-card-index">0{index + 5}</span><ArrowUpRight size={15} /></div>
+                <span className="brand-card-group">Brand portfolio</span>
+                <h3>{name}</h3>
+                <p>Listed brand in the Sanghvi Agency inventory.</p>
+              </Link>
             ))}
           </div>
-          <div className="home-centered-action"><ActionLink href="/projects" tone="outline">View All Projects</ActionLink></div>
+          <div className="center-cta"><ActionLink href="/brands" tone="outline">View All Brands</ActionLink></div>
         </ContentContainer>
       </section>
 
-      <section className="home-testimonials-section" aria-labelledby="home-testimonials-title">
+      <section className="featured-projects-section" aria-labelledby="home-projects-title">
         <ContentContainer>
-          <div className="home-section-heading home-section-heading--center">
-            <p className="eyebrow"><span className="eyebrow-dot" />Testimonials</p>
-            <h2 id="home-testimonials-title">What Our Customers Say</h2>
-          </div>
-          <div className="home-testimonial-carousel">
-            <button type="button" className="home-testimonial-arrow home-testimonial-arrow--left" aria-label="Previous testimonial" onClick={() => shiftTestimonials(-1)}><ArrowLeft size={19} /></button>
-            <div className="home-testimonial-viewport">
-              <div className="home-testimonial-track" style={{ transform: `translateX(-${testimonialIndex * 20}%)` }}>
-                {testimonials.map((testimonial) => (
-                  <blockquote className="home-testimonial-card" key={testimonial.name}>
-                    <div className="home-testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>
-                      {Array.from({ length: testimonial.stars }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                    </div>
-                    <p>“{testimonial.quote}”</p>
-                    <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>
-                  </blockquote>
-                ))}
-              </div>
+          <div className="featured-heading-row">
+            <div>
+              <span className="section-badge"><span className="section-number">7</span><span className="section-label">Our Projects</span></span>
+              <h2 id="home-projects-title">Steel That Builds<br className="featured-heading-break" /> the Region.</h2>
             </div>
-            <button type="button" className="home-testimonial-arrow home-testimonial-arrow--right" aria-label="Next testimonial" onClick={() => shiftTestimonials(1)}><ArrowRight size={19} /></button>
+            <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
           </div>
-          <div className="home-testimonial-dots" aria-label="Choose testimonial">
-            {testimonials.map((testimonial, index) => (
-              <button
-                type="button"
-                key={testimonial.name}
-                className={testimonialIndex === index ? 'active' : ''}
-                aria-label={`Show testimonial ${index + 1}`}
-                aria-pressed={testimonialIndex === index}
-                onClick={() => setTestimonialIndex(index)}
-              />
+          <div className="project-grid">
+            {projects.slice(0, 4).map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}
+          </div>
+          <div className="home-bottom-cta">
+            <p>Need steel for your next project?</p>
+            <ActionLink href="/request-quote" tone="dark">Request a Quote</ActionLink>
+          </div>
+          <span className="featured-mark" aria-hidden="true"><ArrowDownRight size={20} /><span>SA · 2001</span></span>
+        </ContentContainer>
+      </section>
+
+      <section className="page-section testimonials-section" aria-labelledby="home-testimonials-title">
+        <ContentContainer>
+          <div className="split-section-heading">
+            <div><p className="eyebrow"><span className="eyebrow-dot" />Testimonials</p><h2 id="home-testimonials-title">What Our Customers Say.</h2></div>
+            <p>These testimonials are the existing source entries from the Sanghvi Agency content set.</p>
+          </div>
+          <div className="testimonials-grid">
+            {testimonials.slice(0, 3).map((testimonial) => (
+              <blockquote className="testimonial-card" key={testimonial.name}>
+                <div className="testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>{Array.from({ length: testimonial.stars }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}</div>
+                <p>“{testimonial.quote}”</p>
+                <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>
+              </blockquote>
             ))}
           </div>
         </ContentContainer>
       </section>
 
-      <section className="home-faq-section" aria-labelledby="home-faq-title">
+      <section className="page-section faq-content-section" aria-labelledby="home-faq-title">
         <ContentContainer>
-          <div className="home-section-heading home-section-heading--center">
-            <p className="eyebrow"><span className="eyebrow-dot" />FAQ</p>
-            <h2 id="home-faq-title">Frequently Asked Questions</h2>
+          <div className="split-section-heading">
+            <div><p className="eyebrow"><span className="eyebrow-dot" />FAQ</p><h2 id="home-faq-title">Frequently Asked Questions.</h2></div>
+            <p>Quick answers to common questions about brands, quantities, delivery and quotations.</p>
           </div>
-          <div className="home-faq-list">
-            {[faqItems[0], faqItems[2], faqItems[1], faqItems[4]].map((item) => (
-              <HomeFAQItem key={item.question} question={item.question} answer={item.answer} />
+          <div className="accordion-list home-faq-list">
+            {faqItems.slice(0, 4).map((item, index) => (
+              <details className="accordion-item" key={item.question} open={index === 0}>
+                <summary><span>{item.question}</span><span className="accordion-mark" /></summary>
+                <p>{item.answer}</p>
+              </details>
             ))}
           </div>
-          <div className="home-centered-action"><ActionLink href="/faq" tone="orange">View All FAQs</ActionLink></div>
+          <div className="center-cta"><ActionLink href="/faq" tone="outline">View All FAQs</ActionLink></div>
         </ContentContainer>
       </section>
 
-      <section className="home-final-cta" aria-labelledby="home-final-cta-title">
+      <section className="page-section home-final-cta-section" aria-labelledby="home-final-cta-title">
         <ContentContainer>
-          <div className="home-final-cta-inner">
-            <p className="eyebrow home-final-eyebrow"><span className="eyebrow-dot" />Quick quotation</p>
-            <h2 id="home-final-cta-title">Need Steel for Your Next Project?</h2>
-            <p>Get a quick quote on WhatsApp. Share your sizes and quantities and we’ll respond with current availability and pricing.</p>
-            <div className="home-final-cta-actions">
-              <ActionLink href="/request-quote" tone="light">Request Quote</ActionLink>
-              <ActionLink href="tel:+919428220385" tone="outline" arrow={false}>Call Now</ActionLink>
+          <div className="faq-final-cta">
+            <div>
+              <p className="eyebrow"><span className="eyebrow-dot" />Quick quotation</p>
+              <h2 id="home-final-cta-title">Need Steel for Your Next Project?</h2>
+              <p>Share your sizes and quantities for a quick quotation and availability check.</p>
+            </div>
+            <div>
+              <ActionLink href="/request-quote" tone="orange">Request Quote</ActionLink>
+              <ActionLink href="tel:+919428220385" tone="dark" arrow={false}>Call Now</ActionLink>
             </div>
           </div>
         </ContentContainer>

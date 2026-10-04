@@ -30,7 +30,7 @@ const motionSelector = [
   '.contact-detail-card',
   '.accordion-item',
   '.lead-form',
-]join(',');
+].join(',');
 
 const motionVariantRules = [
   { selectors: ['.home-about-section'], variant: 'split' },

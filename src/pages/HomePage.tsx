@@ -106,7 +106,7 @@ export default function HomePage() {
                 </a>
               </div>
               <div className="hero-metrics" aria-label="Sanghvi Agency at a glance">
-                {metrics.map((metric, index) => (
+                {metrics.map((metric) => (
                   <AnimatedMetric key={metric.label} value={metric.value} label={metric.label} />
                 ))}
               </div>

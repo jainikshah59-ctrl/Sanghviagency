@@ -22,15 +22,6 @@ import { contact } from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
 import { ActionLink, BrandMark, ContentContainer } from './shared';
 
-const footerProducts = [
-  { label: 'Mono TMT Bars (Fe500/550D)', to: '/tmt-bars/mono-tmt-bars/' },
-  { label: 'Steel Angles (MS)', to: '/products/steel-angles' },
-  { label: 'MS Channels (ISMC)', to: '/products/steel-channels' },
-  { label: 'Steel Beams (ISMB / H-Beams)', to: '/products/steel-beams' },
-  { label: 'Binding Wire & Nails', to: '/products/' },
-  { label: 'Request Instant Quote', to: '/request-quote' },
-];
-
 const categoryLinks = [
   { label: 'TMT Bars', to: '/tmt-bars/' },
   { label: 'MS Angles', to: '/ms-angle/' },

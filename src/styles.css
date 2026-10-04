@@ -3489,3 +3489,136 @@ main p { text-wrap: pretty; }
   .home-main .about-home-copy .action-pill { margin-left: 17px; }
   .home-main .about-image-large { height: 280px; }
 }
+
+/* Restored section-specific scroll choreography — visual transforms intentionally unchanged. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-reveal[data-motion-variant="split"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="split"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(-52px, 26px, -28px) rotateY(-11deg) scale(.95);
+  }
+  .motion-reveal[data-motion-variant="split"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(52px, -26px, -28px) rotateY(11deg) scale(.95);
+  }
+  .motion-reveal[data-motion-variant="cascade"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="cascade"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 44px, -45px) rotateX(9deg) scale(.94);
+  }
+  .motion-reveal[data-motion-variant="cascade"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -44px, -45px) rotateX(-9deg) scale(.94);
+  }
+  .motion-reveal[data-motion-variant="float"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="float"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 56px, 0) scale(.9);
+  }
+  .motion-reveal[data-motion-variant="float"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -56px, 0) scale(.9);
+  }
+  .motion-reveal[data-motion-variant="tilt"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="tilt"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(-20px, 34px, -35px) rotateY(-10deg) rotateX(4deg) scale(.95);
+  }
+  .motion-reveal[data-motion-variant="tilt"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(20px, -34px, -35px) rotateY(10deg) rotateX(-4deg) scale(.95);
+  }
+  .motion-reveal[data-motion-variant="slide"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="slide"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(64px, 18px, -24px) rotateY(8deg) scale(.95);
+  }
+  .motion-reveal[data-motion-variant="slide"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(-64px, -18px, -24px) rotateY(-8deg) scale(.95);
+  }
+  .motion-reveal[data-motion-variant="depth"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="depth"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 34px, -90px) rotateX(10deg) scale(.91);
+  }
+  .motion-reveal[data-motion-variant="depth"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -34px, -90px) rotateX(-10deg) scale(.91);
+  }
+  .motion-reveal[data-motion-variant="soft"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="soft"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 26px, 0) scale(.965);
+  }
+  .motion-reveal[data-motion-variant="soft"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -26px, 0) scale(.965);
+  }
+  .motion-reveal[data-motion-variant="fold"]:not(.motion-visible) {
+    opacity: 0;
+    transform-origin: 50% 0%;
+  }
+  .motion-reveal[data-motion-variant="fold"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: perspective(900px) translate3d(0, 30px, -20px) rotateX(-12deg) scale(.96);
+  }
+  .motion-reveal[data-motion-variant="fold"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: perspective(900px) translate3d(0, -30px, -20px) rotateX(12deg) scale(.96);
+  }
+  .motion-reveal[data-motion-variant="footer"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="footer"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 52px, -80px) rotateX(8deg) scale(.965);
+  }
+  .motion-reveal[data-motion-variant="footer"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -52px, -80px) rotateX(-8deg) scale(.965);
+  }
+  .motion-reveal[data-motion-variant="hero"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="hero"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 26px, -55px) rotateX(3deg) scale(.975);
+  }
+  .motion-reveal[data-motion-variant="hero"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -26px, -55px) rotateX(-3deg) scale(.975);
+  }
+  .motion-reveal[data-motion-variant="section"]:not(.motion-visible) {
+    opacity: 0;
+  }
+  .motion-reveal[data-motion-variant="section"]:not(.motion-visible)[data-motion-direction="down"] {
+    transform: translate3d(0, 30px, -26px) scale(.97);
+  }
+  .motion-reveal[data-motion-variant="section"]:not(.motion-visible)[data-motion-direction="up"] {
+    transform: translate3d(0, -30px, -26px) scale(.97);
+  }
+  
+  .motion-reveal.motion-visible[data-motion-variant] {
+    opacity: 1;
+    transform: translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0) scale(1);
+}
+
+
+/* Remove the translucent white wash that was sitting over the top of the light footer. */
+:root:not([data-theme="dark"]) .site-footer::before {
+  background:
+    radial-gradient(circle at 18% 110%, rgba(117,138,154,.09), transparent 38%),
+    radial-gradient(circle at 92% 78%, rgba(242,101,34,.055), transparent 28%) !important;
+  opacity: .8;
+}
+
+/* Scroll-performance refinement: same transforms/easing, less main-thread churn. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-reveal {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+  .motion-reveal.motion-visible {
+    will-change: auto;
+  }
+  .home-testimonials-track {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}

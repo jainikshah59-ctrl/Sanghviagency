@@ -2156,23 +2156,13 @@ button {
 .hero-eyebrow::after {
   content: "";
   position: absolute;
-  inset: -1px;
-  padding: 1.5px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg 300deg,
-    rgba(205,214,220,.15) 304deg,
-    rgba(255,255,255,.98) 312deg,
-    rgba(218,225,230,.92) 318deg,
-    rgba(242,167,122,.72) 324deg,
-    transparent 334deg 360deg
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  transform: rotate(0deg);
-  animation: hero-eyebrow-border-roam 3.8s linear infinite;
+  top: -65%;
+  left: -34%;
+  width: 28%;
+  height: 230%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.68), rgba(242,167,122,.38), transparent);
+  transform: rotate(12deg) translateX(-180%);
+  animation: hero-eyebrow-shine 4.4s cubic-bezier(.22,1,.36,1) infinite;
   pointer-events: none;
   z-index: 2;
 }
@@ -2186,10 +2176,6 @@ button {
   opacity: .8;
   pointer-events: none;
   z-index: -1;
-}
-
-@keyframes hero-eyebrow-border-roam {
-  to { transform: rotate(360deg); }
 }
 
 /* Premium 3D glass treatment that preserves each control's local color. */

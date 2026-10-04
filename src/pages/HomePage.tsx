@@ -18,6 +18,43 @@ function TrustBadge() {
   );
 }
 
+function AnimatedMetric({ value, label }: { value: string; label: string }) {
+  const [displayValue, setDisplayValue] = useState(value);
+  const isNumeric = /^\\d+\\+?$/.test(value);
+  const suffix = value.endsWith('+') ? '+' : '';
+  const target = Number.parseInt(value, 10);
+
+  useEffect(() => {
+    if (!isNumeric || !Number.isFinite(target)) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const duration = value === '2001' ? 1350 : 1150;
+    const startTime = performance.now();
+    let frame = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(target * eased);
+      setDisplayValue(`${current}${suffix}`);
+      if (progress < 1) frame = window.requestAnimationFrame(tick);
+    };
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [isNumeric, target, suffix, value]);
+
+  return (
+    <div className="hero-metric">
+      <span className="hero-metric-glow" aria-hidden="true" />
+      <span className="hero-metric-value" aria-label={value}>{displayValue}</span>
+      <span className="hero-metric-label">{label}</span>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [videoMotionAllowed, setVideoMotionAllowed] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -68,20 +105,16 @@ export default function HomePage() {
                   Chat on WhatsApp <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
               </div>
+              <div className="hero-metrics" aria-label="Sanghvi Agency at a glance">
+                {metrics.map((metric, index) => (
+                  <AnimatedMetric key={metric.label} value={metric.value} label={metric.label} />
+                ))}
+              </div>
             </div>
             <div className="hero-trust-column">
               <TrustBadge />
               <Link to="/about" className="hero-story-link">A Bhuj business, serving Gujarat <ArrowDownRight size={15} aria-hidden="true" /></Link>
             </div>
-          </div>
-          <div className="hero-metrics" aria-label="Sanghvi Agency at a glance">
-            {metrics.map((metric, index) => (
-              <div className="hero-metric" key={metric.label}>
-                <span className="hero-metric-value">{metric.value}</span>
-                <span className="hero-metric-label">{metric.label}</span>
-                {index < metrics.length - 1 && <span className="hero-metric-divider" aria-hidden="true" />}
-              </div>
-            ))}
           </div>
           <span className="hero-scroll-cue"><span />Scroll to explore</span>
         </ContentContainer>

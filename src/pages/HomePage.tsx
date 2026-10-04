@@ -18,11 +18,12 @@ function TrustBadge() {
   );
 }
 
-function AnimatedMetric({ value, label }: { value: string; label: string }) {
-  const [displayValue, setDisplayValue] = useState(value);
-  const isNumeric = /^\\d+\\+?$/.test(value);
-  const suffix = value.endsWith('+') ? '+' : '';
-  const target = Number.parseInt(value, 10);
+function AnimatedMetric({ value, label, index }: { value: string; label: string; index: number }) {
+  const numericMatch = value.match(/^(\d+)(\+?)$/);
+  const isNumeric = Boolean(numericMatch);
+  const suffix = numericMatch?.[2] ?? '';
+  const target = numericMatch ? Number(numericMatch[1]) : 0;
+  const [displayValue, setDisplayValue] = useState(isNumeric ? `0${suffix}` : value);
 
   useEffect(() => {
     if (!isNumeric || !Number.isFinite(target)) {
@@ -30,21 +31,42 @@ function AnimatedMetric({ value, label }: { value: string; label: string }) {
       return;
     }
 
-    const duration = value === '2001' ? 1350 : 1150;
-    const startTime = performance.now();
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    if (prefersReducedMotion) {
+      setDisplayValue(value);
+      return;
+    }
+
+    setDisplayValue(`0${suffix}`);
+
+    const delay = 980 + index * 140;
+    const duration = value === '2001' ? 1900 : 1600;
     let frame = 0;
 
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - startTime) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(target * eased);
-      setDisplayValue(`${current}${suffix}`);
-      if (progress < 1) frame = window.requestAnimationFrame(tick);
-    };
+    const timer = window.setTimeout(() => {
+      const startTime = performance.now();
 
-    frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
-  }, [isNumeric, target, suffix, value]);
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - startTime) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(target * eased);
+        setDisplayValue(`${current}${suffix}`);
+
+        if (progress < 1) {
+          frame = window.requestAnimationFrame(tick);
+        } else {
+          setDisplayValue(value);
+        }
+      };
+
+      frame = window.requestAnimationFrame(tick);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timer);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [index, isNumeric, suffix, target, value]);
 
   return (
     <div className="hero-metric">
@@ -106,8 +128,8 @@ export default function HomePage() {
                 </a>
               </div>
               <div className="hero-metrics" aria-label="Sanghvi Agency at a glance">
-                {metrics.map((metric) => (
-                  <AnimatedMetric key={metric.label} value={metric.value} label={metric.label} />
+                {metrics.map((metric, index) => (
+                  <AnimatedMetric key={metric.label} value={metric.value} label={metric.label} index={index} />
                 ))}
               </div>
             </div>

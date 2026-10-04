@@ -3165,3 +3165,51 @@ button {
     transform: none;
   }
 }
+
+
+/* Final theme hardening: footer is light by default and dark only under the dark theme. */
+.site-footer {
+  color: #2d353b !important;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(242,101,34,.08), transparent 28%),
+    radial-gradient(circle at 14% 58%, rgba(111,136,158,.07), transparent 27%),
+    linear-gradient(145deg, #ffffff 0%, #f5f8fa 52%, #ffffff 100%) !important;
+}
+.site-footer::before {
+  background:
+    linear-gradient(105deg, transparent 15%, rgba(255,255,255,.72) 42%, transparent 60%),
+    radial-gradient(circle at 50% 120%, rgba(119,139,157,.055), transparent 38%) !important;
+}
+:root[data-theme="dark"] .site-footer {
+  color: #fff !important;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(242,101,34,.13), transparent 30%),
+    radial-gradient(circle at 14% 60%, rgba(137,158,176,.08), transparent 28%),
+    linear-gradient(145deg, #0b1014 0%, #141c22 52%, #0a0f13 100%) !important;
+}
+:root[data-theme="dark"] .site-footer::before {
+  background:
+    linear-gradient(105deg, transparent 15%, rgba(255,255,255,.045) 42%, transparent 60%),
+    radial-gradient(circle at 50% 120%, rgba(255,255,255,.03), transparent 38%) !important;
+}
+
+/* The copyright / legal row stays a flat footer line, never a 3D card. */
+.site-footer .footer-bottom {
+  min-height: 54px;
+  margin-top: 4px;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.site-footer .footer-bottom::before,
+.site-footer .footer-bottom::after {
+  display: none !important;
+}
+:root:not([data-theme="dark"]) .site-footer .footer-bottom {
+  color: #7b858c;
+}
+:root[data-theme="dark"] .site-footer .footer-bottom {
+  color: #989fa5;
+}

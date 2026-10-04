@@ -1,10 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
-import { ArrowDownRight, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ArrowDownRight,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  CircleDollarSign,
+  Handshake,
+  Headphones,
+  PackageCheck,
+  ShieldCheck,
+  Star,
+  Truck,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { images, metrics, projects } from '../data/site';
+import {
+  allBrandNames,
+  advantage,
+  faqItems,
+  getBrandRoute,
+  images,
+  metrics,
+  products,
+  projects,
+  testimonials,
+} from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
+import { ActionLink, ContentContainer, SectionBadge } from '../components/shared';
 import ProjectCard from '../components/ProjectCard';
-import { ActionLink, ContentContainer } from '../components/shared';
 
 function TrustBadge() {
   return (
@@ -38,7 +60,6 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
     }
 
     setDisplayValue(`0${suffix}`);
-
     const delay = 980 + index * 140;
     const duration = value === '2001' ? 1900 : 1600;
     let frame = 0;
@@ -51,7 +72,6 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
         const eased = 1 - Math.pow(1 - progress, 3);
         const current = Math.round(target * eased);
         setDisplayValue(`${current}${suffix}`);
-
         if (progress < 1) {
           frame = window.requestAnimationFrame(tick);
         } else {
@@ -77,9 +97,118 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
   );
 }
 
+function AnimatedHomeStat({ value, label, index }: { value: string; label: string; index: number }) {
+  const match = value.match(/^(\d+)(\+?)$/);
+  const [display, setDisplay] = useState(match ? `0${match[2]}` : value);
+
+  useEffect(() => {
+    if (!match) {
+      setDisplay(value);
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    if (prefersReducedMotion) {
+      setDisplay(value);
+      return;
+    }
+
+    const target = Number(match[1]);
+    const suffix = match[2];
+    const delay = 120 + index * 120;
+    const duration = 1400;
+    let frame = 0;
+
+    const timer = window.setTimeout(() => {
+      const startTime = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - startTime) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(`${Math.round(target * eased)}${suffix}`);
+        if (progress < 1) frame = window.requestAnimationFrame(tick);
+        else setDisplay(value);
+      };
+      frame = window.requestAnimationFrame(tick);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timer);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [index, match, value]);
+
+  return (
+    <div className="home-stat-item">
+      <strong>{display}</strong>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function HomeFAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <article className={`home-faq-item ${open ? 'is-open' : ''}`}>
+      <button
+        type="button"
+        className="home-faq-trigger"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span>{question}</span>
+        <span className="home-faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div className="home-faq-answer">
+        <p>{answer}</p>
+      </div>
+    </article>
+  );
+}
+
+const whyChooseCards = [
+  {
+    title: 'Certified Quality',
+    copy: 'ISI-marked and BIS-certified products from trusted steel manufacturers, with certification available for applicable products.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Competitive Pricing',
+    copy: advantage.find((item) => item.includes('Competitive')) || 'Competitive market pricing for retail and wholesale requirements.',
+    icon: CircleDollarSign,
+  },
+  {
+    title: 'Timely Delivery',
+    copy: 'Prompt dispatch across Kutch and Gujarat, with site delivery arranged for eligible requirements.',
+    icon: Truck,
+  },
+  {
+    title: '20+ Years of Trust',
+    copy: advantage.find((item) => item.includes('20+')) || 'Established in Bhuj in 2001 with long-standing customer relationships.',
+    icon: Handshake,
+  },
+  {
+    title: 'Bulk Order Ready',
+    copy: 'From individual bundles to full truckloads, we support construction requirements of different scales.',
+    icon: PackageCheck,
+  },
+  {
+    title: 'Expert Guidance',
+    copy: 'A knowledgeable team helps builders and contractors choose the right products for the project.',
+    icon: Headphones,
+  },
+];
+
+const featuredBrandNames = ['Mono TMT', 'Utkarsh TMX', 'Varrsana TMX', 'National TMX'];
+
 export default function HomePage() {
   const [videoMotionAllowed, setVideoMotionAllowed] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  const moreBrandNames = useMemo(
+    () => allBrandNames.filter((name) => !featuredBrandNames.includes(name)).slice(0, 20),
+    [],
+  );
 
   useEffect(() => {
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -93,10 +222,12 @@ export default function HomePage() {
     };
     update();
     motionPreference.addEventListener('change', update);
-    return () => {
-      motionPreference.removeEventListener('change', update);
-    };
+    return () => motionPreference.removeEventListener('change', update);
   }, []);
+
+  const shiftTestimonials = (direction: number) => {
+    setTestimonialIndex((current) => (current + direction + testimonials.length) % testimonials.length);
+  };
 
   return (
     <main className="home-main">
@@ -144,46 +275,200 @@ export default function HomePage() {
 
       <section className="home-about-section" aria-labelledby="home-about-title">
         <ContentContainer>
-          <div className="about-home-heading">
-            <span className="section-badge"><span className="section-number">1</span><span className="section-label">About Sanghvi Agency</span></span>
-            <h2 id="home-about-title">Your Trusted Partner in<br className="about-heading-break" /> Construction Steel.</h2>
-          </div>
-          <div className="about-home-grid">
-            <figure className="about-image about-image-small">
-              <img src={images.tmtBars} alt="Sanghvi Agency TMT reinforcement bars, shown as part of its steel inventory" loading="lazy" />
-              <figcaption>Trusted supply since 2001</figcaption>
-            </figure>
-            <div className="about-home-copy">
-              <p>Sanghvi Agency serves builders, contractors, engineers, fabricators, industries, and homeowners across Bhuj, Kutch and Gujarat—with a focus on quality, timely delivery and customer service.</p>
-              <p>From individual homeowners to multi-crore projects, Sanghvi Agency brings the same focus on quality, timely delivery and customer service.</p>
-              <p>From a small dealership in Bhuj to a recognized regional supplier, the principle remains simple: keep your promises with on-time delivery, transparent pricing and recommendations aligned to each project.</p>
-              <ActionLink href="/about" tone="orange">Learn Our Story</ActionLink>
+          <div className="home-section-heading home-section-heading--split">
+            <div>
+              <p className="eyebrow"><span className="eyebrow-dot" />About Sanghvi Agency</p>
+              <h2 id="home-about-title">Your Trusted Partner in<br className="desktop-only" /> Construction Steel</h2>
             </div>
-            <figure className="about-image about-image-large">
+            <p>Serving builders, contractors, engineers, fabricators, industries and homeowners across Bhuj, Kutch and Gujarat.</p>
+          </div>
+          <div className="home-about-layout">
+            <div className="home-about-copy">
+              <p>Sanghvi Agency supplies construction steel with a focus on quality, timely delivery, competitive pricing and dependable customer service.</p>
+              <p>From individual homeowners to large commercial and industrial requirements, the same commitment to genuine products and straightforward service applies.</p>
+              <ActionLink href="/about" tone="outline">Learn Our Story</ActionLink>
+            </div>
+            <figure className="home-about-visual">
               <img src={images.steelSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
-              <figcaption>Structural steel · Bhuj, Gujarat</figcaption>
+              <figcaption><strong>2001</strong><span>Trusted supply since 2001 · Bhuj, Gujarat</span></figcaption>
             </figure>
           </div>
         </ContentContainer>
       </section>
 
-      <section className="featured-projects-section" aria-labelledby="featured-projects-title">
+      <section className="home-products-section" aria-labelledby="home-products-title">
         <ContentContainer>
-          <div className="featured-heading-row">
-            <div>
-              <span className="section-badge"><span className="section-number">2</span><span className="section-label">Featured Supply &amp; Projects</span></span>
-              <h2 id="featured-projects-title">Steel That Builds<br className="featured-heading-break" /> the Region.</h2>
+          <div className="home-section-heading home-section-heading--center">
+            <p className="eyebrow"><span className="eyebrow-dot" />Our Products</p>
+            <h2 id="home-products-title">Quality Steel for Every Project</h2>
+            <p>From residential construction to industrial requirements, we stock a comprehensive range of steel and construction materials.</p>
+          </div>
+          <div className="home-product-grid">
+            {products.map((product, index) => (
+              <article className="home-product-card" key={product.name}>
+                <Link className="home-product-media" to={product.route} aria-label={`View ${product.name}`}>
+                  <img src={product.image} alt={product.alt} loading="lazy" />
+                  <span className="home-product-index">0{index + 1}</span>
+                  <span className="home-product-open"><ArrowUpRight size={17} /></span>
+                </Link>
+                <div className="home-product-copy">
+                  <span className="home-product-kicker">{product.short}</span>
+                  <h3>{product.name}</h3>
+                  <p>{product.description}</p>
+                  <div className="home-product-actions">
+                    <Link to={product.route}>View Details <ArrowRight size={14} /></Link>
+                    <a href={createWhatsAppHref([`Hello Sanghvi Agency, please share current availability for ${product.name}.`])} target="_blank" rel="noopener noreferrer">Enquire <ArrowUpRight size={14} /></a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="home-centered-action"><ActionLink href="/products/" tone="outline">View All Products</ActionLink></div>
+        </ContentContainer>
+      </section>
+
+      <section className="home-stats-section" aria-label="Sanghvi Agency milestones">
+        <ContentContainer>
+          <div className="home-stats-grid">
+            <AnimatedHomeStat value="20+" label="Years of Experience" index={0} />
+            <AnimatedHomeStat value="1000+" label="Customers" index={1} />
+            <AnimatedHomeStat value="500+" label="Projects Supplied" index={2} />
+            <div className="home-stat-item"><strong>Gujarat-Wide</strong><span>Service Coverage</span></div>
+          </div>
+        </ContentContainer>
+      </section>
+
+      <section className="home-advantages-section" aria-labelledby="home-advantages-title">
+        <ContentContainer>
+          <div className="home-section-heading home-section-heading--center">
+            <p className="eyebrow"><span className="eyebrow-dot" />Why Choose Us</p>
+            <h2 id="home-advantages-title">Built on Trust, Driven by Quality</h2>
+            <p>Reliable supply for builders and contractors who need the right material, the right quantity and dependable service.</p>
+          </div>
+          <div className="home-advantage-grid">
+            {whyChooseCards.map(({ title, copy, icon: Icon }, index) => (
+              <article className="home-advantage-card" key={title}>
+                <span className="home-advantage-icon"><Icon size={22} strokeWidth={1.7} /></span>
+                <span className="home-card-index">0{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
+        </ContentContainer>
+      </section>
+
+      <section className="home-brands-section" aria-labelledby="home-brands-title">
+        <ContentContainer>
+          <div className="home-section-heading home-section-heading--center">
+            <p className="eyebrow"><span className="eyebrow-dot" />Trusted Brands</p>
+            <h2 id="home-brands-title">We Stock India's Best</h2>
+            <p>Authorized relationships plus a broad multi-brand portfolio across TMT, structural steel and construction materials.</p>
+          </div>
+          <div className="home-featured-brands">
+            {featuredBrandNames.map((name, index) => {
+              const profile = allBrandNames.find((item) => item === name);
+              return (
+                <Link className="home-brand-featured" to={getBrandRoute(name)} key={name}>
+                  <span>0{index + 1}</span>
+                  <strong>{profile}</strong>
+                  <small>{index < 2 ? 'Distributor' : index === 2 ? 'Partner' : 'Dealer'}</small>
+                  <ArrowUpRight size={16} />
+                </Link>
+              );
+            })}
+          </div>
+          <div className="home-brand-grid">
+            {moreBrandNames.map((name) => (
+              <Link className="home-brand-card" to={getBrandRoute(name)} key={name}>
+                <span>{name}</span><ArrowUpRight size={14} />
+              </Link>
+            ))}
+          </div>
+          <div className="home-centered-action"><ActionLink href="/brands" tone="outline">View All Brands</ActionLink></div>
+        </ContentContainer>
+      </section>
+
+      <section className="home-projects-section" aria-labelledby="home-projects-title">
+        <ContentContainer>
+          <div className="home-section-heading home-section-heading--center">
+            <p className="eyebrow"><span className="eyebrow-dot" />Our Projects</p>
+            <h2 id="home-projects-title">Steel That Builds the Region</h2>
+            <p>From homes to factories, Sanghvi Agency supplies the steel that helps projects move from drawing to delivery.</p>
+          </div>
+          <div className="home-project-grid">
+            {projects.slice(0, 4).map((project, index) => (
+              <ProjectCard key={project.title} project={project} index={index} />
+            ))}
+          </div>
+          <div className="home-centered-action"><ActionLink href="/projects" tone="outline">View All Projects</ActionLink></div>
+        </ContentContainer>
+      </section>
+
+      <section className="home-testimonials-section" aria-labelledby="home-testimonials-title">
+        <ContentContainer>
+          <div className="home-section-heading home-section-heading--center">
+            <p className="eyebrow"><span className="eyebrow-dot" />Testimonials</p>
+            <h2 id="home-testimonials-title">What Our Customers Say</h2>
+          </div>
+          <div className="home-testimonial-carousel">
+            <button type="button" className="home-testimonial-arrow home-testimonial-arrow--left" aria-label="Previous testimonial" onClick={() => shiftTestimonials(-1)}><ArrowLeft size={19} /></button>
+            <div className="home-testimonial-viewport">
+              <div className="home-testimonial-track" style={{ transform: `translateX(-${testimonialIndex * 20}%)` }}>
+                {testimonials.map((testimonial) => (
+                  <blockquote className="home-testimonial-card" key={testimonial.name}>
+                    <div className="home-testimonial-stars" aria-label={`${testimonial.stars} out of 5 stars`}>
+                      {Array.from({ length: testimonial.stars }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                    </div>
+                    <p>“{testimonial.quote}”</p>
+                    <footer><strong>{testimonial.name}</strong><span>{testimonial.role}</span></footer>
+                  </blockquote>
+                ))}
+              </div>
             </div>
-            <Link className="all-projects-link" to="/projects">View all projects <ArrowRight size={16} aria-hidden="true" /></Link>
+            <button type="button" className="home-testimonial-arrow home-testimonial-arrow--right" aria-label="Next testimonial" onClick={() => shiftTestimonials(1)}><ArrowRight size={19} /></button>
           </div>
-          <div className="project-grid">
-            {projects.map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}
+          <div className="home-testimonial-dots" aria-label="Choose testimonial">
+            {testimonials.map((testimonial, index) => (
+              <button
+                type="button"
+                key={testimonial.name}
+                className={testimonialIndex === index ? 'active' : ''}
+                aria-label={`Show testimonial ${index + 1}`}
+                aria-pressed={testimonialIndex === index}
+                onClick={() => setTestimonialIndex(index)}
+              />
+            ))}
           </div>
-          <div className="home-bottom-cta">
-            <p>Need steel for your next project?</p>
-            <ActionLink href="/request-quote" tone="dark">Request a Quote</ActionLink>
+        </ContentContainer>
+      </section>
+
+      <section className="home-faq-section" aria-labelledby="home-faq-title">
+        <ContentContainer>
+          <div className="home-section-heading home-section-heading--center">
+            <p className="eyebrow"><span className="eyebrow-dot" />FAQ</p>
+            <h2 id="home-faq-title">Frequently Asked Questions</h2>
           </div>
-          <span className="featured-mark" aria-hidden="true"><ArrowDownRight size={20} /><span>SA · 2001</span></span>
+          <div className="home-faq-list">
+            {[faqItems[0], faqItems[2], faqItems[1], faqItems[4]].map((item) => (
+              <HomeFAQItem key={item.question} question={item.question} answer={item.answer} />
+            ))}
+          </div>
+          <div className="home-centered-action"><ActionLink href="/faq" tone="orange">View All FAQs</ActionLink></div>
+        </ContentContainer>
+      </section>
+
+      <section className="home-final-cta" aria-labelledby="home-final-cta-title">
+        <ContentContainer>
+          <div className="home-final-cta-inner">
+            <p className="eyebrow home-final-eyebrow"><span className="eyebrow-dot" />Quick quotation</p>
+            <h2 id="home-final-cta-title">Need Steel for Your Next Project?</h2>
+            <p>Get a quick quote on WhatsApp. Share your sizes and quantities and we’ll respond with current availability and pricing.</p>
+            <div className="home-final-cta-actions">
+              <ActionLink href="/request-quote" tone="light">Request Quote</ActionLink>
+              <ActionLink href="tel:+919428220385" tone="outline" arrow={false}>Call Now</ActionLink>
+            </div>
+          </div>
         </ContentContainer>
       </section>
     </main>

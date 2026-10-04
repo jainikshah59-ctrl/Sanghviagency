@@ -1975,3 +1975,26 @@ tbody tr:hover { background-color: rgba(255,255,255,.52); }
   .home-stat:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
 :root[data-theme="dark"] .home-stat-section { background: transparent; }
+
+
+/* Homepage dark mode keeps the restored Sanghvi visual system and only changes surface values. */
+:root[data-theme="dark"] .home-main .home-about-section,
+:root[data-theme="dark"] .home-main .advantage-section,
+:root[data-theme="dark"] .home-main .faq-content-section,
+:root[data-theme="dark"] .home-main .home-final-cta-section {
+  background: #11171c !important;
+}
+:root[data-theme="dark"] .home-main > .page-section {
+  background: #151c22;
+}
+:root[data-theme="dark"] .home-main .home-stat-section {
+  background: #11171c;
+}
+:root[data-theme="dark"] .home-main .featured-projects-section {
+  background: #151c22;
+}
+:root[data-theme="dark"] .home-main .split-section-heading > p,
+:root[data-theme="dark"] .home-main .about-home-copy > p,
+:root[data-theme="dark"] .home-main .home-stat span {
+  color: #aeb9c2;
+}

@@ -30,7 +30,41 @@ const motionSelector = [
   '.contact-detail-card',
   '.accordion-item',
   '.lead-form',
-].join(',');
+].join(','),
+
+const motionVariantRules = [
+  { selectors: ['.home-about-section'], variant: 'split' },
+  { selectors: ['#home-products-section', '.product-index-card'], variant: 'cascade' },
+  { selectors: ['.home-stat-section'], variant: 'float' },
+  { selectors: ['.advantage-section', '.advantage-card'], variant: 'tilt' },
+  { selectors: ['.brand-directory-section', '.brand-card'], variant: 'slide' },
+  { selectors: ['.featured-projects-section', '.project-card'], variant: 'depth' },
+  { selectors: ['.testimonials-section', '.testimonial-card'], variant: 'soft' },
+  { selectors: ['.faq-content-section', '.accordion-item'], variant: 'fold' },
+  { selectors: ['.site-footer'], variant: 'footer' },
+  { selectors: ['.page-hero-surface'], variant: 'hero' },
+  { selectors: ['.page-section'], variant: 'section' },
+] as const;
+
+function getMotionVariant(element: HTMLElement) {
+  for (const rule of motionVariantRules) {
+    if (rule.selectors.some((selector) => element.matches(selector) || Boolean(element.closest(selector)))) {
+      return rule.variant;
+    }
+  }
+  return 'section';
+}
+
+function decorateAnimatedIcons(root: HTMLElement) {
+  root.querySelectorAll<SVGElement>('svg').forEach((icon) => {
+    if (icon.closest('.brand-mark, .action-arrow, .hero-video-background, .hero-video-overlay, [data-static-icon="true"]')) return;
+    icon.classList.add('icon-3d');
+    const shell = icon.parentElement;
+    if (shell instanceof HTMLElement && shell.matches('.advantage-icon, .footer-heading-icon, .footer-link-icon, .feature-check, .contact-card-icon, .brand-detail-logo, .accordion-mark')) {
+      shell.classList.add('icon-3d-shell');
+    }
+  });
+}
 
 function SiteMotion({ pathname }: { pathname: string }) {
   const scrollDirectionRef = useRef<'down' | 'up'>('down');
@@ -79,6 +113,7 @@ function SiteMotion({ pathname }: { pathname: string }) {
       if (observed.has(element)) return;
       observed.add(element);
       element.classList.add('motion-reveal');
+      element.dataset.motionVariant = getMotionVariant(element);
       const siblings = Array.from(element.parentElement?.children ?? [])
         .filter((sibling): sibling is HTMLElement => sibling instanceof HTMLElement && sibling.matches(motionSelector));
       const siblingIndex = Math.max(0, siblings.indexOf(element));
@@ -95,9 +130,15 @@ function SiteMotion({ pathname }: { pathname: string }) {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     scan(root);
+    decorateAnimatedIcons(root);
 
     const mutationObserver = new MutationObserver((records) => {
-      records.forEach((record) => record.addedNodes.forEach(scan));
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          scan(node);
+          if (node instanceof HTMLElement) decorateAnimatedIcons(node);
+        });
+      });
     });
     mutationObserver.observe(root, { childList: true, subtree: true });
 
@@ -109,6 +150,7 @@ function SiteMotion({ pathname }: { pathname: string }) {
       observed.forEach((element) => {
         element.classList.remove('motion-reveal', 'motion-visible');
         element.removeAttribute('data-motion-direction');
+        element.removeAttribute('data-motion-variant');
         element.style.removeProperty('--motion-delay');
       });
     };

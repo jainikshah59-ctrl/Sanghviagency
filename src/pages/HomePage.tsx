@@ -25,7 +25,7 @@ import {
   testimonials,
 } from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
-import { ActionLink, ContentContainer, SectionBadge } from '../components/shared';
+import { ActionLink, ContentContainer } from '../components/shared';
 import ProjectCard from '../components/ProjectCard';
 
 function TrustBadge() {
@@ -98,11 +98,14 @@ function AnimatedMetric({ value, label, index }: { value: string; label: string;
 }
 
 function AnimatedHomeStat({ value, label, index }: { value: string; label: string; index: number }) {
-  const match = value.match(/^(\d+)(\+?)$/);
-  const [display, setDisplay] = useState(match ? `0${match[2]}` : value);
+  const numericMatch = value.match(/^(\d+)(\+?)$/);
+  const isNumeric = Boolean(numericMatch);
+  const suffix = numericMatch?.[2] ?? '';
+  const target = numericMatch ? Number(numericMatch[1]) : 0;
+  const [display, setDisplay] = useState(isNumeric ? `0${suffix}` : value);
 
   useEffect(() => {
-    if (!match) {
+    if (!isNumeric || !Number.isFinite(target)) {
       setDisplay(value);
       return;
     }
@@ -113,8 +116,6 @@ function AnimatedHomeStat({ value, label, index }: { value: string; label: strin
       return;
     }
 
-    const target = Number(match[1]);
-    const suffix = match[2];
     const delay = 120 + index * 120;
     const duration = 1400;
     let frame = 0;
@@ -135,7 +136,7 @@ function AnimatedHomeStat({ value, label, index }: { value: string; label: strin
       window.clearTimeout(timer);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [index, match, value]);
+  }, [index, isNumeric, suffix, target, value]);
 
   return (
     <div className="home-stat-item">

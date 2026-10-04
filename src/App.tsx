@@ -14,7 +14,6 @@ const productRoutes = ['/products/tmt-bars', '/products/steel-angles', '/product
 
 const motionSelector = [
   '.page-main > section',
-  '.home-about-section',
   '.home-main > section',
   '.featured-projects-section',
   '.site-footer',

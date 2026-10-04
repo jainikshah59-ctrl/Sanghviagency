@@ -79,3 +79,12 @@ This project uses this repository checklist because no native WebDev TODO tool i
 - Persist the chosen theme across route changes and reloads. Apply it before first paint to prevent a flash, update browser theme-color metadata, and default safely to light mode if storage is unavailable.
 - Apply a readable graphite-glass dark palette across all 45 routes and shared surfaces, navigation/popovers, heroes, cards, technical tables, forms, contact/FAQ/legal panels, mobile menu, and footer. Preserve factual content and imagery, accessible focus, the #F26522 brand accent, and existing layout geometry.
 - Keep theme changes smooth while respecting `prefers-reduced-motion`; keep all content and controls visible and usable in either theme.
+
+## 11. [x] Interview-ready design elevation pass (2026-10-04)
+
+- Cinematic dark hero: local poster + vendored hero video, line-mask headline reveals, eyebrow with orange rule, magnetic CTAs, animated count-up metrics, film grain.
+- Brand ribbon: infinite marquee of supplied steel brands (Tata Tiscon, JSW, SAIL, Jindal, JSPL, Vizag, Mono TMT, Apollo/Surya/Goodluck pipes…) with orange "We supply" label; pauses on hover; disabled under prefers-reduced-motion.
+- Type system: Archivo (display) + Inter (body) via Google Fonts; tight industrial tracking on headlines.
+- Fully self-contained media: all 18 site images + hero video vendored into public/ (no Pexels/Cloudinary hotlinks) — the site now renders identically on any network.
+- Micro-craft: button shine sweeps, card lift + image zoom + orange edge sweep on hover, nav link underlines, section-number orange chips, styled scrollbar, SA monogram SVG favicon, page transition, dark-mode verified.
+- All 45 routes, copy, product/brand data, contact details and WhatsApp flows unchanged.

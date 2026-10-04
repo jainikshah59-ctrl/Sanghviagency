@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { images, metrics, projects } from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
 import ProjectCard from '../components/ProjectCard';
 import { ActionLink, ContentContainer } from '../components/shared';
+
+const ribbonBrands = [
+  'Tata Tiscon', 'JSW Steel', 'SAIL TMT', 'Jindal Steel', 'JSPL TMT', 'RINL Vizag',
+  'Mono TMT', 'Apollo Pipes', 'Surya Pipes', 'Goodluck Pipes', 'Varrsana TMX', 'National TMX',
+];
 
 function TrustBadge() {
   return (
@@ -18,9 +23,115 @@ function TrustBadge() {
   );
 }
 
+function useMagnetic<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    let raf = 0;
+    const move = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - (r.left + r.width / 2);
+      const y = e.clientY - (r.top + r.height / 2);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `translate(${(x * 0.14).toFixed(1)}px, ${(y * 0.2).toFixed(1)}px)`;
+      });
+    };
+    const leave = () => {
+      cancelAnimationFrame(raf);
+      el.style.transform = '';
+    };
+    el.addEventListener('mousemove', move);
+    el.addEventListener('mouseleave', leave);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener('mousemove', move);
+      el.removeEventListener('mouseleave', leave);
+    };
+  }, []);
+  return ref;
+}
+
+function CountMetric({ value, label, divider }: { value: string; label: string; divider: boolean }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState(value);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const m = value.match(/^(\d[\d,]*)(.*)$/);
+    if (!m || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const target = parseInt(m[1].replace(/,/g, ''), 10);
+    const suffix = m[2];
+    if (!Number.isFinite(target)) return;
+    let raf = 0;
+    let started = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || started) return;
+          started = true;
+          const t0 = performance.now();
+          const dur = 1500;
+          const tick = (t: number) => {
+            const p = Math.min(1, (t - t0) / dur);
+            const eased = 1 - Math.pow(1 - p, 4);
+            setDisplay(`${Math.round(target * eased).toLocaleString('en-IN')}${suffix}`);
+            if (p < 1) raf = requestAnimationFrame(tick);
+          };
+          raf = requestAnimationFrame(tick);
+          io.disconnect();
+        });
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [value]);
+  return (
+    <div className="hero-metric">
+      <span className="hero-metric-value" ref={ref}>{display}</span>
+      <span className="hero-metric-label">{label}</span>
+      {divider && <span className="hero-metric-divider" aria-hidden="true" />}
+    </div>
+  );
+}
+
+function BrandRibbon() {
+  const renderSet = (hidden: boolean) => (
+    <>
+      {ribbonBrands.map((brand) => (
+        <Fragment key={`${hidden ? 'b-' : ''}${brand}`}>
+          <span aria-hidden={hidden || undefined}>{brand}</span>
+          <i aria-hidden="true" />
+        </Fragment>
+      ))}
+    </>
+  );
+  return (
+    <div className="brand-ribbon" aria-label="Steel brands supplied by Sanghvi Agency">
+      <span className="brand-ribbon-label">We supply</span>
+      <div className="brand-marquee">
+        <div className="brand-marquee-track">
+          {renderSet(false)}
+          <span aria-hidden="true" className="sr-only">,</span>
+          {renderSet(true)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [videoMotionAllowed, setVideoMotionAllowed] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const quoteMagnetic = useMagnetic<HTMLSpanElement>();
+  const waMagnetic = useMagnetic<HTMLSpanElement>();
 
   useEffect(() => {
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -42,6 +153,7 @@ export default function HomePage() {
   return (
     <main className="home-main">
       <section className="hero-section" aria-labelledby="hero-title">
+        <img className="hero-video-poster" src="/images/warehouse.jpg" alt="" aria-hidden="true" />
         <video
           ref={heroVideoRef}
           className="hero-video-background"
@@ -50,41 +162,48 @@ export default function HomePage() {
           loop
           playsInline
           preload="metadata"
+          poster="/images/warehouse.jpg"
           aria-hidden="true"
           tabIndex={-1}
         >
-          <source src="https://res.cloudinary.com/kmkcbqvz/video/upload/watermark-removed-Generate_video_for_hero_page_20261003225303.mp4" type="video/mp4" />
+          <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div className="hero-video-overlay" aria-hidden="true" />
+        <div className="hero-grain" aria-hidden="true" />
         <ContentContainer className="hero-content-container">
           <div className="hero-content">
             <div className="hero-copy-block">
-              <p className="hero-eyebrow">Premium Steel &amp; Construction Material Supplier</p>
-              <h1 id="hero-title">Building Strong<br className="hero-break" /> Foundations Since <span>2001</span></h1>
-              <p className="hero-support">Serving Builders, Contractors &amp; Industries Across Kutch &amp; Gujarat with trusted quality steel.</p>
-              <div className="hero-actions">
-                <ActionLink href="/request-quote" tone="orange" className="hero-quote-action">Request a Quote</ActionLink>
-                <a className="hero-whatsapp-action" href={createWhatsAppHref(['Hello Sanghvi Agency, I would like to ask about steel availability and pricing.'])} target="_blank" rel="noopener noreferrer">
-                  Chat on WhatsApp <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
+              <p className="hero-eyebrow hero-fade hero-fade-1">Premium Steel &amp; Construction Material Supplier</p>
+              <h1 id="hero-title" aria-label="Building Strong Foundations Since 2001">
+                <span className="reveal-line" aria-hidden="true"><span>Building Strong</span></span>
+                <span className="reveal-line" aria-hidden="true"><span>Foundations Since</span></span>
+                <span className="reveal-line" aria-hidden="true"><span className="hero-year">2001</span></span>
+              </h1>
+              <p className="hero-support hero-fade hero-fade-3">Serving Builders, Contractors &amp; Industries Across Kutch &amp; Gujarat with trusted quality steel.</p>
+              <div className="hero-actions hero-fade hero-fade-4">
+                <span className="magnetic" ref={quoteMagnetic} style={{ display: 'inline-block' }}>
+                  <ActionLink href="/request-quote" tone="orange" className="hero-quote-action">Request a Quote</ActionLink>
+                </span>
+                <span className="magnetic" ref={waMagnetic} style={{ display: 'inline-block' }}>
+                  <a className="hero-whatsapp-action" href={createWhatsAppHref(['Hello Sanghvi Agency, I would like to ask about steel availability and pricing.'])} target="_blank" rel="noopener noreferrer">
+                    Chat on WhatsApp <ArrowUpRight size={16} aria-hidden="true" />
+                  </a>
+                </span>
               </div>
             </div>
-            <div className="hero-trust-column">
+            <div className="hero-trust-column hero-fade hero-fade-2">
               <TrustBadge />
               <Link to="/about" className="hero-story-link">A Bhuj business, serving Gujarat <ArrowDownRight size={15} aria-hidden="true" /></Link>
             </div>
           </div>
           <div className="hero-metrics" aria-label="Sanghvi Agency at a glance">
             {metrics.map((metric, index) => (
-              <div className="hero-metric" key={metric.label}>
-                <span className="hero-metric-value">{metric.value}</span>
-                <span className="hero-metric-label">{metric.label}</span>
-                {index < metrics.length - 1 && <span className="hero-metric-divider" aria-hidden="true" />}
-              </div>
+              <CountMetric key={metric.label} value={metric.value} label={metric.label} divider={index < metrics.length - 1} />
             ))}
           </div>
           <span className="hero-scroll-cue"><span />Scroll to explore</span>
         </ContentContainer>
+        <BrandRibbon />
       </section>
 
       <section className="home-about-section" aria-labelledby="home-about-title">

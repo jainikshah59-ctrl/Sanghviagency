@@ -1745,3 +1745,188 @@ tbody tr:hover { background-color: rgba(255,255,255,.52); }
     transition: none;
   }
 }
+
+
+/* Hero 3D metric cards + count-up presentation */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-metrics {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    width: min(100%, 780px);
+    margin-top: 32px;
+    padding-top: 0;
+    border-top: 0;
+    perspective: 1400px;
+  }
+
+  .hero-metric {
+    position: relative;
+    min-height: 104px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    overflow: hidden;
+    padding: 18px 16px 15px;
+    border: 1px solid rgba(255,255,255,.42);
+    border-radius: 18px;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.78), rgba(255,255,255,.18) 46%, rgba(255,255,255,.06)),
+      rgba(255,255,255,.22);
+    -webkit-backdrop-filter: blur(18px) saturate(135%);
+    backdrop-filter: blur(18px) saturate(135%);
+    box-shadow:
+      0 18px 36px rgba(24,32,40,.14),
+      0 5px 12px rgba(24,32,40,.08),
+      inset 0 1px 0 rgba(255,255,255,.82),
+      inset 0 -1px 0 rgba(255,255,255,.12);
+    transform: translate3d(0, 20px, 0) rotateX(7deg) rotateY(-4deg);
+    opacity: 0;
+    animation: hero-metric-card-in 780ms cubic-bezier(.22,1,.36,1) forwards;
+    animation-delay: calc(620ms + (var(--metric-index, 0) * 80ms));
+    isolation: isolate;
+  }
+
+  .hero-metric:nth-child(1) { --metric-index: 0; }
+  .hero-metric:nth-child(2) { --metric-index: 1; }
+  .hero-metric:nth-child(3) { --metric-index: 2; }
+  .hero-metric:nth-child(4) { --metric-index: 3; }
+
+  .hero-metric::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.42), transparent 42%),
+      radial-gradient(circle at 82% 18%, rgba(255,255,255,.6), transparent 31%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .hero-metric::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 0;
+    height: 2px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, transparent, var(--orange), transparent);
+    opacity: .72;
+  }
+
+  .hero-metric-glow {
+    position: absolute;
+    top: -32px;
+    right: -28px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.46);
+    filter: blur(26px);
+    pointer-events: none;
+  }
+
+  .hero-metric-value {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(24px, 2.3vw, 34px);
+    line-height: .95;
+    font-weight: 700;
+    letter-spacing: -.075em;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 2px 12px rgba(255,255,255,.65);
+  }
+
+  .hero-metric-label {
+    position: relative;
+    z-index: 1;
+    color: #5d625f;
+    font-size: 9px;
+    font-weight: 650;
+    letter-spacing: .09em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .hero-metric-divider { display: none; }
+
+  .hero-metric:nth-child(2) {
+    transform: translate3d(0, 24px, 0) rotateX(7deg) rotateY(2deg);
+  }
+
+  .hero-metric:nth-child(3) {
+    transform: translate3d(0, 28px, 0) rotateX(7deg) rotateY(-2deg);
+  }
+
+  .hero-metric:nth-child(4) {
+    transform: translate3d(0, 24px, 0) rotateX(7deg) rotateY(4deg);
+  }
+
+  .hero-metric:hover {
+    transform: translate3d(0, -5px, 12px) rotateX(1deg) rotateY(0deg) scale(1.015);
+    box-shadow:
+      0 28px 50px rgba(24,32,40,.18),
+      0 9px 18px rgba(24,32,40,.1),
+      inset 0 1px 0 rgba(255,255,255,.92),
+      inset 0 -1px 0 rgba(255,255,255,.14);
+  }
+}
+
+@keyframes hero-metric-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0) rotateX(9deg) rotateY(-4deg) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(2deg) rotateY(0deg) scale(1);
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-metrics {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .hero-metric {
+    min-height: 92px;
+    padding: 15px 13px 13px;
+    border-radius: 15px;
+  }
+
+  .hero-metric-value {
+    font-size: clamp(22px, 7vw, 30px);
+  }
+
+  .hero-metric-label {
+    font-size: 8px;
+    letter-spacing: .07em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-metric,
+  .hero-metric:nth-child(2),
+  .hero-metric:nth-child(3),
+  .hero-metric:nth-child(4) {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .hero-metric-value {
+    font-variant-numeric: tabular-nums;
+  }
+}

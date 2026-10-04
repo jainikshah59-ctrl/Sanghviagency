@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { MapPin, Star } from 'lucide-react';
 import { galleryItems, projects, testimonials } from '../data/site';
 import ProjectCard from '../components/ProjectCard';
-import { ContentContainer, PageHeading } from '../components/shared';
+import { ContentContainer, PageHeading, SafeImage, SectionHeading } from '../components/shared';
 
 const filters = ['All Projects', 'Industrial', 'Residential', 'Commercial', 'Warehouses'] as const;
 
@@ -27,6 +27,7 @@ export function ProjectsPage() {
             {filters.map((item) => <button className={filter === item ? 'filter-chip active' : 'filter-chip'} type="button" key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</button>)}
           </div>
           <p className="portfolio-result-count" aria-live="polite">Showing {filteredProjects.length} featured supply entries</p>
+          <SectionHeading eyebrow="Selected Projects" title="Steel Supply Across Real Requirements." intro="Representative residential, commercial, industrial and warehouse supply entries from the project portfolio." />
           <div className="project-grid portfolio-grid">
             {filteredProjects.map((project) => <ProjectCard key={project.title} project={project} index={projects.indexOf(project)} />)}
           </div>
@@ -34,10 +35,7 @@ export function ProjectsPage() {
       </section>
       <section className="page-section testimonials-section">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />Customer voices</p><h2>Trust is built<br />in every delivery.</h2></div>
-            <p>The five source testimonials are shown without added claims or altered ratings.</p>
-          </div>
+          <SectionHeading eyebrow="Customer Voices" title="Trust Is Built in Every Delivery." intro="Feedback from the five source testimonials, shown without added claims or altered ratings."
           <div className="testimonials-grid">
             {testimonials.map((testimonial) => (
               <blockquote className="testimonial-card" key={testimonial.name}>
@@ -66,7 +64,7 @@ export function GalleryPage() {
           <div className="gallery-grid">
             {galleryItems.map((item, index) => (
               <figure className={`gallery-card gallery-card-${index + 1}`} key={item.title}>
-                <div className="gallery-image-frame"><img src={item.image} alt={item.alt} loading="lazy" /><span className="gallery-index">0{index + 1}</span></div>
+                <div className="gallery-image-frame"><SafeImage src={item.image} alt={item.alt} fallbackSrc={item.fallbackImage ?? '/images/construction.jpg'} loading="lazy" /><span className="gallery-index">0{index + 1}</span></div>
                 <figcaption><span>{item.title}</span><span className="gallery-view"><MapPin size={13} />Sanghvi Agency source image</span></figcaption>
               </figure>
             ))}

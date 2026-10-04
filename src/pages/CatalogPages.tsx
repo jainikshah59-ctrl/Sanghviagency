@@ -12,7 +12,7 @@ import {
   type Question,
 } from '../data/site';
 import { createWhatsAppHref } from '../lib/whatsapp';
-import { ActionLink, ContentContainer, FeatureList, PageHeading, SpecTable } from '../components/shared';
+import { ActionLink, ContentContainer, FeatureList, PageHeading, SafeImage, SectionHeading, SpecTable } from '../components/shared';
 
 const normalizeBrand = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '');
 
@@ -44,11 +44,12 @@ export function ProductsPage() {
       </section>
       <section className="page-section product-index-section">
         <ContentContainer>
+          <SectionHeading eyebrow="Product Range" title="Steel for Every Project Scale." intro="Explore the core steel and construction materials supplied by Sanghvi Agency across residential, commercial and industrial requirements." />
           <div className="product-index-grid">
             {products.map((product, index) => (
               <article className="product-index-card" key={product.name}>
                 <Link className={`product-card-visual product-visual-${product.icon}`} to={product.route} aria-label={`View ${product.name}`}>
-                  {product.image ? <img src={product.image} alt={product.alt} loading="lazy" /> : <span className="product-line-art" aria-hidden="true"><i /><i /><i /></span>}
+                  {product.image ? <SafeImage src={product.image} alt={product.alt} fallbackSrc={product.fallbackImage ?? '/images/construction.jpg'} loading="lazy" /> : <span className="product-line-art" aria-hidden="true"><i /><i /><i /></span>}
                   <span className="product-card-number">0{index + 1}</span>
                   <span className="product-card-open"><ArrowUpRight size={18} /></span>
                 </Link>
@@ -82,7 +83,7 @@ export function ProductDetailPage({ path }: { path: keyof typeof productsDetail 
           <PageHeading eyebrow="Product details" title={detail.title} subtitle={detail.subtitle} actions={<><ActionLink href={chatHref} tone="orange">Request a Quote on WhatsApp</ActionLink><ActionLink href="tel:+919428220385" tone="outline" arrow={false}>Call Now</ActionLink></>} />
           <div className="product-detail-showcase">
             <div className="product-detail-media">
-              {image && <img src={image} alt={relevantProduct?.alt || 'Sanghvi Agency steel inventory'} />}
+              {image && <SafeImage src={image} alt={relevantProduct?.alt || 'Sanghvi Agency steel inventory'} fallbackSrc={relevantProduct?.fallbackImage ?? (isTmt ? '/images/tmtBars.jpg' : '/images/construction.jpg')} />}
               <span className="showcase-caption"><span>Supply category</span><span>{detail.title}</span></span>
             </div>
             <div className="product-detail-intro">
@@ -109,7 +110,7 @@ export function ProductDetailPage({ path }: { path: keyof typeof productsDetail 
       {detail.brands && (
         <section className="page-section related-brands-section">
           <ContentContainer>
-            <div className="split-section-heading"><div><p className="eyebrow"><span className="eyebrow-dot" />Brand portfolio</p><h2>Brands available.</h2></div><p>Brand availability may vary by stock and requirement. Contact Sanghvi Agency to confirm current stock and specific brand availability.</p></div>
+            <SectionHeading eyebrow="Brand Portfolio" title="Brands Available." intro="Brand availability may vary by stock and requirement. Contact Sanghvi Agency to confirm current stock and specific brand availability." />
             <div className="brand-chip-grid">{detail.brands.map((name) => <Link key={name} to={getBrandRoute(name)}>{name}<ArrowUpRight size={14} /></Link>)}</div>
             <div className="center-cta"><ActionLink href="/request-quote" tone="orange">Request TMT Bar Quote on WhatsApp</ActionLink></div>
           </ContentContainer>
@@ -135,7 +136,7 @@ export function BrandsPage() {
       </section>
       <section className="page-section brand-directory-section">
         <ContentContainer>
-          <p className="eyebrow"><span className="eyebrow-dot" />Authorized relationships</p>
+          <SectionHeading eyebrow="Authorized Relationships" title="Genuine Brands, Clear Relationships." intro="A curated portfolio of manufacturers and supplier relationships represented in the current Sanghvi Agency inventory." />
           <div className="brand-feature-grid">
             {featured.map((brand, index) => <BrandCard key={brand.route} brand={brand} index={index} featured />)}
           </div>
@@ -205,7 +206,7 @@ export function CategoryPage({ route }: { route: string }) {
       <section className="page-hero-surface category-hero">
         <ContentContainer>
           <PageHeading eyebrow="Steel category" title={page.title} subtitle={page.subtitle} />
-          <div className="category-hero-strip"><div><span className="category-hero-icon"><PackageCheck size={20} /></span><span><strong>{page.heading}</strong><small>{page.body}</small></span></div><img src={image} alt={`${page.heading} inventory from Sanghvi Agency`} /></div>
+          <div className="category-hero-strip"><div><span className="category-hero-icon"><PackageCheck size={20} /></span><span><strong>{page.heading}</strong><small>{page.body}</small></span></div><SafeImage src={image} alt={`${page.heading} inventory from Sanghvi Agency`} fallbackSrc={page.route === '/tmt-bars/' ? '/images/tmtBars.jpg' : page.route === '/ms-channel/' ? '/images/msChannels.jpg' : '/images/steelAngles.jpg'} /></div>
         </ContentContainer>
       </section>
       <section className="page-section category-content-section">
@@ -238,7 +239,7 @@ export function BrandDetailPage({ brand }: { brand: BrandProfile }) {
           <PageHeading eyebrow={brand.relationship || brand.group} title={brand.title} subtitle={brand.subtitle} actions={<><ActionLink href={chatHref} tone="orange">WhatsApp</ActionLink><ActionLink href="tel:+919428220385" tone="outline" arrow={false}>Call Now</ActionLink></>} />
           <div className="brand-overview-card">
             <div className="brand-overview-copy"><span className="brand-detail-logo"><ShieldCheck size={20} /></span><p className="eyebrow"><span className="eyebrow-dot" />About {brand.brand} at Sanghvi Agency</p><h2>Genuine supply.<br />Technical confidence.</h2><p>{brand.overview}</p><span className="availability-note">Brand availability may vary by stock and requirement. Contact us to confirm current stock.</span></div>
-            <div className="brand-overview-media">{image && <img src={image} alt={`${brand.group} inventory shown as a representative industrial supply image`} />}<span>{brand.group} · Bhuj, Gujarat</span></div>
+            <div className="brand-overview-media">{image && <SafeImage src={image} alt={`${brand.group} inventory shown as a representative industrial supply image`} fallbackSrc={brand.group === 'TMT Bars' ? '/images/tmtBars.jpg' : brand.group === 'MS Channels' ? '/images/msChannels.jpg' : brand.group === 'Steel Pipes' ? '/images/steelPipes.jpg' : '/images/steelAngles.jpg'} />}<span>{brand.group} · Bhuj, Gujarat</span></div>
           </div>
         </ContentContainer>
       </section>

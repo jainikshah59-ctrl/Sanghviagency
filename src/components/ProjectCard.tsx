@@ -1,6 +1,7 @@
 import { ArrowUpRight, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { projects } from '../data/site';
+import { SafeImage } from './shared';
 
 type Project = (typeof projects)[number];
 
@@ -9,7 +10,7 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
     <article className="project-card">
       <Link className={`project-card-media project-art-${index % 6}`} to="/projects" aria-label={`View ${project.title} supply entry in the Sanghvi Agency portfolio`}>
         {project.image ? (
-          <img src={project.image} alt={project.alt} loading="lazy" />
+          <SafeImage src={project.image} alt={project.alt} fallbackSrc={project.fallbackImage ?? '/images/construction.jpg'} loading="lazy" />
         ) : (
           <div className="project-material-art" aria-hidden="true">
             <span className="material-beam material-beam-one" />

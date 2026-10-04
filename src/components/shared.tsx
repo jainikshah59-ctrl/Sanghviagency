@@ -115,7 +115,7 @@ export function PageHeading({
 }) {
   return (
     <header className="page-heading">
-      <p className="eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
+      <p className="eyebrow page-heading-eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
       <h1>{title}</h1>
       {subtitle && <p className="page-heading-copy">{subtitle}</p>}
       {actions && <div className="page-heading-actions">{actions}</div>}
@@ -143,6 +143,54 @@ export function SectionTitle({
   );
 }
 
+export function SafeImage({
+  src,
+  alt,
+  fallbackSrc,
+  className,
+  loading,
+}: {
+  src: string;
+  alt: string;
+  fallbackSrc: string;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+}) {
+  return (
+    <img
+      className={className}
+      src={src}
+      alt={alt}
+      loading={loading}
+      onError={(event) => {
+        const image = event.currentTarget;
+        if (image.dataset.fallbackApplied === 'true') return;
+        image.dataset.fallbackApplied = 'true';
+        image.src = fallbackSrc;
+      }}
+    />
+  );
+}
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  intro,
+  className = '',
+}: {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  className?: string;
+}) {
+  return (
+    <header className={`unified-section-heading ${className}`.trim()}>
+      <p className="eyebrow unified-section-eyebrow"><span className="eyebrow-dot" />{eyebrow}</p>
+      <h2>{title}</h2>
+      <p className="unified-section-description">{intro}</p>
+    </header>
+  );
+}
 export function ContentContainer({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <div className={`content-container ${className}`.trim()}>{children}</div>;
 }

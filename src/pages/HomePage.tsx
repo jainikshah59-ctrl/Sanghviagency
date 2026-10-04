@@ -24,7 +24,7 @@ import {
 } from '../data/site';
 import ProjectCard from '../components/ProjectCard';
 import { createWhatsAppHref } from '../lib/whatsapp';
-import { ActionLink, ContentContainer } from '../components/shared';
+import { ActionLink, ContentContainer, SafeImage } from '../components/shared';
 
 function AnimatedMetric({ value, label, index }: { value: string; label: string; index: number }) {
   const numericMatch = value.match(/^(\d+)(\+?)$/);
@@ -271,7 +271,7 @@ export default function HomePage() {
               <ActionLink href="/about" tone="orange">Learn Our Story</ActionLink>
             </div>
             <figure className="about-image about-image-large">
-              <img src={images.steelSections} alt="Structural steel sections held in Sanghvi Agency warehouse inventory" loading="lazy" />
+              <SafeImage src={images.steelSections} alt="Industrial steel beams and structural material in a warehouse" fallbackSrc="/images/steelSections.jpg" loading="lazy" />
               <figcaption>Structural steel · Bhuj, Gujarat</figcaption>
             </figure>
           </div>
@@ -290,7 +290,7 @@ export default function HomePage() {
             {products.map((product, index) => (
               <article className="product-index-card" key={product.name}>
                 <Link className={`product-card-visual product-visual-${product.icon}`} to={product.route} aria-label={`View ${product.name}`}>
-                  <img src={product.image} alt={product.alt} loading="lazy" />
+                  <SafeImage src={product.image} alt={product.alt} fallbackSrc={product.fallbackImage ?? '/images/construction.jpg'} loading="lazy" />
                   <span className="product-card-number">0{index + 1}</span>
                   <span className="product-card-open"><ArrowUpRight size={18} /></span>
                 </Link>

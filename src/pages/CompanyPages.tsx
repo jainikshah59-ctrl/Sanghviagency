@@ -1,7 +1,7 @@
 import { ArrowDownRight, ArrowRight, BadgeCheck, Boxes, Handshake, Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { advantage, coreValues, history, images, mission, vision } from '../data/site';
-import { ActionLink, ContentContainer, PageHeading } from '../components/shared';
+import { ActionLink, ContentContainer, PageHeading, SafeImage, SectionHeading } from '../components/shared';
 
 const advantageIcons = [BadgeCheck, Boxes, Handshake, ArrowRight, Truck];
 
@@ -20,7 +20,7 @@ export function AboutPage() {
               <ActionLink href="/request-quote" tone="orange">Discuss Your Project</ActionLink>
             </div>
             <figure className="about-story-image">
-              <img src={images.warehouse} alt="Steel inventory at Sanghvi Agency." />
+              <SafeImage src={images.warehouse} alt="Colorful steel profile warehouse interior" fallbackSrc="/images/construction.jpg" />
               <figcaption><span>Bhuj, Gujarat</span><span>Serving since 2001</span></figcaption>
             </figure>
           </div>
@@ -29,10 +29,7 @@ export function AboutPage() {
 
       <section className="page-section journey-section">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />Our journey</p><h2>Built one promise<br />at a time.</h2></div>
-            <p>Through every stage of growth, the same commitment has guided our work: reliable materials, fair dealing and dependable supply.</p>
-          </div>
+          <SectionHeading eyebrow="Our Journey" title="Built One Promise at a Time." intro="Through every stage of growth, the same commitment has guided our work: reliable materials, fair dealing and dependable supply." />
           <ol className="timeline-list">
             {history.map((item, index) => (
               <li className="timeline-item" key={item.year}>
@@ -48,6 +45,7 @@ export function AboutPage() {
 
       <section className="page-section values-section">
         <ContentContainer>
+          <SectionHeading eyebrow="Mission & Vision" title="Direction Built for the Long Term." intro="The principles that shape how Sanghvi Agency serves builders, contractors and projects across the region." />
           <div className="mission-vision-grid">
             <article className="principle-card principle-card-dark">
               <span className="principle-number">01 / Mission</span>
@@ -72,10 +70,7 @@ export function AboutPage() {
 
       <section className="page-section advantage-section">
         <ContentContainer>
-          <div className="split-section-heading">
-            <div><p className="eyebrow"><span className="eyebrow-dot" />The Sanghvi Advantage</p><h2>Experience that<br />moves projects forward.</h2></div>
-            <p>Retail and wholesale supply for residential, commercial, industrial and infrastructure requirements across Gujarat.</p>
-          </div>
+          <SectionHeading eyebrow="The Sanghvi Advantage" title="Experience That Moves Projects Forward." intro="Retail and wholesale supply for residential, commercial, industrial and infrastructure requirements across Gujarat."
           <div className="advantage-grid">
             {advantage.map((item, index) => {
               const Icon = advantageIcons[index] ?? BadgeCheck;

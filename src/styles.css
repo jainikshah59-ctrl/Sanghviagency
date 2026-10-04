@@ -1930,3 +1930,48 @@ tbody tr:hover { background-color: rgba(255,255,255,.52); }
     font-variant-numeric: tabular-nums;
   }
 }
+
+
+/* Homepage milestone row — uses the existing Sanghvi layout language. */
+.home-stat-section {
+  padding-top: 58px;
+  padding-bottom: 58px;
+}
+.home-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.home-stat {
+  min-height: 105px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 24px;
+}
+.home-stat + .home-stat {
+  border-left: 1px solid var(--line);
+}
+.home-stat strong {
+  color: var(--ink);
+  font-size: clamp(25px, 3vw, 38px);
+  font-weight: 560;
+  letter-spacing: -.065em;
+  line-height: 1;
+}
+.home-stat span {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 580;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+@media (max-width: 760px) {
+  .home-stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-stat { min-height: 88px; }
+  .home-stat:nth-child(odd) { border-left: 0; }
+  .home-stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+:root[data-theme="dark"] .home-stat-section { background: transparent; }

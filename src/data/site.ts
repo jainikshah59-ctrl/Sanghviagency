@@ -46,6 +46,141 @@ export const images = {
   bhachauShed: 'https://images.unsplash.com/photo-1785741393022-4131a9b6bdda?auto=format&fit=crop&w=2000&q=82',
   mandviVilla: 'https://images.unsplash.com/photo-1778910554261-837b19e25c26?auto=format&fit=crop&w=2000&q=82',
   portLoading: 'https://images.unsplash.com/photo-1781156771445-404a80d7ee7a?auto=format&fit=crop&w=2000&q=82',
+}
+
+export const metrics = [
+  { value: '2001', label: 'Trusted Since' },
+  { value: '1000+', label: 'Customers' },
+  { value: '500+', label: 'Projects Supplied' },
+  { value: '20+', label: 'Years of Trust' },
+];
+
+export const products = [
+  {
+    name: 'TMT Bars',
+    route: '/products/tmt-bars',
+    categoryRoute: '/tmt-bars/',
+    description: 'Thermo Mechanically Treated bars in Fe500, Fe550 and Fe550D grades. High strength, earthquake resistant, corrosion proof. Available in 8mm to 32mm.',
+    short: 'Fe500, Fe550, Fe550D · 8–32mm',
+    image: images.tmtBars,
+    alt: 'Construction worker inspecting exposed TMT rebar reinforcement on a building site',
+    icon: 'bars',
+  },
+  {
+    name: 'Steel Angles',
+    route: '/products/steel-angles',
+    categoryRoute: '/ms-angle/',
+    description: 'Mild steel equal and unequal angles for structural framing, supports, brackets and fabrication. 25x25mm to 200x200mm.',
+    short: 'MS equal & unequal · 25x25–200x200mm',
+    image: images.steelAngles,
+    alt: 'Structural steel profiles including angle sections in industrial stock',
+    icon: 'angles',
+  },
+  {
+    name: 'MS Channels',
+    route: '/products/steel-channels',
+    categoryRoute: '/ms-channel/',
+    description: 'Indian Standard Medium Channels (ISMC) for structural frames, supports, purlins and industrial applications. ISMC 75 to ISMC 400.',
+    short: 'ISMC 75–400',
+    image: images.msChannels,
+    alt: 'Structural steel profiles including MS channel sections in industrial stock',
+    icon: 'channels',
+  },
+  {
+    name: 'Steel Beams',
+    route: '/products/steel-beams',
+    categoryRoute: '/products/steel-beams',
+    description: 'ISMB, H-Beams and I-Beams for heavy structural load-bearing applications in commercial and industrial construction.',
+    short: 'ISMB · H-Beams · I-Beams',
+    image: images.steelBeams,
+    alt: 'Large pile of structural steel beams in a warehouse',
+    icon: 'beams',
+  },
+  {
+    name: 'Binding Wire',
+    route: '/products/',
+    categoryRoute: '/products/',
+    description: 'High-quality annealed binding wire for tying rebar in RCC construction work. Available in various gauges.',
+    short: 'Annealed · various gauges',
+    image: images.bindingWire,
+    alt: 'Close-up coil of steel wire used as construction binding material',
+    icon: 'wire',
+  },
+  {
+    name: 'Steel Nails & Hardware',
+    route: '/products/',
+    categoryRoute: '/products/',
+    description: 'Construction-grade steel nails, bolts and hardware for framing, formwork and general construction use.',
+    short: 'Construction-grade nails & hardware',
+    image: images.hardware,
+    alt: 'Nuts and bolts used as construction and engineering hardware',
+    icon: 'hardware',
+  },
+];
+
+export const tmtWeightRows: string[][] = [
+  ['8mm', '0.395 kg/m', 'Stirrups, light slabs'],
+  ['10mm', '0.617 kg/m', 'Slabs, lintels'],
+  ['12mm', '0.888 kg/m', 'Slabs, beams'],
+  ['16mm', '1.580 kg/m', 'Beams, columns'],
+  ['20mm', '2.469 kg/m', 'Columns, footings'],
+  ['25mm', '3.858 kg/m', 'Heavy columns, retaining walls'],
+  ['28mm', '4.834 kg/m', 'Heavy structures'],
+  ['32mm', '6.313 kg/m', 'Industrial, bridges'],
+];
+
+export const repeatedStructuralRows: string[][] = [
+  ['25x25mm', '3–5mm', '1.1–1.8 kg/m'],
+  ['40x40mm', '3–6mm', '1.8–3.5 kg/m'],
+  ['50x50mm', '5–6mm', '3.8–4.5 kg/m'],
+  ['65x65mm', '5–8mm', '4.9–7.7 kg/m'],
+  ['75x75mm', '6–10mm', '6.8–11.0 kg/m'],
+  ['100x100mm', '6–12mm', '9.2–17.8 kg/m'],
+  ['150x150mm', '10–16mm', '22.6–35.0 kg/m'],
+  ['200x200mm', '12–24mm', '36.2–60.0 kg/m'],
+];
+
+export const productsDetail = {
+  '/products/tmt-bars': {
+    title: 'TMT Bars',
+    subtitle: 'High-strength thermo mechanically treated steel reinforcement bars for construction.',
+    sectionTitle: 'TMT Steel Reinforcement Bars',
+    body: 'Authorized distributor for Mono TMT, custom-length Fe500, Fe550D, CRS for residential/commercial/export. TMT is the backbone in foundations, columns, beams, slabs and all RCC. Stocks trusted manufacturers, BIS standards for strength, ductility and corrosion.',
+    badge: 'Authorized Distribution Partner',
+    callout: 'Mono TMT Steel Bars & Custom Lengths',
+    grades: ['Fe500: Standard Structural', 'Fe550D: High Ductility', 'CRS: Corrosion Resistant'],
+    benefits: ['High Strength — yield 500+ MPa', 'Earthquake Resistant — high elongation/ductility absorb seismic energy', 'Corrosion Resistant — tempered martensite outer layer', 'Fire Resistant — maintains integrity up to 600°C', 'Superior Weldability — low carbon equivalent'],
+    table: tmtWeightRows,
+    tableHeaders: ['Size', 'Weight', 'Typical use'],
+    brands: ['Mono', 'Utkarsh', 'Varrsana', 'National', 'Tata', 'SAIL', 'JSW', 'RINL', 'JSPL', 'Panther', 'Jindal', 'ET', 'Gallantt', 'Nilkanth', 'ASR', 'German', 'Kemo', 'Welspun', 'Poddar', 'UltraGold'],
+  },
+  '/products/steel-angles': {
+    title: 'Steel Angles',
+    subtitle: 'Mild steel equal and unequal structural framing/fabrication sections.',
+    sectionTitle: 'Mild Steel Angles',
+    body: 'Steel angles are L-shaped structural sections used across construction and fabrication. Equal and unequal angles are offered in a wide range.',
+    benefits: ['Versatile Sizing', 'High Load Capacity', 'Easy Fabrication', 'BIS Certified (IS 2062)'],
+    table: repeatedStructuralRows,
+    tableHeaders: ['Size', 'Thickness', 'Weight'],
+  },
+  '/products/steel-channels': {
+    title: 'MS Channels',
+    subtitle: 'Mild steel standard channel sections (ISMC) for framing/fabrication.',
+    sectionTitle: 'MS Channels (ISMC)',
+    body: 'U-shaped structural sections for structural frames, supports, purlins and industrial applications; standard ISMC sizes are stocked in a wide range.',
+    benefits: ['Versatile Sizing', 'High Load Capacity', 'Easy Fabrication', 'BIS Certified (IS 2062)'],
+    table: repeatedStructuralRows,
+    tableHeaders: ['Size', 'Thickness', 'Weight'],
+  },
+  '/products/steel-beams': {
+    title: 'Steel Beams',
+    subtitle: 'Mild steel ISMB, I-beams, and H-beams for structural framing and fabrication.',
+    sectionTitle: 'Structural Steel Beams',
+    body: 'Steel beams are I-shaped, L-shaped structural sections and H-shaped structural sections widely used for structural framing and fabrication. Stocked in ISMB/I/H ranges.',
+    benefits: ['Versatile Sizing', 'High Load Capacity', 'Easy Fabrication', 'BIS Certified (IS 2062)'],
+    table: repeatedStructuralRows,
+    tableHeaders: ['Size', 'Thickness', 'Weight'],
+  },
 };
 
 export type BrandProfile = {
@@ -507,7 +642,7 @@ export const projects = [
 export const galleryItems = [
   { title: 'Steel Supply Warehouse', image: images.warehouse, alt: 'Industrial warehouse with steel beams and overhead crane handling' },
   { title: 'TMT Rebar Bundles', image: images.tmtBars, alt: 'Construction worker inspecting exposed rebar reinforcement on a building site' },
-  { title: 'Steel Angles & Structural Sections', image: images.steelAngles, alt: 'Structural steel profiles including angle sections in industrial stock' },
+  { title: 'Steel Angles & Structural Sections', image: images.steelAngles, alt: 'Stacked structural steel sections and angles in an industrial yard' },
   { title: 'Steel Beam Stock', image: images.steelBeams, alt: 'Large pile of structural steel beams in a warehouse' },
   { title: 'Construction & Crane Loading', image: images.portLoading, alt: 'Industrial overhead crane and steel material-handling operation inside a warehouse' },
   { title: 'Binding Wire Coils', image: images.bindingWire, alt: 'Close-up coil of steel wire used as construction binding material' },
